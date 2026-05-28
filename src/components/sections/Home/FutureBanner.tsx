@@ -24,7 +24,7 @@ export default function FutureBanner() {
     });
 
     gsap.set(
-      [".future-bg", ".light-streak-1", ".light-streak-2", ".future-button"],
+      [".future-bg"],
       {
         force3D: true,
       },
@@ -107,18 +107,7 @@ revealTl
     "-=0.7"
   )
 
-  // BUTTON
-  .from(
-    ".future-button",
-    {
-      autoAlpha: 0,
-      y: 20,
-      scale: 0.92,
-      duration: 0.7,
-      ease: "back.out(1.7)",
-    },
-    "-=0.6"
-  );
+
 
     // =====================================================
     // PARALLAX BACKGROUND
@@ -136,38 +125,8 @@ revealTl
       },
     });
 
-    // =====================================================
-    // LIGHT STREAK MOTION
-    // =====================================================
+  
 
-    gsap.to(".light-streak-1", {
-      x: 100,
-      duration: 8,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-    });
-
-    gsap.to(".light-streak-2", {
-      x: -90,
-      duration: 10,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-    });
-
-    // =====================================================
-    // BUTTON FLOAT
-    // =====================================================
-
-    gsap.to(".future-button", {
-      y: -5,
-      duration: 2,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: 2,
-    });
   }, []);
 
   return (

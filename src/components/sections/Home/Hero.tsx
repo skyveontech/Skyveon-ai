@@ -77,7 +77,7 @@ export default function Hero() {
   ];
 
   return (
-    <section ref={heroRef} className="relative h-screen  overflow-hidden">
+    <section ref={heroRef} className="relative h-screen mt-10 md:mt-0 overflow-hidden">
       {/* BACKGROUND IMAGE */}
       <div className="absolute inset-0">
         <img

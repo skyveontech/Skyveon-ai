@@ -72,7 +72,7 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-280 mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-11 md:h-16">
 
             {/* ── LOGO ── */}
             <Link
@@ -83,7 +83,7 @@ export default function Navbar() {
                 <img
                   src={logo}
                   alt="Skyveon AI"
-                  className="h-24 w-auto transition-all duration-500 group-hover:scale-105"
+                  className="md:h-24 h-11 w-auto transition-all duration-500 group-hover:scale-105"
                 />
                 {/* Subtle glow under logo */}
                 <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-1 bg-orange-500/30 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
