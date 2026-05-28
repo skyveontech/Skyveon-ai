@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   ArrowRight,
   Banknote,
@@ -85,7 +85,6 @@ const industries = [
   },
 ] as const;
 
-const AUTO_INTERVAL = 4800;
 
 const SHIMMER_STYLES = industries.map((_, i) => ({
   background:
@@ -395,7 +394,6 @@ export default function IndustriesShowcase() {
         {/* ── MOBILE panels ── */}
         <div ref={mobilePanelsRef} className="mt-10 flex flex-col gap-3 lg:hidden">
           {industries.map((industry, index) => {
-            const Icon = industry.icon;
             const isActive = active === index;
 
             return (
