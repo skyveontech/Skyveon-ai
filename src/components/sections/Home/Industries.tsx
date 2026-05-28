@@ -87,9 +87,6 @@ const industries = [
 
 const AUTO_INTERVAL = 4800;
 
-// Stable per-industry style objects — defined outside component so they're
-// never recreated on render. Only the dynamic isActive-dependent styles stay
-// inline (they must change per render anyway).
 const SHIMMER_STYLES = industries.map((_, i) => ({
   background:
     "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.07) 50%, transparent 60%)",
@@ -106,19 +103,10 @@ export default function IndustriesShowcase() {
   const dotsRef = useRef<HTMLDivElement>(null);
   const mobilePanelsRef = useRef<HTMLDivElement>(null);
 
-  // Keep active in a ref for the interval callback so it never needs to be a
-  // dep — avoids tearing down / re-creating the interval on every tick.
   const [active, setActive] = useState(5);
-  const activeRef = useRef(active);
-  const isHoveringRef = useRef(false);
-
-  useEffect(() => {
-    activeRef.current = active;
-  }, [active]);
 
   // ── GSAP scroll-triggered entrance ──────────────────────────────────────
   useEffect(() => {
-    // Collect SplitText instances so we can revert them inside ctx cleanup.
     const splits: SplitText[] = [];
 
     const ctx = gsap.context(() => {
@@ -132,11 +120,7 @@ export default function IndustriesShowcase() {
           stagger: 0.028,
           duration: 0.55,
           ease: "back.out(1.4)",
-          scrollTrigger: {
-            trigger: eyebrowRef.current,
-            start: "top 88%",
-            once: true,
-          },
+          scrollTrigger: { trigger: eyebrowRef.current, start: "top 88%", once: true },
         });
       }
 
@@ -150,11 +134,7 @@ export default function IndustriesShowcase() {
           stagger: 0.07,
           duration: 0.7,
           ease: "power3.out",
-          scrollTrigger: {
-            trigger: h2Ref.current,
-            start: "top 88%",
-            once: true,
-          },
+          scrollTrigger: { trigger: h2Ref.current, start: "top 88%", once: true },
         });
       }
 
@@ -164,11 +144,7 @@ export default function IndustriesShowcase() {
           y: 20,
           duration: 0.75,
           ease: "power2.out",
-          scrollTrigger: {
-            trigger: subRef.current,
-            start: "top 90%",
-            once: true,
-          },
+          scrollTrigger: { trigger: subRef.current, start: "top 90%", once: true },
         });
       }
 
@@ -180,11 +156,7 @@ export default function IndustriesShowcase() {
           stagger: 0.07,
           duration: 0.85,
           ease: "expo.out",
-          scrollTrigger: {
-            trigger: panelsRef.current,
-            start: "top 82%",
-            once: true,
-          },
+          scrollTrigger: { trigger: panelsRef.current, start: "top 82%", once: true },
         });
       }
 
@@ -197,11 +169,7 @@ export default function IndustriesShowcase() {
             stagger: 0.08,
             duration: 0.7,
             ease: "power3.out",
-            scrollTrigger: {
-              trigger: mobilePanelsRef.current,
-              start: "top 85%",
-              once: true,
-            },
+            scrollTrigger: { trigger: mobilePanelsRef.current, start: "top 85%", once: true },
           }
         );
       }
@@ -213,90 +181,19 @@ export default function IndustriesShowcase() {
           stagger: 0.05,
           duration: 0.5,
           ease: "back.out(2)",
-          scrollTrigger: {
-            trigger: dotsRef.current,
-            start: "top 95%",
-            once: true,
-          },
+          scrollTrigger: { trigger: dotsRef.current, start: "top 95%", once: true },
         });
       }
     }, sectionRef);
 
     return () => {
-      // Revert SplitText before killing the GSAP context to avoid orphaned
-      // wrapper <div>s accumulating in the DOM.
       splits.forEach((s) => s.revert());
       ctx.revert();
     };
-  }, []); // ← runs once; no deps needed
-
-  // ── Magnetic button: stable ref callback, effect runs once per node ─────
-  const attachMagnet = useCallback((el: HTMLButtonElement | null) => {
-    if (!el) return;
-
-    const onMove = (e: MouseEvent) => {
-      const { left, top, width, height } = el.getBoundingClientRect();
-      gsap.to(el, {
-        x: (e.clientX - (left + width / 2)) * 0.28,
-        y: (e.clientY - (top + height / 2)) * 0.28,
-        duration: 0.35,
-        ease: "power2.out",
-      });
-    };
-    const onLeave = () => {
-      gsap.to(el, { x: 0, y: 0, duration: 0.55, ease: "elastic.out(1,0.4)" });
-    };
-
-    el.addEventListener("mousemove", onMove);
-    el.addEventListener("mouseleave", onLeave);
-    // Returned cleanup is invoked by React when the element unmounts.
-    return () => {
-      el.removeEventListener("mousemove", onMove);
-      el.removeEventListener("mouseleave", onLeave);
-    };
-  }, []); // stable — no external deps
-
-  // ── Auto-cycle: single setInterval, never re-created on state change ─────
-  useEffect(() => {
-    const id = setInterval(() => {
-      if (!isHoveringRef.current) {
-        setActive((prev) => (prev + 1) % industries.length);
-      }
-    }, AUTO_INTERVAL);
-    return () => clearInterval(id);
-  }, []); // ← single interval for the component lifetime
-
-  const handleHover = (idx: number) => {
-    isHoveringRef.current = true;
-    setActive(idx);
-  };
-  const handleLeave = () => {
-    isHoveringRef.current = false;
-  };
-
-  // Stable mouse-event handlers for the Explore button — defined once.
-  const onBtnEnter = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    gsap.to(e.currentTarget, {
-      scale: 1.06,
-      boxShadow: "0 8px 32px rgba(0,0,0,0.35)",
-      duration: 0.3,
-      ease: "power2.out",
-    });
   }, []);
-  const onBtnLeave = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    gsap.to(e.currentTarget, {
-      scale: 1,
-      boxShadow: "0 4px 24px rgba(0,0,0,0.25)",
-      duration: 0.5,
-      ease: "elastic.out(1, 0.5)",
-    });
-  }, []);
-  const onBtnDown = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    gsap.to(e.currentTarget, { scale: 0.96, duration: 0.12, ease: "power2.in" });
-  }, []);
-  const onBtnUp = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    gsap.to(e.currentTarget, { scale: 1.06, duration: 0.25, ease: "back.out(2)" });
-  }, []);
+
+
+
 
   return (
     <section
@@ -308,8 +205,7 @@ export default function IndustriesShowcase() {
         <div
           className="absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full opacity-[0.06]"
           style={{
-            background:
-              "radial-gradient(ellipse at center, #f97316 0%, transparent 70%)",
+            background: "radial-gradient(ellipse at center, #f97316 0%, transparent 70%)",
             filter: "blur(80px)",
             animation: "blobFloat 8s ease-in-out infinite",
           }}
@@ -319,25 +215,16 @@ export default function IndustriesShowcase() {
       <div className="relative z-10 mx-auto max-w-[1700px] px-6 lg:px-10">
         {/* ── heading ── */}
         <div className="text-center">
-          <p
-            ref={eyebrowRef}
-            className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400"
-          >
+          <p ref={eyebrowRef} className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
             What we build
           </p>
-          <h2
-            ref={h2Ref}
-            className="text-4xl font-semibold tracking-tight text-slate-900 lg:text-5xl"
-          >
+          <h2 ref={h2Ref} className="text-4xl font-semibold tracking-tight text-slate-900 lg:text-5xl">
             Trusted by{" "}
-            <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text ">
+            <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text">
               Industry Leaders
             </span>
           </h2>
-          <p
-            ref={subRef}
-            className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-500"
-          >
+          <p ref={subRef} className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-500">
             Enterprise transformation designed for highly regulated, scalable,
             and innovation-driven industries.
           </p>
@@ -346,7 +233,6 @@ export default function IndustriesShowcase() {
         {/* ── DESKTOP panels ── */}
         <div
           ref={panelsRef}
-          onMouseLeave={handleLeave}
           className="mt-14 hidden lg:flex items-stretch gap-3 overflow-hidden"
           style={{ height: 420 }}
         >
@@ -358,18 +244,16 @@ export default function IndustriesShowcase() {
               <div
                 key={industry.title}
                 data-panel
-                onMouseEnter={() => handleHover(index)}
+                onClick={() => setActive(index)}
                 className="relative shrink-0 cursor-pointer overflow-hidden rounded-[32px]"
                 style={{
                   flex: isActive ? "4.6 0 0" : "0.7 0 0",
                   transition: "flex 0.75s cubic-bezier(0.77, 0, 0.18, 1)",
                   border: "1px solid rgba(255,255,255,0.14)",
                   background: "#0f172a",
-                  // GPU-promote the panels that animate layout/opacity heavily
                   willChange: "flex",
                 }}
               >
-                {/* image — lazy-loaded; object-fit via class */}
                 <img
                   src={industry.image}
                   alt={industry.full}
@@ -381,8 +265,7 @@ export default function IndustriesShowcase() {
                     filter: isActive
                       ? "brightness(0.68) saturate(1.15)"
                       : "brightness(0.52) saturate(0.9)",
-                    transition:
-                      "transform 1.1s cubic-bezier(0.77,0,0.18,1), filter 0.8s ease",
+                    transition: "transform 1.1s cubic-bezier(0.77,0,0.18,1), filter 0.8s ease",
                     willChange: "transform, filter",
                   }}
                 />
@@ -391,20 +274,11 @@ export default function IndustriesShowcase() {
 
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${industry.accent}`}
-                  style={{
-                    opacity: isActive ? 0.22 : 0.1,
-                    transition: "opacity 0.6s ease",
-                  }}
+                  style={{ opacity: isActive ? 0.22 : 0.1, transition: "opacity 0.6s ease" }}
                 />
 
-                {/* shimmer — stable style object from the precomputed array */}
-                <div
-                  className="pointer-events-none absolute inset-0"
-                  style={SHIMMER_STYLES[index]}
-                  aria-hidden
-                />
+                <div className="pointer-events-none absolute inset-0" style={SHIMMER_STYLES[index]} aria-hidden />
 
-                {/* top glow */}
                 <div
                   className="pointer-events-none absolute inset-x-0 top-0 h-[2px]"
                   style={{
@@ -420,9 +294,7 @@ export default function IndustriesShowcase() {
                   className="absolute bottom-10 left-1/2 -translate-x-1/2"
                   style={{
                     opacity: isActive ? 0 : 1,
-                    transition: isActive
-                      ? "opacity 0.2s ease"
-                      : "opacity 0.4s ease 0.35s",
+                    transition: isActive ? "opacity 0.2s ease" : "opacity 0.4s ease 0.35s",
                     pointerEvents: "none",
                   }}
                 >
@@ -447,7 +319,6 @@ export default function IndustriesShowcase() {
                     willChange: "opacity, transform",
                   }}
                 >
-                  {/* stat badge */}
                   <div
                     className="mb-5 inline-flex w-fit items-center gap-2 rounded-full px-4 py-1.5"
                     style={{
@@ -456,8 +327,7 @@ export default function IndustriesShowcase() {
                       border: "1px solid rgba(255,255,255,0.2)",
                       transform: isActive ? "translateY(0)" : "translateY(8px)",
                       opacity: isActive ? 1 : 0,
-                      transition:
-                        "opacity 0.45s ease 0.38s, transform 0.45s cubic-bezier(0.22,1,0.36,1) 0.38s",
+                      transition: "opacity 0.45s ease 0.38s, transform 0.45s cubic-bezier(0.22,1,0.36,1) 0.38s",
                     }}
                   >
                     <span
@@ -467,73 +337,54 @@ export default function IndustriesShowcase() {
                         boxShadow: `0 0 6px ${industry.accentHex}`,
                       }}
                     />
-                    <span className="text-xs font-medium text-white/80">
-                      {industry.stat}
-                    </span>
+                    <span className="text-xs font-medium text-white/80">{industry.stat}</span>
                   </div>
 
-                  {/* icon */}
                   <div
                     className={`flex h-[62px] w-[62px] items-center justify-center rounded-[20px] bg-gradient-to-br ${industry.accent} text-white shadow-2xl`}
                     style={{
-                      transform: isActive
-                        ? "translateY(0) scale(1)"
-                        : "translateY(12px) scale(0.88)",
+                      transform: isActive ? "translateY(0) scale(1)" : "translateY(12px) scale(0.88)",
                       opacity: isActive ? 1 : 0,
-                      transition:
-                        "opacity 0.4s ease 0.28s, transform 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.28s",
+                      transition: "opacity 0.4s ease 0.28s, transform 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.28s",
                     }}
                   >
                     <Icon size={28} strokeWidth={1.6} />
                   </div>
 
-                  {/* title */}
                   <h3
                     className="mt-5 max-w-[280px] text-xl font-semibold leading-[1.08] tracking-tight text-white"
                     style={{
                       transform: isActive ? "translateY(0)" : "translateY(16px)",
                       opacity: isActive ? 1 : 0,
-                      transition:
-                        "opacity 0.42s ease 0.32s, transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.32s",
+                      transition: "opacity 0.42s ease 0.32s, transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.32s",
                     }}
                   >
                     {industry.full}
                   </h3>
 
-                  {/* description */}
                   <p
                     className="mt-4 max-w-[300px] text-[12px] leading-7 text-white/70"
                     style={{
                       transform: isActive ? "translateY(0)" : "translateY(12px)",
                       opacity: isActive ? 1 : 0,
-                      transition:
-                        "opacity 0.4s ease 0.38s, transform 0.45s cubic-bezier(0.22,1,0.36,1) 0.38s",
+                      transition: "opacity 0.4s ease 0.38s, transform 0.45s cubic-bezier(0.22,1,0.36,1) 0.38s",
                     }}
                   >
                     {industry.description}
                   </p>
 
-                  {/* magnetic button */}
                   <button
-                    ref={attachMagnet}
                     className="group mt-7 inline-flex w-fit items-center gap-2.5 rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold text-slate-900"
                     style={{
                       transform: isActive ? "translateY(0)" : "translateY(10px)",
                       opacity: isActive ? 1 : 0,
-                      transition:
-                        "opacity 0.4s ease 0.44s, transform 0.45s cubic-bezier(0.22,1,0.36,1) 0.44s",
+                      transition: "opacity 0.4s ease 0.44s, transform 0.45s cubic-bezier(0.22,1,0.36,1) 0.44s",
                       boxShadow: "0 4px 24px rgba(0,0,0,0.25)",
                     }}
-                    onMouseEnter={onBtnEnter}
-                    onMouseLeave={onBtnLeave}
-                    onMouseDown={onBtnDown}
-                    onMouseUp={onBtnUp}
+                  
                   >
                     Explore Industry
-                    <ArrowRight
-                      size={15}
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                    />
+                    <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
                 </div>
               </div>
@@ -572,18 +423,14 @@ export default function IndustriesShowcase() {
                     filter: isActive
                       ? "brightness(0.68) saturate(1.15)"
                       : "brightness(0.45) saturate(0.9)",
-                    transition:
-                      "transform 1s cubic-bezier(0.77,0,0.18,1), filter 0.7s ease",
+                    transition: "transform 1s cubic-bezier(0.77,0,0.18,1), filter 0.7s ease",
                     willChange: "transform, filter",
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/10" />
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${industry.accent}`}
-                  style={{
-                    opacity: isActive ? 0.22 : 0.08,
-                    transition: "opacity 0.5s ease",
-                  }}
+                  style={{ opacity: isActive ? 0.22 : 0.08, transition: "opacity 0.5s ease" }}
                 />
                 <div
                   className="absolute inset-x-0 top-0 h-[2px]"
@@ -596,29 +443,15 @@ export default function IndustriesShowcase() {
 
                 <div className="relative z-10 flex items-center justify-between p-5">
                   <div className="flex items-center gap-4">
-                    <div
-                      className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${industry.accent} text-white shadow-2xl`}
-                      style={{
-                        transform: isActive ? "scale(1)" : "scale(0.92)",
-                        transition:
-                          "transform 0.5s cubic-bezier(0.34,1.56,0.64,1)",
-                      }}
-                    >
-                      <Icon size={24} strokeWidth={1.8} />
-                    </div>
+                 
                     <div>
-                      <h3 className="text-lg font-semibold tracking-tight text-white">
-                        {industry.full}
-                      </h3>
+                      <h3 className="text-lg font-semibold tracking-tight text-white">{industry.full}</h3>
                       <p className="mt-1 text-sm text-white/65">{industry.stat}</p>
                     </div>
                   </div>
                   <div
                     className="text-4xl font-black text-white/10"
-                    style={{
-                      opacity: isActive ? 1 : 0.45,
-                      transition: "opacity 0.4s ease",
-                    }}
+                    style={{ opacity: isActive ? 1 : 0.45, transition: "opacity 0.4s ease" }}
                   >
                     0{index + 1}
                   </div>
@@ -636,15 +469,10 @@ export default function IndustriesShowcase() {
                     willChange: "opacity, transform",
                   }}
                 >
-                  <p className="max-w-md text-sm leading-7 text-white/75">
-                    {industry.description}
-                  </p>
+                  <p className="max-w-md text-sm leading-7 text-white/75">{industry.description}</p>
                   <button className="group mt-7 inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-[0_4px_24px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1">
                     Explore Industry
-                    <ArrowRight
-                      size={15}
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                    />
+                    <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
                 </div>
               </div>
