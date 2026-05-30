@@ -23,98 +23,94 @@ export default function FutureBanner() {
       force3D: true,
     });
 
-    gsap.set(
-      [".future-bg"],
-      {
-        force3D: true,
-      },
-    );
+    gsap.set([".future-bg"], {
+      force3D: true,
+    });
 
     // =====================================================
     // MAIN REVEAL TIMELINE
     // =====================================================
 
-const revealTl = gsap.timeline({
-  scrollTrigger: {
-    trigger: bannerRef.current,
-    start: "top 75%",
-    toggleActions: "play reverse play reverse",
-  },
+    const revealTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: bannerRef.current,
+        start: "top 75%",
+        toggleActions: "play reverse play reverse",
+      },
 
-  defaults: {
-    ease: "power4.out",
-  },
-});
+      defaults: {
+        ease: "power4.out",
+      },
+    });
 
-// INITIAL STATES
-gsap.set(".cover-left", {
-  xPercent: 0,
-});
+    // INITIAL STATES
+    gsap.set(".cover-left", {
+      xPercent: 0,
+    });
 
-gsap.set(".cover-right", {
-  xPercent: 0,
-});
+    gsap.set(".cover-right", {
+      xPercent: 0,
+    });
 
-revealTl
+    revealTl
 
-  // COVER OPEN
-  .to(".cover-left", {
-    xPercent: -100,
-    duration: 1.2,
-    ease: "power4.inOut",
-  })
+      // COVER OPEN
+      .to(".cover-left", {
+        xPercent: -100,
+        duration: 1.2,
+        ease: "power4.inOut",
+      })
 
-  .to(
-    ".cover-right",
-    {
-      xPercent: 100,
-      duration: 1.2,
-      ease: "power4.inOut",
-    },
-    "<"
-  )
+      .to(
+        ".cover-right",
+        {
+          xPercent: 100,
+          duration: 1.2,
+          ease: "power4.inOut",
+        },
+        "<",
+      )
 
-  // OVERLAY
-  .from(
-    ".future-overlay",
-    {
-      autoAlpha: 0,
-      duration: 1,
-    },
-    "-=0.9"
-  )
+      // OVERLAY
+      .from(
+        ".future-overlay",
+        {
+          autoAlpha: 0,
+          duration: 1,
+        },
+        "-=0.9",
+      )
 
-  // TITLE
-  .from(
-    ".future-title",
-    {
-      autoAlpha: 0,
-      y: 80,
-      duration: 1,
-    },
-    "-=0.7"
-  )
+      // TITLE
+      .from(
+        ".future-title",
+        {
+          autoAlpha: 0,
+          y: 80,
+          duration: 1,
+        },
+        "-=0.7",
+      )
 
-  // DESCRIPTION
-  .from(
-    ".future-description",
-    {
-      autoAlpha: 0,
-      y: 30,
-      duration: 0.8,
-      ease: "power3.out",
-    },
-    "-=0.7"
-  )
-
-
+      // DESCRIPTION
+      .from(
+        ".future-description",
+        {
+          autoAlpha: 0,
+          y: 30,
+          duration: 0.8,
+          ease: "power3.out",
+        },
+        "-=0.7",
+      );
 
     // =====================================================
     // PARALLAX BACKGROUND
     // =====================================================
 
-    gsap.to(".future-bg", {
-      xPercent: -6,
+    gsap.to(".future-bg img", {
+      yPercent: -15,
+      scale: 1.15,
       ease: "none",
 
       scrollTrigger: {
@@ -124,9 +120,6 @@ revealTl
         scrub: 1,
       },
     });
-
-  
-
   }, []);
 
   return (
@@ -139,18 +132,26 @@ revealTl
       <div className="cover-right absolute inset-y-0 right-0 w-1/2 bg-white z-30" />
 
       {/* BACKGROUND */}
-      <div className="future-bg absolute inset-0">
-        {/* GRID */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `
-          linear-gradient(to right, #0f172a 1px, transparent 1px),
-          linear-gradient(to bottom, #0f172a 1px, transparent 1px)
-        `,
-            backgroundSize: "80px 80px",
-          }}
+      <div className="future-bg pointer-events-none absolute inset-0 overflow-hidden">
+        {/* IMAGE */}
+        <img
+          src="/images/future-bg.png"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          className="absolute inset-0 h-full w-full scale-110 object-cover opacity-90"
         />
+
+        {/* WHITE OVERLAY */}
+        <div className="absolute inset-0 bg-black/25" />
+
+        {/* GLOW */}
+        {/* <div className="absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-orange-200/40 blur-3xl" /> */}
+
+        {/* <div className="absolute -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-blue-200/30 blur-3xl" /> */}
+
+        {/* GRID */}
+        <div />
       </div>
 
       {/* CONTENT */}
@@ -163,7 +164,7 @@ revealTl
 
         {/* TITLE */}
         <div className="mt-10 overflow-hidden">
-          <h2 className="future-title text-5xl md:text-6xl lg:text-6xl font-semibold leading-[0.95] tracking-tight text-slate-900">
+          <h2 className="future-title text-5xl md:text-6xl lg:text-6xl font-semibold leading-[0.95] tracking-tight text-white">
             Building Intelligent
             <br />
             <span className="bg-gradient-to-r from-orange-500 via-red-500 to-orange-400 bg-clip-text text-transparent">
@@ -173,7 +174,7 @@ revealTl
         </div>
 
         {/* DESCRIPTION */}
-        <p className="future-description mt-8 max-w-3xl mx-auto text-lg md:text-xl leading-8 text-slate-600">
+        <p className="future-description mt-8 max-w-3xl mx-auto text-lg md:text-xl leading-8 text-white">
           Skyveon AI helps organizations modernize infrastructure, scale
           cloud-native platforms, and integrate AI-driven systems engineered for
           performance, security, and future growth.

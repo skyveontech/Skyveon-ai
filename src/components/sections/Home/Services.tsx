@@ -87,8 +87,7 @@ export default function ServicesSlider() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 75%",
-    toggleActions: "play reverse play reverse",
-        },
+once: true         },
       });
 
       // Badge reveal

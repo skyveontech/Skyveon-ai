@@ -1,103 +1,138 @@
-import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
+
 
 import logo from "@/assets/logo.png";
 
 const footerLinks = {
   company: [
-    {
-      label: "About",
-      href: "#about",
-    },
-    {
-      label: "Careers",
-      href: "#careers",
-    },
-    {
-      label: "Contact",
-      href: "#contact",
-    },
+    { label: "About", href: "#about" },
+    { label: "Careers", href: "#careers" },
+    { label: "Contact", href: "#contact" },
   ],
-
   services: [
-    {
-      label: "AI & Machine Learning",
-      href: "#services",
-    },
-    {
-      label: "Cloud & DevOps",
-      href: "#services",
-    },
-    {
-      label: "Data Engineering",
-      href: "#services",
-    },
-    {
-      label: "Enterprise Platforms",
-      href: "#services",
-    },
+    { label: "AI & Machine Learning", href: "#services" },
+    { label: "Cloud & DevOps", href: "#services" },
+    { label: "Data Engineering", href: "#services" },
+    { label: "Enterprise Platforms", href: "#services" },
   ],
 };
 
+const contactItems = [
+  {
+    icon: Mail,
+    label: "Email",
+    content: (
+      <>
+        <a
+          href="mailto:info@skyveon.ai"
+          className="footer-link mt-1 block text-[15px] text-slate-700"
+        >
+          info@skyveon.ai
+        </a>
+        <a
+          href="mailto:hr@skyveon.ai"
+          className="footer-link mt-1 block text-[15px] text-slate-700"
+        >
+          hr@skyveon.ai
+        </a>
+      </>
+    ),
+  },
+  {
+    icon: Phone,
+    label: "Phone",
+    content: (
+      <a
+        href="tel:+16146733427"
+        className="footer-link mt-1 block text-[15px] text-slate-700"
+      >
+        +1 (614) 673-3427
+      </a>
+    ),
+  },
+  {
+    icon: MapPin,
+    label: "Address",
+    content: (
+      <p className="mt-1 text-[15px] leading-6 text-slate-700">
+        15 Clairedan Drive,
+        <br />
+        15A, Powell,
+        <br />
+        OH 43065
+      </p>
+    ),
+  },
+];
+
 export default function Footer() {
+
+
+
   return (
-    <footer className="relative overflow-hidden bg-[#F8FAFC] border-t border-slate-200">
-      {/* BACKGROUND GLOW */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-orange-100/40 blur-3xl pointer-events-none" />
+    <footer
+      className="relative overflow-hidden border-t border-slate-200 bg-[#F8FAFC]"
+      style={{ perspective: "800px" }}
+    >
+      <div
+        className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[700px] -translate-x-1/2 bg-orange-100/50 blur-3xl"
+      />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-10">
-        {/* TOP SECTION */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr_0.7fr_1fr] gap-14">
-          {/* BRAND */}
-          <div>
-            {/* LOGO */}
-            <a href="/" className="inline-flex items-center gap-3 group">
-              <img
-                src={logo}
-                alt="Skyveon AI"
-                className="h-12 w-auto transition-transform duration-300 group-hover:rotate-2"
-              />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          backgroundSize: "128px",
+        }}
+      />
 
-              <div className="flex flex-col leading-none">
-                <span className="font-heading text-2xl font-bold tracking-wide text-slate-900">
-                  SKYVEON
-                </span>
-
-                <span className="text-[11px] tracking-[0.25em] uppercase text-slate-500 mt-1">
-                  AI Solutions
-                </span>
+      <div className="relative mx-auto max-w-7xl px-6 pb-10 pt-20 lg:px-10">
+        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1.3fr_0.7fr_0.7fr_1fr]">
+          <div className="footer-brand flex flex-col items-start justify-between">
+            <Link
+              to="/"
+              className="flex items-center gap-2.5 group select-none"
+              aria-label="Skyveon AI home"
+            >
+              <div className="relative">
+                <img
+                  src={logo}
+                  alt="Skyveon AI"
+                  className="h-11 w-auto transition-transform duration-500 group-hover:scale-105 md:h-24"
+                />
+                <div className="absolute -bottom-1 left-1/2 h-1 w-4 -translate-x-1/2 rounded-full bg-orange-500/30 opacity-0 blur-sm transition-opacity duration-500 group-hover:opacity-100" />
               </div>
-            </a>
+            </Link>
 
-            {/* DESCRIPTION */}
             <p className="mt-6 max-w-md text-[15px] leading-7 text-slate-600">
               Building intelligent enterprise solutions through AI, cloud, data
               engineering, and digital transformation technologies.
             </p>
 
-            {/* CTA */}
-            <a
-              href="#contact"
-              className="group mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-500/10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-orange-500/20">
-              Book Consultation
-              <ArrowUpRight
+            <Link
+              to="#services"
+              className="hero-btn group mt-8 inline-flex items-center gap-2 border-2 border-[#FF6B00] bg-[#FF6B00] px-7 py-4 text-base font-semibold text-white shadow-2xl shadow-orange-500/20 transition-colors duration-200 hover:bg-white hover:text-[#FF6B00]"
+            >
+              Explore Services
+              <ArrowRight
                 size={18}
-                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                className="transition-transform duration-300 group-hover:translate-x-1"
               />
-            </a>
+            </Link>
           </div>
 
-          {/* COMPANY */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
+            <h3 className="footer-col-head text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
               Company
             </h3>
-
             <ul className="mt-6 space-y-4">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-[15px] text-slate-600 transition-colors duration-300 hover:text-orange-500">
+                    className="footer-nav-link inline-block text-[15px] text-slate-600"
+                  >
                     {link.label}
                   </a>
                 </li>
@@ -105,18 +140,17 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* SERVICES */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
+            <h3 className="footer-col-head text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
               Services
             </h3>
-
             <ul className="mt-6 space-y-4">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-[15px] text-slate-600 transition-colors duration-300 hover:text-orange-500">
+                    className="footer-nav-link inline-block text-[15px] text-slate-600"
+                  >
                     {link.label}
                   </a>
                 </li>
@@ -124,95 +158,51 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* CONTACT */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
+            <h3 className="footer-col-head text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
               Contact
             </h3>
-
             <div className="mt-6 space-y-5">
-              {/* EMAIL */}
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm border border-slate-200">
-                  <Mail size={18} className="text-orange-500" />
+              {contactItems.map(({ icon: Icon, label, content }) => (
+                <div
+                  key={label}
+                  className="footer-contact-row flex items-start gap-3"
+                >
+                  <div
+                    className="contact-icon-box flex h-10 w-10 cursor-default items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm"
+                  >
+                    <Icon size={18} className="text-orange-500" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-400">{label}</p>
+                    {content}
+                  </div>
                 </div>
-
-                <div>
-                  <p className="text-sm text-slate-400">Email</p>
-
-                  <a
-                    href="mailto:info@skyveon.ai"
-                    className="mt-1 block text-[15px] text-slate-700 transition-colors duration-300 hover:text-orange-500">
-                    info@skyveon.ai
-                  </a>
-
-                  <a
-                    href="mailto:hr@skyveon.ai"
-                    className="mt-1 block text-[15px] text-slate-700 transition-colors duration-300 hover:text-orange-500">
-                    hr@skyveon.ai
-                  </a>
-                </div>
-              </div>
-
-              {/* PHONE */}
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm border border-slate-200">
-                  <Phone size={18} className="text-orange-500" />
-                </div>
-
-                <div>
-                  <p className="text-sm text-slate-400">Phone</p>
-
-                  <a
-                    href="tel:+16146733427"
-                    className="mt-1 block text-[15px] text-slate-700 transition-colors duration-300 hover:text-orange-500">
-                    +1 (614) 673-3427
-                  </a>
-                </div>
-              </div>
-
-              {/* ADDRESS */}
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm border border-slate-200">
-                  <MapPin size={18} className="text-orange-500" />
-                </div>
-
-                <div>
-                  <p className="text-sm text-slate-400">Address</p>
-
-                  <p className="mt-1 text-[15px] leading-6 text-slate-700">
-                    15 Clairedan Drive,
-                    <br />
-                    15A, Powell,
-                    <br />
-                    OH 43065
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* DIVIDER */}
-        <div className="my-10 h-px w-full bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+        <div
+          className="my-10 h-px w-full bg-gradient-to-r from-transparent via-slate-300 to-transparent"
+        />
 
-        {/* BOTTOM */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="footer-bottom flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-sm text-slate-500">
             © {new Date().getFullYear()} Skyveon AI. All rights reserved.
           </p>
-
           <div className="flex items-center gap-6">
             <a
               href="#"
-              className="text-sm text-slate-500 transition-colors duration-300 hover:text-orange-500">
+              className="footer-link inline-block text-sm text-slate-500"
+            >
               Privacy Policy
             </a>
-
             <a
               href="#"
-              className="text-sm text-slate-500 transition-colors duration-300 hover:text-orange-500">
-              Terms & Conditions
+              className="footer-link inline-block text-sm text-slate-500"
+            >
+              Terms &amp; Conditions
             </a>
           </div>
         </div>

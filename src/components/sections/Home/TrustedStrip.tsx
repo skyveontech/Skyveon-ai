@@ -11,12 +11,23 @@ const stats = [
 ];
 
 const partners = [
-  { name: "Microsoft Partner", logo: "/microsoft.svg" },
-  { name: "Cloud Alliance", logo: "/partner.svg" },
-  { name: "AWS Advanced", logo: "/aws.svg" },
-  { name: "Google Cloud", logo: "/google-cloud.svg" },
-  { name: "Salesforce", logo: "/salesforce.svg" },
-  { name: "Databricks", logo: "/databricks.svg" },
+  { name: "Partner 1", logo: "/images/clients/30.avif" },
+  { name: "Partner 2", logo: "/images/clients/31.avif" },
+  { name: "Partner 3", logo: "/images/clients/32.avif" },
+  { name: "Partner 4", logo: "/images/clients/33.avif" },
+  { name: "Partner 5", logo: "/images/clients/34.avif" },
+  { name: "Partner 6", logo: "/images/clients/35.avif" },
+  { name: "Partner 8", logo: "/images/clients/37.avif" },
+  { name: "Partner 10", logo: "/images/clients/39.avif" },
+  { name: "Partner 11", logo: "/images/clients/40.avif" },
+  { name: "Partner 12", logo: "/images/clients/41.avif" },
+  { name: "Partner 13", logo: "/images/clients/42.avif" },
+  { name: "Partner 14", logo: "/images/clients/43.avif" },
+  { name: "Partner 14", logo: "/images/clients/43 (1).avif" },
+  { name: "Partner 15", logo: "/images/clients/44.avif" },
+  { name: "Partner 16", logo: "/images/clients/45.avif" },
+  { name: "Partner 17", logo: "/images/clients/46.avif" },
+  { name: "Partner 18", logo: "/images/clients/47.avif" },
 ];
 
 const marqueeItems = [...partners, ...partners];
@@ -293,16 +304,13 @@ export default function TrustedStrip() {
               <div
                 key={`${partner.name}-${i}`}
                 className="group flex shrink-0 items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50/80 px-6 py-3.5 transition-all duration-300 hover:border-orange-200 hover:bg-orange-50 hover:shadow-md hover:shadow-orange-50 cursor-pointer">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-100 bg-white shadow-sm transition-all duration-300 group-hover:border-orange-100 group-hover:shadow-orange-100/60">
+                <div className="flex h-14 w-auto items-center justify-center rounded-xl border border-slate-100 bg-white shadow-sm transition-all duration-300 group-hover:border-orange-100 group-hover:shadow-orange-100/60">
                   <img
                     src={partner.logo}
                     alt={partner.name}
-                    className="h-5 w-auto object-contain opacity-50 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+                    className="h-12 w-auto object-contain "
                   />
                 </div>
-                <span className="whitespace-nowrap text-sm font-semibold text-slate-400 transition-colors duration-300 group-hover:text-slate-700">
-                  {partner.name}
-                </span>
               </div>
             ))}
           </div>

@@ -1,29 +1,36 @@
+import { Routes, Route } from "react-router-dom";
 
-import './App.css'
-import FutureBanner from './components/sections/Home/FutureBanner.tsx'
-import Hero from './components/sections/Home/Hero.tsx'
-import Industries from './components/sections/Home/Industries.tsx'
-import ServicesSlider from './components/sections/Home/Services.tsx'
-import TrustedStrip from './components/sections/Home/TrustedStrip.tsx'
-import WhyUs from './components/sections/Home/WhyUS.tsx'
-import Footer from './components/ui/Footer.tsx'
-import Navbar from './components/ui/Navbar.tsx'
+import MainLayout from "@/layouts/MainLayout";
 
-function App() {
+import NotFound from "@/pages/NotFound";
+import { lazy } from "react";
+import ServicePage from "./pages/ServicePage";
+import IndustryPage from "./pages/IndustryPage";
+import AboutPage from "./pages/AboutUS";
+import CareersPage from "./pages/CareersPage";
+import Contact from "./pages/Contact";
 
+const Home = lazy(() => import("@/pages/Home"));
+
+export default function App() {
   return (
-    <>
-  <Navbar />
-  <Hero />
-  <TrustedStrip />
-  <FutureBanner />
-  <ServicesSlider />
-  <Industries/>
-  <WhyUs />
-  {/* <div className="min-h-screen"></div> */}
-  <Footer />
-    </>
-  )
-}
+    <Routes>
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/services/:slug" element={<ServicePage />} />
+        <Route path="/industries/:slug" element={<IndustryPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/careers" element={<CareersPage />} /> 
+        <Route path="/contact" element={<Contact />} /> 
 
-export default App
+        {/* 
+
+        <Route path="/services" element={<Services />} />
+        */}
+
+      </Route>
+
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}

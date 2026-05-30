@@ -1,30 +1,257 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback, memo } from "react";
+import type { CSSProperties, ComponentType } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import {
+  ChevronDown, Menu, X, ArrowRight,
+  Zap, Cloud, BarChart2, Layers, Brain,
+  TrendingUp, Heart, ShoppingCart, Cog, Globe, Film,
+  type LucideIcon,
+} from "lucide-react";
 import useGsap from "@/hooks/use-gsap";
 import gsap from "@/lib/gsap";
-import logo from "@/assets/logo.png"
+import logo from "@/assets/logo.png";
+
+type MenuItem = {
+  title: string;
+  href: string;
+  description?: string;
+  icon: LucideIcon;
+  accent?: string;
+};
 
 
-const navLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Industries", href: "#industries" },
-  { label: "About", href: "#about" },
-  { label: "Careers", href: "#careers" },
-  { label: "Contact", href: "#contact" },
+
+type MegaMenuProps = {
+  open: boolean;
+};
+
+type NavDropdownProps = {
+  label: string;
+  menu: ComponentType<MegaMenuProps>;
+  isScrolled: boolean;
+};
+
+type MobileAccordionProps = {
+  title: string;
+  items: MenuItem[];
+}; 
+
+const servicesMenu = [
+  { title: "Digital Product Engineering", description: "Modern web & mobile experiences", href: "/services/digital-product-engineering", icon: Zap, accent: "#f97316" },
+  { title: "Cloud & DevOps (SRE)", description: "Reliable cloud infrastructure", href: "/services/cloud-devops", icon: Cloud, accent: "#3b82f6" },
+  { title: "Data Engineering & Analytics", description: "Modern data platforms", href: "/services/data-engineering-analytics", icon: BarChart2, accent: "#8b5cf6" },
+  { title: "Enterprise Platforms", description: "Workday & Salesforce solutions", href: "/services/enterprise-platforms", icon: Layers, accent: "#10b981" },
+  { title: "AI & Machine Learning", description: "Intelligent systems at scale", href: "/services/ai-machine-learning", icon: Brain, accent: "#f97316" },
+] satisfies MenuItem[];
+
+const industriesMenu = [
+  { title: "Financial Services", href: "/industries/financial-services", icon: TrendingUp },
+  { title: "Healthcare & Life Sciences", href: "/industries/healthcare", icon: Heart },
+  { title: "Retail & eCommerce", href: "/industries/retail", icon: ShoppingCart },
+  { title: "Manufacturing", href: "/industries/manufacturing", icon: Cog },
+  { title: "Public Sector", href: "/industries/public-sector", icon: Globe },
+  { title: "Media & Technology", href: "/industries/media-technology", icon: Film },
+] satisfies MenuItem[];
+
+const simpleLinks = [
+  { label: "About", href: "/about" },
+  { label: "Careers", href: "/careers" },
+  { label: "Contact", href: "/contact" },
 ];
+
+const SF: CSSProperties = { fontFamily: "-apple-system,'SF Pro Text',BlinkMacSystemFont,sans-serif" };
+const ctaStyle: CSSProperties = { ...SF, letterSpacing: "-0.01em", padding: "8px 18px" };
+
+
+const ServicesMegaMenu = memo(function ServicesMegaMenu({ open }: MegaMenuProps) {
+  return (
+    <div
+      className={`absolute left-1/2 top-full z-50 mt-3 -translate-x-1/2 transition-all duration-300 origin-top
+        ${open
+          ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
+          : "opacity-0 scale-[0.97] pointer-events-none -translate-y-1"}`}
+      style={{ width: 280 }}
+    >
+      <div className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white border-l border-t border-slate-200/80 z-10" />
+      <div className="rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-[0_24px_64px_rgba(15,23,42,0.13),0_4px_16px_rgba(15,23,42,0.06)]">
+        <div className="px-5 pt-4 pb-3 border-b border-slate-100">
+          <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-slate-400" style={SF}>
+            What we do
+          </p>
+        </div>
+        <div className="p-3 grid gap-1">
+          {servicesMenu.map((s) => {
+            const Icon = s.icon;
+            return (
+              <Link
+                key={s.title}
+                to={s.href}
+                className="group flex items-center gap-3.5 rounded-xl px-3.5 py-3 transition-all duration-200 hover:bg-slate-50 active:bg-slate-100"
+              >
+                <div
+                  className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                  style={{ background: `${s.accent}15` }}
+                >
+                  <Icon size={16} style={{ color: s.accent }} strokeWidth={1.8} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[13.5px] font-semibold text-slate-900 leading-tight truncate" style={SF}>
+                    {s.title}
+                  </p>
+                  <p className="text-[12px] text-slate-400 mt-0.5 truncate" style={SF}>
+                    {s.description}
+                  </p>
+                </div>
+                <ArrowRight
+                  size={14}
+                  className="flex-shrink-0 text-slate-300 -translate-x-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                />
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+});
+
+const IndustriesMegaMenu = memo(function IndustriesMegaMenu({ open }: MegaMenuProps) {
+  return (
+    <div
+      className={`absolute left-1/2 top-full z-50 mt-3 -translate-x-1/2 transition-all duration-300 origin-top
+        ${open
+          ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
+          : "opacity-0 scale-[0.97] pointer-events-none -translate-y-1"}`}
+      style={{ width: 360 }}
+    >
+      <div className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white border-l border-t border-slate-200/80 z-10" />
+      <div className="rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-[0_24px_64px_rgba(15,23,42,0.13),0_4px_16px_rgba(15,23,42,0.06)]">
+        <div className="px-5 pt-4 pb-3 border-b border-slate-100">
+          <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-slate-400" style={SF}>
+            Industries served
+          </p>
+        </div>
+        <div className="p-3 grid grid-cols-2 gap-1">
+          {industriesMenu.map((ind) => {
+            const Icon = ind.icon;
+            return (
+              <Link
+                key={ind.title}
+                to={ind.href}
+                className="group flex items-center gap-2.5 rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-orange-50 active:bg-orange-100"
+              >
+                <Icon size={14} className="flex-shrink-0 text-slate-400 group-hover:text-orange-500 transition-colors duration-200" strokeWidth={1.8} />
+                <span className="text-[13px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors duration-200 leading-tight" style={SF}>
+                  {ind.title}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+});
+
+const NavDropdown = memo(function NavDropdown({ label, menu: MenuComponent, isScrolled }: NavDropdownProps) {
+  const [open, setOpen] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setOpen(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    timeoutRef.current = setTimeout(() => setOpen(false), 120);
+  }, []);
+
+  return (
+    <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <button
+        className={`navbar-animate flex items-center gap-1 px-3.5 py-2 rounded-lg text-[13.5px] font-medium transition-colors duration-150
+          ${open
+            ? "text-slate-900 bg-black/[0.05]"
+            : isScrolled
+              ? "text-slate-600 hover:text-slate-900 hover:bg-black/[0.04]"
+              : "text-slate-700 hover:text-slate-900 hover:bg-white/20"}`}
+        style={SF}
+        aria-expanded={open}
+      >
+        {label}
+        <ChevronDown size={14} className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+      </button>
+      <MenuComponent open={open} />
+    </div>
+  );
+});
+
+const MobileAccordion = memo(function MobileAccordion({ title, items }: MobileAccordionProps) {
+  const [open, setOpen] = useState(false);
+  const toggle = useCallback(() => setOpen((v) => !v), []);
+
+  return (
+    <div className="mobile-link">
+      <button
+        onClick={toggle}
+        className="flex items-center justify-between w-full px-4 py-3.5 rounded-xl text-[15px] font-medium text-slate-800 hover:bg-black/[0.04] transition-colors duration-150"
+        style={SF}
+      >
+        {title}
+        <ChevronDown size={16} className={`text-slate-400 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+      </button>
+      <div className={`overflow-hidden transition-all duration-300 ${open ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}`}>
+        <div className="pl-4 pr-2 pb-2 grid gap-0.5">
+          {items.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.title}
+                to={item.href}
+                className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13.5px] text-slate-600 hover:text-slate-900 hover:bg-orange-50 transition-all duration-150"
+                style={SF}
+              >
+                <Icon size={14} className="text-slate-400" strokeWidth={1.8} />
+                {item.title}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+});
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    let rafId: number | null = null;
+
+    const handleScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        setIsScrolled(y > 20);
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        setScrollProgress(totalHeight > 0 ? (y / totalHeight) * 100 : 0);
+        rafId = null;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -33,15 +260,8 @@ export default function Navbar() {
   useGsap(() => {
     gsap.fromTo(
       ".navbar-animate",
-      { opacity: 0, y: -12 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        stagger: 0.06,
-        ease: "power3.out",
-        delay: 0.1,
-      }
+      { opacity: 0, y: -10 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.05, ease: "power3.out", delay: 0.1 }
     );
   }, []);
 
@@ -49,173 +269,151 @@ export default function Navbar() {
     if (!mobileMenuOpen) return;
     gsap.fromTo(
       ".mobile-link",
-      { opacity: 0, y: 16 },
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.07,
-        duration: 0.45,
-        ease: "power3.out",
-        delay: 0.05,
-      }
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, stagger: 0.055, duration: 0.4, ease: "power3.out", delay: 0.04 }
     );
   }, [mobileMenuOpen]);
 
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
+  const toggleMobileMenu = useCallback(() => setMobileMenuOpen((v) => !v), []);
+
   return (
     <>
-      {/* ── HEADER ── */}
+
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+        className={`sticky top-0 left-0 w-full z-40 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
           isScrolled
-            ? "py-2.5 bg-white/72 backdrop-blur-2xl backdrop-saturate-[1.8] border-b border-black/[0.06] shadow-[0_1px_0_0_rgba(0,0,0,0.04),0_8px_32px_-8px_rgba(0,0,0,0.08)]"
-            : "py-4 bg-transparent"
+            ? "bg-white/80 backdrop-blur-2xl backdrop-saturate-[2] border-b border-black/[0.07] shadow-[0_1px_0_0_rgba(0,0,0,0.04),0_4px_24px_-4px_rgba(0,0,0,0.08)]"
+            : "bg-transparent"
         }`}
       >
-        <div className="max-w-280 mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-11 md:h-16">
+        <div
+          className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-orange-500 to-orange-400 transition-[width] duration-100 will-change-[width]"
+          style={{ width: `${scrollProgress}%` }}
+        />
 
-            {/* ── LOGO ── */}
-            <Link
-              to="/"
-              className="navbar-animate flex items-center gap-2.5 group select-none"
-            >
+        <div className="max-w-[1200px] mx-auto px-5 lg:px-8">
+          <div className="flex items-center justify-between h-[60px] md:h-[68px]">
+            <Link to="/" className="navbar-animate flex items-center gap-2.5 group select-none flex-shrink-0">
               <div className="relative">
                 <img
                   src={logo}
                   alt="Skyveon AI"
-                  className="md:h-24 h-11 w-auto transition-all duration-500 group-hover:scale-105"
+                  className="md:h-[52px] h-10 w-auto transition-all duration-500 group-hover:scale-[1.04]"
+                  width={160}
+                  height={52}
+                  loading="eager"
+                  decoding="async"
                 />
-                {/* Subtle glow under logo */}
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-1 bg-orange-500/30 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-1 bg-orange-500/25 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
-
-              {/* <div className="flex flex-col leading-none">
-                <span
-                  className="font-semibold tracking-[0.08em] text-[15px] text-slate-900"
-                  style={{ fontFamily: "-apple-system, 'SF Pro Display', BlinkMacSystemFont, sans-serif" }}
-                >
-                  SKYVEON
-                </span>
-                <span className="text-[9.5px] tracking-[0.22em] uppercase text-slate-400 mt-[3px]">
-                  AI Solutions
-                </span>
-              </div> */}
             </Link>
 
-            {/* ── DESKTOP NAV ── */}
-            <nav className="hidden lg:flex items-center gap-1">
-              {navLinks.map((link) => (
+            <nav className="hidden lg:flex items-center gap-0.5">
+              <NavDropdown label="Services" menu={ServicesMegaMenu} isScrolled={isScrolled} />
+              <NavDropdown label="Industries" menu={IndustriesMegaMenu} isScrolled={isScrolled} />
+              {simpleLinks.map((link) => (
                 <Link
                   key={link.label}
                   to={link.href}
-                  className="navbar-animate relative px-3.5 py-2 rounded-lg text-[14px] font-medium text-slate-600 transition-all duration-200 hover:text-slate-900 hover:bg-black/[0.04] active:bg-black/[0.07] group"
-                  style={{ fontFamily: "-apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif" }}
+                  className={`navbar-animate px-3.5 py-2 rounded-lg text-[13.5px] font-medium transition-colors duration-150
+                    ${isScrolled
+                      ? "text-slate-600 hover:text-slate-900 hover:bg-black/[0.04]"
+                      : "text-slate-700 hover:text-slate-900 hover:bg-white/20"}`}
+                  style={SF}
                 >
                   {link.label}
-                  {/* Micro dot indicator on hover */}
-                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-orange-500 scale-0 group-hover:scale-100 transition-transform duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
                 </Link>
               ))}
             </nav>
 
-            {/* ── RIGHT: CTA + HAMBURGER ── */}
-            <div className="flex items-center gap-3">
-              {/* Desktop CTA */}
+            <div className="flex items-center gap-2.5">
               <Link
                 to="#contact"
-                className="navbar-animate hidden lg:inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-4 py-2 text-[13.5px] font-semibold text-white transition-all duration-200 hover:bg-orange-500 active:scale-[0.97] shadow-[0_2px_8px_rgba(0,0,0,0.12)] hover:shadow-[0_4px_16px_rgba(255,91,46,0.35)]"
-                style={{ fontFamily: "-apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif", letterSpacing: "-0.01em" }}
+                className="navbar-animate hidden lg:inline-flex items-center gap-1.5 rounded-full bg-slate-900 text-[13px] font-semibold text-white transition-all duration-200 hover:bg-orange-500 active:scale-[0.97] shadow-[0_2px_8px_rgba(0,0,0,0.12)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.4)] group"
+                style={ctaStyle}
               >
                 Let's Talk
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" className="transition-transform duration-200 group-hover:translate-x-0.5">
-                  <path d="M2.5 6.5H10.5M10.5 6.5L7 3M10.5 6.5L7 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
 
-              {/* Mobile hamburger */}
               <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                onClick={toggleMobileMenu}
                 aria-label="Toggle menu"
                 aria-expanded={mobileMenuOpen}
-                className="navbar-animate lg:hidden flex items-center justify-center w-9 h-9 rounded-full bg-black/[0.05] hover:bg-black/[0.09] active:bg-black/[0.13] text-slate-800 transition-all duration-200"
+                className="navbar-animate lg:hidden relative flex items-center justify-center w-9 h-9 rounded-full bg-black/[0.05] hover:bg-black/[0.09] active:bg-black/[0.13] text-slate-800 transition-all duration-200"
               >
-                <span className={`transition-all duration-300 ${mobileMenuOpen ? "rotate-90 opacity-0 absolute" : "rotate-0 opacity-100"}`}>
+                <span
+                  className="absolute transition-all duration-300"
+                  style={{ opacity: mobileMenuOpen ? 0 : 1, transform: mobileMenuOpen ? "rotate(45deg) scale(0.5)" : "rotate(0deg) scale(1)" }}
+                >
                   <Menu size={18} strokeWidth={2} />
                 </span>
-                <span className={`transition-all duration-300 ${mobileMenuOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0 absolute"}`}>
+                <span
+                  className="absolute transition-all duration-300"
+                  style={{ opacity: mobileMenuOpen ? 1 : 0, transform: mobileMenuOpen ? "rotate(0deg) scale(1)" : "rotate(-45deg) scale(0.5)" }}
+                >
                   <X size={18} strokeWidth={2} />
                 </span>
               </button>
             </div>
-
           </div>
         </div>
       </header>
 
-      {/* ── MOBILE MENU ── */}
-      {/* Backdrop */}
       <div
-        className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden transition-opacity duration-400 ${
+        className={`fixed inset-0 z-30 bg-black/25 backdrop-blur-[3px] lg:hidden transition-opacity duration-350 ${
           mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
-        onClick={() => setMobileMenuOpen(false)}
+        onClick={closeMobileMenu}
       />
 
-      {/* Drawer — slides in from top */}
       <div
-        className={`fixed top-0 left-0 right-0 z-40 lg:hidden transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
-          mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0 pointer-events-none"
+        className={`fixed top-0 left-0 right-0 z-30 lg:hidden transition-all duration-450 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+          mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0 pointer-events-none"
         }`}
       >
-        <div className="mx-4 mt-[72px] rounded-2xl bg-white/95 backdrop-blur-2xl shadow-[0_16px_48px_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.06)] overflow-hidden">
-
-          {/* Nav links */}
-          <nav className="px-2 py-3">
-            {navLinks.map((link) => (
+        <div className="mx-3 mt-[64px] rounded-2xl bg-white/97 backdrop-blur-2xl shadow-[0_24px_64px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.07)] overflow-hidden">
+          <nav className="px-2 py-2.5">
+            <MobileAccordion title="Services" items={servicesMenu} />
+            <MobileAccordion title="Industries" items={industriesMenu} />
+            {simpleLinks.map((link) => (
               <Link
                 key={link.label}
                 to={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="mobile-link flex items-center justify-between w-full px-4 py-3.5 rounded-xl text-[16px] font-medium text-slate-800 hover:bg-black/[0.04] active:bg-black/[0.07] transition-colors duration-150 group"
-                style={{ fontFamily: "-apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif" }}
+                onClick={closeMobileMenu}
+                className="mobile-link flex items-center justify-between w-full px-4 py-3.5 rounded-xl text-[15px] font-medium text-slate-800 hover:bg-black/[0.04] active:bg-black/[0.07] transition-colors duration-150 group"
+                style={SF}
               >
                 <span>{link.label}</span>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-slate-300 group-hover:text-orange-400 transition-colors duration-200">
-                  <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <ArrowRight size={14} className="text-slate-300 group-hover:text-orange-400 transition-colors duration-200" />
               </Link>
             ))}
           </nav>
 
-          {/* Divider */}
           <div className="mx-4 h-px bg-black/[0.06]" />
 
-          {/* CTA row */}
           <div className="px-4 py-4">
             <Link
               to="#contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="mobile-link flex items-center justify-center gap-2 w-full rounded-2xl bg-slate-900 px-5 py-3.5 text-[15px] font-semibold text-white transition-all duration-200 hover:bg-orange-500 active:scale-[0.98] shadow-[0_2px_12px_rgba(0,0,0,0.15)]"
-              style={{ fontFamily: "-apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif", letterSpacing: "-0.01em" }}
+              onClick={closeMobileMenu}
+              className="mobile-link flex items-center justify-center gap-2 w-full rounded-2xl bg-slate-900 px-5 py-3.5 text-[14.5px] font-semibold text-white transition-all duration-200 hover:bg-orange-500 active:scale-[0.98] shadow-[0_2px_12px_rgba(0,0,0,0.15)] group"
+              style={{ ...SF, letterSpacing: "-0.01em" }}
             >
               Book a Consultation
-              <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                <path d="M3 7.5H12M12 7.5L8 3.5M12 7.5L8 11.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </div>
 
-          {/* Contact info */}
-          <div className="mobile-link px-6 pb-5 pt-1 flex items-center justify-center gap-5">
-            <a href="mailto:info@skyveon.ai" className="text-[12.5px] text-slate-400 hover:text-orange-500 transition-colors duration-200" style={{ fontFamily: "-apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif" }}>
+          <div className="mobile-link px-6 pb-5 flex items-center justify-center gap-5">
+            <a href="mailto:info@skyveon.ai" className="text-[12px] text-slate-400 hover:text-orange-500 transition-colors duration-200" style={SF}>
               info@skyveon.ai
             </a>
             <span className="w-px h-3 bg-slate-200" />
-            <a href="tel:+16146733427" className="text-[12.5px] text-slate-400 hover:text-orange-500 transition-colors duration-200" style={{ fontFamily: "-apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif" }}>
+            <a href="tel:+16146733427" className="text-[12px] text-slate-400 hover:text-orange-500 transition-colors duration-200" style={SF}>
               +1 (614) 673-3427
             </a>
           </div>
-
         </div>
       </div>
     </>
