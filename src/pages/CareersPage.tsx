@@ -618,7 +618,8 @@ export default function CareersPage() {
             alt="Skyveon Careers"
             className="absolute inset-0 h-full w-full object-cover opacity-100"
           />
-<div className="absolute inset-0 bg-black/30" />        </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/97 via-white/15 to-orange-500/[0.09]" />
+       </div>
 
         <div className="relative max-w-7xl mx-auto px-10">
           <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-[18px] py-2 text-[13px] font-semibold text-orange-500 tracking-widest">
@@ -635,7 +636,7 @@ export default function CareersPage() {
             </span>
           </h1>
 
-          <p className="hero-para mt-8 max-w-xl text-xl leading-relaxed text-slate-500 font-normal">
+          <p className="hero-para mt-8 max-w-xl text-xl leading-relaxed text-slate-900 font-normal">
             Join a team of engineers, architects, AI specialists, and innovators
             building enterprise technology that transforms businesses.
           </p>

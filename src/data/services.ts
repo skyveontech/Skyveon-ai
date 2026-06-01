@@ -44,8 +44,8 @@ export const services: ServiceData[] = [
     description:
       "Build scalable digital products engineered for performance, growth, and exceptional user experience.",
 
-    // heroImage: "/images/services/digital-banner.webp",
-      heroImage: "/images/services/hero-bg.webp",
+    heroImage: "/images/services/digital-banner.webp",
+      // heroImage: "/images/services/hero-bg.webp",
 
     overviewImage: "/images/services/digital.webp",
 
@@ -137,8 +137,8 @@ export const services: ServiceData[] = [
   description:
     "Automate deployments, improve reliability, and scale confidently with modern cloud and DevOps practices.",
 
-  // heroImage: "/images/services/cloud-banner.webp",
-    heroImage: "/images/services/hero-bg.webp",
+  heroImage: "/images/services/cloud-banner.webp",
+    // heroImage: "/images/services/1.png",
 
   overviewImage: "/images/services/cloud.webp",
 
@@ -238,8 +238,8 @@ export const services: ServiceData[] = [
   description:
     "Build reliable data pipelines, analytics platforms, and executive dashboards that turn raw data into actionable business insights.",
 
-  // heroImage: "/images/services/data-banner.webp",
-    heroImage: "/images/services/hero-bg.webp",
+  heroImage: "/images/services/data-banner.webp",
+    // heroImage: "/images/services/hero-bg.webp",
 
   overviewImage: "/images/services/data.webp",
 
@@ -328,7 +328,8 @@ export const services: ServiceData[] = [
       label: "Faster Reporting",
     },
   ],
-},{
+},
+{
   slug: "enterprise-platforms",
 
   title: "Enterprise Platforms",
@@ -338,8 +339,8 @@ export const services: ServiceData[] = [
   description:
     "Maximize the value of enterprise platforms through seamless implementation, integration, customization, and ongoing optimization.",
 
-  // heroImage: "/images/services/enterprise-banner.webp",
-    heroImage: "/images/services/hero-bg.webp",
+  heroImage: "/images/services/enterprise-banner.webp",
+    // heroImage: "/images/services/hero-bg.webp",
 
   overviewImage: "/images/services/enterprise.webp",
 
@@ -440,7 +441,7 @@ export const services: ServiceData[] = [
   description:
     "Transform business operations with AI-powered solutions, machine learning models, intelligent automation, and enterprise-grade generative AI systems.",
 
-  heroImage: "/images/services/hero-bg.webp",
+  heroImage: "/images/services/ai-banner.webp",
   overviewImage: "/images/services/ai.webp",
 
   accent: "from-fuchsia-500 to-purple-600",

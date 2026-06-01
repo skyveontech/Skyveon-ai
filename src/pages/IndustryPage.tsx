@@ -603,47 +603,47 @@ export default function IndustryPage() {
         </div>
       </section>
 
-      {/* ═══════════════════ CTA ═══════════════════ */}
-      <section ref={ctaRef} className="py-8 md:py-12 relative overflow-hidden">
-        {/* Fix: bg-gradient-radial is not a default Tailwind class — use inline style instead */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <section
+        ref={ctaRef}
+        className="relative overflow-hidden py-14 md:py-20 lg:py-28">
+        {/* BACKGROUND */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <img
             src="/images/bg-metrics-orange-white.webp"
             alt=""
-            className="absolute top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 opacity-100 blur-[10px]"
+            className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 object-cover opacity-100 blur-[10px]"
           />
+          <div className="absolute inset-0 bg-slate-950/10" />
         </div>
 
-        <div className="cta-inner relative max-w-3xl mx-auto px-6 text-center">
-          <span
-            className="inline-block rounded-full bg-orange-500 px-5 py-2 text-xs font-semibold uppercase tracking-widest text-white mb-8"
-            style={{ opacity: 0 }}>
+        {/* CONTENT */}
+        <div className="relative z-10 mx-auto max-w-4xl px-5 text-center sm:px-8">
+          {/* BADGE */}
+          <span className="mb-6 inline-block rounded-full bg-orange-500 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.15em] text-white md:mb-8 md:px-5 md:text-xs">
             Get Started
           </span>
 
-          <h2
-            className="text-5xl lg:text-7xl font-extrabold text-white leading-[1.0] tracking-tight"
-            style={{ opacity: 0 }}>
-            Ready To Transform
-            <br />
+          {/* HEADING — <br /> removed, wraps naturally at each size */}
+          <h2 className="text-[clamp(2rem,8vw,4.5rem)] font-extrabold leading-[1.05] tracking-tight text-white">
+            Ready To Transform{" "}
             <span className="bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">
               Your Organization?
             </span>
           </h2>
 
+          {/* DESCRIPTION */}
           <p
-            className="mt-8 text-lg text-white/60 leading-relaxed max-w-xl mx-auto"
-            style={{ fontFamily: "'DM Sans', sans-serif", opacity: 0 }}>
+            className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base md:mt-8 md:text-lg"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}>
             Discover how Skyveon can help modernize, optimize, and scale your
             business — from day one.
           </p>
 
-          <div
-            className="mt-12 flex items-center justify-center gap-4 flex-wrap"
-            style={{ opacity: 0 }}>
-              <Link
+          {/* BUTTONS */}
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 md:mt-12">
+            <Link
               to="/contact"
-              className="group flex items-center gap-3 rounded-full bg-orange-500 px-8 py-4 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+              className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-orange-500 px-7 py-4 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl sm:w-auto md:px-8">
               Schedule Consultation
               <svg
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
@@ -658,9 +658,12 @@ export default function IndustryPage() {
                 />
               </svg>
             </Link>
-            {/* <button className="rounded-full border border-white/20 px-10 py-5 text-sm font-semibold text-white/80 hover:border-white/50 hover:text-white transition-all duration-300 hover:bg-white/5">
+
+            <Link
+              to="/case-studies"
+              className="inline-flex w-full items-center justify-center rounded-full border border-white/20 px-7 py-4 text-sm font-semibold text-white/80 transition-all duration-300 hover:border-white/50 hover:bg-white/5 hover:text-white sm:w-auto md:px-8">
               View Case Studies
-            </button> */}
+            </Link>
           </div>
         </div>
       </section>

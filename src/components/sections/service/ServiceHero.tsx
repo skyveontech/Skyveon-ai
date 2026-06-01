@@ -122,19 +122,19 @@ export default function ServiceHero({ service }: Props) {
         />
 
         {/* shimmer sweep */}
-        <div className="hero-overlay-shimmer absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/8 to-transparent skew-x-[-12deg] pointer-events-none z-10" />
+        {/* <div className="hero-overlay-shimmer absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/8 to-transparent skew-x-[-12deg] pointer-events-none z-10" /> */}
 
         {/* deep black base */}
-        {/* <div className="absolute inset-0 bg-black/65" /> */}
+        <div className="absolute inset-0 bg-black/35" />
 
         {/* directional gradient — left content zone */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-transparent" />
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-transparent" /> */}
 
         {/* orange atmospheric glow — top-right */}
-        <div className="absolute -top-32 right-0 w-[500px] h-[500px] rounded-full bg-orange-600/20 blur-[120px] pointer-events-none" />
+        {/* <div className="absolute -top-32 right-0 w-[500px] h-[500px] rounded-full bg-orange-600/20 blur-[120px] pointer-events-none" /> */}
 
         {/* bottom vignette */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+        {/* <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" /> */}
       </div>
 
       {/* ── CONTENT ────────────────────────────────────────────────────────── */}

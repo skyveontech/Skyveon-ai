@@ -332,29 +332,31 @@ const MobileAccordion = memo(function MobileAccordion({
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
-  useEffect(() => {
-    let rafId: number | null = null;
 
-    const handleScroll = () => {
-      if (rafId) return;
-      rafId = requestAnimationFrame(() => {
-        const y = window.scrollY;
-        setIsScrolled(y > 20);
-        const totalHeight =
-          document.documentElement.scrollHeight - window.innerHeight;
-        setScrollProgress(totalHeight > 0 ? (y / totalHeight) * 100 : 0);
-        rafId = null;
-      });
-    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, []);
+ useEffect(() => {
+  let lastState = false;
+
+  const handleScroll = () => {
+    const nextState = window.scrollY > 20;
+
+    if (nextState !== lastState) {
+      lastState = nextState;
+      setIsScrolled(nextState);
+    }
+  };
+
+  handleScroll();
+
+  window.addEventListener("scroll", handleScroll, {
+    passive: true,
+  });
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
@@ -363,36 +365,52 @@ export default function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  useGsap(() => {
-    gsap.fromTo(
-      ".navbar-animate",
-      { opacity: 0, y: -10 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.05,
-        ease: "power3.out",
-        delay: 0.1,
-      },
-    );
-  }, []);
+useGsap(() => {
 
-  useGsap(() => {
-    if (!mobileMenuOpen) return;
-    gsap.fromTo(
-      ".mobile-link",
-      { opacity: 0, y: 12 },
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.055,
-        duration: 0.4,
-        ease: "power3.out",
-        delay: 0.04,
-      },
-    );
-  }, [mobileMenuOpen]);
+  gsap.set(
+  [
+    ".navbar-animate",
+    ".mobile-link",
+    ".mobile-menu-panel",
+  ],
+  {
+    force3D: true,
+  }
+);
+  gsap.set(".navbar-animate", {
+    willChange: "transform, opacity",
+  });
+
+  gsap.from(".navbar-animate", {
+    opacity: 0,
+    y: -16,
+    duration: 0.6,
+    stagger: 0.04,
+    ease: "power3.out",
+    clearProps: "willChange",
+  });
+}, []);
+
+useGsap(() => {
+  if (!mobileMenuOpen) return;
+
+  gsap.from(".mobile-menu-panel", {
+    y: -20,
+    opacity: 0,
+    duration: 0.35,
+    ease: "power3.out",
+  });
+
+  gsap.from(".mobile-link", {
+    opacity: 0,
+    y: 10,
+    stagger: 0.03,
+    duration: 0.25,
+    ease: "power2.out",
+  });
+}, [mobileMenuOpen]);
+
+
 
   const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
   const toggleMobileMenu = useCallback(() => setMobileMenuOpen((v) => !v), []);
@@ -405,10 +423,7 @@ export default function Navbar() {
             ? "bg-white/80 backdrop-blur-2xl backdrop-saturate-[2] border-b border-black/[0.07] shadow-[0_1px_0_0_rgba(0,0,0,0.04),0_4px_24px_-4px_rgba(0,0,0,0.08)]"
             : "bg-transparent"
         }`}>
-        <div
-          className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-orange-500 to-orange-400 transition-[width] duration-100 will-change-[width]"
-          style={{ width: `${scrollProgress}%` }}
-        />
+   
 
         <div className="max-w-[1200px] mx-auto px-5 lg:px-8">
           <div className="flex items-center justify-between h-[60px] md:h-[68px]">
@@ -458,7 +473,7 @@ export default function Navbar() {
 
             <div className="flex items-center gap-2.5">
               <Link
-                to="#contact"
+                to="/contact"
                 className="navbar-animate hidden lg:inline-flex items-center gap-1.5 rounded-full bg-slate-900 text-[13px] font-semibold text-white transition-all duration-200 hover:bg-orange-500 active:scale-[0.97] shadow-[0_2px_8px_rgba(0,0,0,0.12)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.4)] group"
                 style={ctaStyle}>
                 Let's Talk
@@ -514,7 +529,7 @@ export default function Navbar() {
             ? "translate-y-0 opacity-100"
             : "-translate-y-3 opacity-0 pointer-events-none"
         }`}>
-        <div className="mx-3 mt-[64px] rounded-2xl bg-white/97 backdrop-blur-2xl shadow-[0_24px_64px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.07)] overflow-hidden">
+        <div className="mx-3 mt-[64px] mobile-menu-panel rounded-2xl bg-white/97 backdrop-blur-2xl shadow-[0_24px_64px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.07)] overflow-hidden">
           <nav className="px-2 py-2.5">
             <MobileAccordion
               title="Services"
