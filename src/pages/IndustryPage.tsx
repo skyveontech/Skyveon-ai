@@ -659,11 +659,11 @@ export default function IndustryPage() {
               </svg>
             </Link>
 
-            <Link
+            {/* <Link
               to="/case-studies"
               className="inline-flex w-full items-center justify-center rounded-full border border-white/20 px-7 py-4 text-sm font-semibold text-white/80 transition-all duration-300 hover:border-white/50 hover:bg-white/5 hover:text-white sm:w-auto md:px-8">
               View Case Studies
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>

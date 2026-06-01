@@ -618,7 +618,7 @@ export default function CareersPage() {
             alt="Skyveon Careers"
             className="absolute inset-0 h-full w-full object-cover opacity-100"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white/97 via-white/15 to-orange-500/[0.09]" />
+          {/* <div className="absolute inset-0 bg-gradient-to-r from-white/97 via-white/15 to-orange-500/[0.09]" /> */}
        </div>
 
         <div className="relative max-w-7xl mx-auto px-10">
