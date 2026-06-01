@@ -231,187 +231,256 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ── FORM SECTION ─────────────────────────────────────────────────────── */}
-      <section id="contact" ref={formRef} className="scroll-mt-16 py-28 bg-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
+   {/* ── FORM SECTION ─────────────────────────────────────────────────────── */}
+<section
+  id="contact"
+  ref={formRef}
+  className="scroll-mt-20 py-14 md:py-20 lg:py-28 bg-white"
+>
+  <div className="mx-auto max-w-7xl px-5 md:px-6 lg:px-10">
+    <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 lg:items-start">
 
-            {/* LEFT — copy */}
-            <div className="sticky top-24">
-              <p className="text-sm font-semibold uppercase tracking-widest text-orange-500">
-                Get in touch
-              </p>
-              <h2 className="mt-4 text-4xl font-black leading-tight text-slate-900 lg:text-5xl">
-                Tell us about
-                <br />
-                your project
-              </h2>
-              <p className="mt-5 text-lg leading-relaxed text-slate-500">
-                Fill out the form and we'll follow up within one business day to discuss
-                how we can help.
-              </p>
+      {/* LEFT — COPY */}
+      <div className="lg:sticky lg:top-24">
+        <p className="text-xs md:text-sm font-semibold uppercase tracking-widest text-orange-500">
+          Get in touch
+        </p>
 
-              {/* feature list */}
-              <ul className="mt-10 space-y-5">
-                {[
-                  {
-                    title: "AI & Machine Learning",
-                    desc: "Custom models, LLM integrations, intelligent automation",
-                  },
-                  {
-                    title: "Cloud & DevOps",
-                    desc: "AWS, Azure, GCP migrations, CI/CD pipelines, infra-as-code",
-                  },
-                  {
-                    title: "Data Engineering",
-                    desc: "Pipelines, warehousing, real-time analytics at scale",
-                  },
-                  {
-                    title: "Enterprise Platforms",
-                    desc: "ERP, CRM, custom portals & digital transformation",
-                  },
-                ].map(({ title, desc }) => (
-                  <li key={title} className="flex gap-4">
-                    <span className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-100">
-                      <CheckCircle2 className="h-4 w-4 text-orange-500" />
-                    </span>
-                    <div>
-                      <p className="font-bold text-slate-800">{title}</p>
-                      <p className="text-sm text-slate-500">{desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+        <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-slate-900">
+          Tell us about
+          <br />
+          your project
+        </h2>
+
+        <p className="mt-5 text-base md:text-lg leading-relaxed text-slate-500">
+          Fill out the form and we'll follow up within one business day to
+          discuss how we can help.
+        </p>
+
+        {/* FEATURE LIST */}
+        <ul className="mt-8 md:mt-10 space-y-5">
+          {[
+            {
+              title: "AI & Machine Learning",
+              desc: "Custom models, LLM integrations, intelligent automation",
+            },
+            {
+              title: "Cloud & DevOps",
+              desc: "AWS, Azure, GCP migrations, CI/CD pipelines, infra-as-code",
+            },
+            {
+              title: "Data Engineering",
+              desc: "Pipelines, warehousing, real-time analytics at scale",
+            },
+            {
+              title: "Enterprise Platforms",
+              desc: "ERP, CRM, custom portals & digital transformation",
+            },
+          ].map(({ title, desc }) => (
+            <li key={title} className="flex gap-4">
+              <span className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-100">
+                <CheckCircle2 className="h-4 w-4 text-orange-500" />
+              </span>
+
+              <div>
+                <p className="font-bold text-slate-800">
+                  {title}
+                </p>
+
+                <p className="text-sm text-slate-500 leading-relaxed">
+                  {desc}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* RIGHT — FORM */}
+      <div className="rounded-[24px] md:rounded-[2.5rem] border border-slate-100 bg-white p-5 md:p-8 lg:p-10 shadow-xl shadow-slate-100">
+
+        {status === "success" ? (
+          <div className="flex flex-col items-center justify-center gap-6 py-10 md:py-16 text-center">
+
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-50">
+              <CheckCircle2 className="h-10 w-10 text-orange-500" />
             </div>
 
-            {/* RIGHT — form */}
-            <div className="rounded-[2.5rem] border border-slate-100 bg-white p-8 shadow-xl shadow-slate-100 lg:p-10">
-              {status === "success" ? (
-                /* success state */
-                <div className="flex flex-col items-center justify-center gap-6 py-16 text-center">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-50">
-                    <CheckCircle2 className="h-10 w-10 text-orange-500" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-black text-slate-900">Message sent!</h3>
-                    <p className="mt-2 text-slate-500">
-                      Your email client should have opened. We'll be in touch within 24 hours.
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => {
-                      setStatus("idle");
-                      setForm({ name: "", email: "", company: "", service: "", message: "" });
-                    }}
-                    className="rounded-2xl border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-600 transition-colors hover:border-orange-300 hover:text-orange-600"
-                  >
-                    Send another message
-                  </button>
-                </div>
-              ) : (
-                /* form fields */
-                <div className="space-y-5">
-                  <h3 className="text-2xl font-black text-slate-900">Send us a message</h3>
+            <div>
+              <h3 className="text-2xl font-black text-slate-900">
+                Message sent!
+              </h3>
 
-                  {/* Name + Company row */}
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <input
-                        placeholder="Full Name *"
-                        value={form.name}
-                        onChange={update("name")}
-                        className={cn(fieldBase, errors.name && "border-red-300 bg-red-50 focus:ring-red-100")}
-                      />
-                      {errors.name && (
-                        <p className="mt-1.5 text-xs font-medium text-red-500">{errors.name}</p>
-                      )}
-                    </div>
+              <p className="mt-2 text-slate-500">
+                Your email client should have opened. We'll be in touch within
+                24 hours.
+              </p>
+            </div>
 
-                    <div>
-                      <input
-                        placeholder="Company (optional)"
-                        value={form.company}
-                        onChange={update("company")}
-                        className={fieldBase}
-                      />
-                    </div>
-                  </div>
+            <button
+              onClick={() => {
+                setStatus("idle");
+                setForm({
+                  name: "",
+                  email: "",
+                  company: "",
+                  service: "",
+                  message: "",
+                });
+              }}
+              className="rounded-2xl border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-600 transition-colors hover:border-orange-300 hover:text-orange-600"
+            >
+              Send another message
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-5">
 
-                  {/* Email */}
-                  <div>
-                    <input
-                      type="email"
-                      placeholder="Email Address *"
-                      value={form.email}
-                      onChange={update("email")}
-                      className={cn(fieldBase, errors.email && "border-red-300 bg-red-50 focus:ring-red-100")}
-                    />
-                    {errors.email && (
-                      <p className="mt-1.5 text-xs font-medium text-red-500">{errors.email}</p>
-                    )}
-                  </div>
+            <h3 className="text-2xl font-black text-slate-900">
+              Send us a message
+            </h3>
 
-                  {/* Service */}
-                  <select
-                    value={form.service}
-                    onChange={update("service")}
-                    className={cn(fieldBase, "cursor-pointer appearance-none text-slate-500", form.service && "text-slate-800")}
-                  >
-                    <option value="">Select a service (optional)</option>
-                    <option value="AI & Machine Learning">AI & Machine Learning</option>
-                    <option value="Cloud & DevOps">Cloud & DevOps</option>
-                    <option value="Data Engineering">Data Engineering</option>
-                    <option value="Enterprise Platforms">Enterprise Platforms</option>
-                    <option value="Other">Other / Not sure yet</option>
-                  </select>
+            {/* NAME + COMPANY */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                  {/* Message */}
-                  <div>
-                    <textarea
-                      rows={6}
-                      placeholder="Tell us about your project requirements... *"
-                      value={form.message}
-                      onChange={update("message")}
-                      className={cn(
-                        fieldBase,
-                        "resize-none",
-                        errors.message && "border-red-300 bg-red-50 focus:ring-red-100"
-                      )}
-                    />
-                    {errors.message && (
-                      <p className="mt-1.5 text-xs font-medium text-red-500">{errors.message}</p>
-                    )}
-                  </div>
+              <div>
+                <input
+                  placeholder="Full Name *"
+                  value={form.name}
+                  onChange={update("name")}
+                  className={cn(
+                    fieldBase,
+                    errors.name &&
+                      "border-red-300 bg-red-50 focus:ring-red-100"
+                  )}
+                />
 
-                  {/* Submit */}
-                  <button
-                    onClick={handleSubmit}
-                    disabled={status === "submitting"}
-                    className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-orange-500 py-4 font-bold text-white shadow-lg shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-300 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
-                  >
-                    {status === "submitting" ? (
-                      <>
-                        <Loader2 className="h-5 w-5 animate-spin" />
-                        Opening email client…
-                      </>
-                    ) : (
-                      <>
-                        Send Message
-                        <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-                      </>
-                    )}
-                  </button>
-
-                  <p className="text-center text-xs text-slate-400">
-                    Clicking Send will open your default email app with the details pre-filled.
-                    We respond within 24 hours.
+                {errors.name && (
+                  <p className="mt-1.5 text-xs font-medium text-red-500">
+                    {errors.name}
                   </p>
-                </div>
+                )}
+              </div>
+
+              <div>
+                <input
+                  placeholder="Company (optional)"
+                  value={form.company}
+                  onChange={update("company")}
+                  className={fieldBase}
+                />
+              </div>
+            </div>
+
+            {/* EMAIL */}
+            <div>
+              <input
+                type="email"
+                placeholder="Email Address *"
+                value={form.email}
+                onChange={update("email")}
+                className={cn(
+                  fieldBase,
+                  errors.email &&
+                    "border-red-300 bg-red-50 focus:ring-red-100"
+                )}
+              />
+
+              {errors.email && (
+                <p className="mt-1.5 text-xs font-medium text-red-500">
+                  {errors.email}
+                </p>
               )}
             </div>
+
+            {/* SERVICE */}
+            <select
+              value={form.service}
+              onChange={update("service")}
+              className={cn(
+                fieldBase,
+                "cursor-pointer appearance-none text-slate-500",
+                form.service && "text-slate-800"
+              )}
+            >
+              <option value="">
+                Select a service (optional)
+              </option>
+
+              <option value="AI & Machine Learning">
+                AI & Machine Learning
+              </option>
+
+              <option value="Cloud & DevOps">
+                Cloud & DevOps
+              </option>
+
+              <option value="Data Engineering">
+                Data Engineering
+              </option>
+
+              <option value="Enterprise Platforms">
+                Enterprise Platforms
+              </option>
+
+              <option value="Other">
+                Other / Not sure yet
+              </option>
+            </select>
+
+            {/* MESSAGE */}
+            <div>
+              <textarea
+                rows={6}
+                placeholder="Tell us about your project requirements... *"
+                value={form.message}
+                onChange={update("message")}
+                className={cn(
+                  fieldBase,
+                  "resize-none min-h-[180px]",
+                  errors.message &&
+                    "border-red-300 bg-red-50 focus:ring-red-100"
+                )}
+              />
+
+              {errors.message && (
+                <p className="mt-1.5 text-xs font-medium text-red-500">
+                  {errors.message}
+                </p>
+              )}
+            </div>
+
+            {/* SUBMIT */}
+            <button
+              onClick={handleSubmit}
+              disabled={status === "submitting"}
+              className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-orange-500 py-4 font-bold text-white shadow-lg shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-300 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {status === "submitting" ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  Opening email client...
+                </>
+              ) : (
+                <>
+                  Send Message
+
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </>
+              )}
+            </button>
+
+            <p className="text-center text-xs text-slate-400 leading-relaxed">
+              Clicking Send will open your default email app with the details
+              pre-filled. We respond within 24 hours.
+            </p>
+
           </div>
-        </div>
-      </section>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
     </div>
   );
 }
