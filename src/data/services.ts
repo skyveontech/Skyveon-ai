@@ -44,8 +44,10 @@ export const services: ServiceData[] = [
     description:
       "Build scalable digital products engineered for performance, growth, and exceptional user experience.",
 
-    heroImage: "/images/bg-metrics-orange-white.png",
-    overviewImage: "/images/servicepages/Cloud-Services-Houston.jpg",
+    // heroImage: "/images/services/digital-banner.webp",
+      heroImage: "/images/services/hero-bg.webp",
+
+    overviewImage: "/images/services/digital.webp",
 
     accent: "from-orange-500 to-red-500",
 
@@ -135,8 +137,10 @@ export const services: ServiceData[] = [
   description:
     "Automate deployments, improve reliability, and scale confidently with modern cloud and DevOps practices.",
 
-  heroImage: "/images/bg-metrics-orange-white.png",
-  overviewImage: "/images/servicepages/Cloud-Services-Houston.jpg",
+  // heroImage: "/images/services/cloud-banner.webp",
+    heroImage: "/images/services/hero-bg.webp",
+
+  overviewImage: "/images/services/cloud.webp",
 
   accent: "from-sky-500 to-blue-600",
 
@@ -234,8 +238,10 @@ export const services: ServiceData[] = [
   description:
     "Build reliable data pipelines, analytics platforms, and executive dashboards that turn raw data into actionable business insights.",
 
-  heroImage: "/images/bg-metrics-orange-white.png",
-  overviewImage: "/images/servicepages/Data-Analytics-Houston.jpg",
+  // heroImage: "/images/services/data-banner.webp",
+    heroImage: "/images/services/hero-bg.webp",
+
+  overviewImage: "/images/services/data.webp",
 
   accent: "from-violet-500 to-fuchsia-500",
 
@@ -332,8 +338,10 @@ export const services: ServiceData[] = [
   description:
     "Maximize the value of enterprise platforms through seamless implementation, integration, customization, and ongoing optimization.",
 
-  heroImage: "/images/bg-metrics-orange-white.png",
-  overviewImage: "/images/servicepages/Enterprise-Platforms-Houston.jpg",
+  // heroImage: "/images/services/enterprise-banner.webp",
+    heroImage: "/images/services/hero-bg.webp",
+
+  overviewImage: "/images/services/enterprise.webp",
 
   accent: "from-emerald-500 to-teal-600",
 
@@ -432,8 +440,8 @@ export const services: ServiceData[] = [
   description:
     "Transform business operations with AI-powered solutions, machine learning models, intelligent automation, and enterprise-grade generative AI systems.",
 
-  heroImage: "/images/bg-metrics-orange-white.png",
-  overviewImage: "/images/servicepages/AI-Machine-Learning-Houston.jpg",
+  heroImage: "/images/services/hero-bg.webp",
+  overviewImage: "/images/services/ai.webp",
 
   accent: "from-fuchsia-500 to-purple-600",
 

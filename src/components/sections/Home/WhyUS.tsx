@@ -11,180 +11,197 @@ export default function WhyUs() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGsap(() => {
-    // INITIAL STATES
+    // Accessibility
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+    gsap.set(
+      [
+        ".why-badge",
+        ".why-title-line",
+        ".why-description",
+        ".why-cta",
+        ".why-stats",
+        ".why-visual",
+        ".why-float-pill",
+        ".why-float-stat",
+      ],
+      {
+        willChange: "transform, opacity",
+        force3D: true,
+      },
+    );
+
     gsap.set(".why-badge", {
       opacity: 0,
       y: 20,
     });
 
     gsap.set(".why-title-line", {
-      yPercent: 120,
+      yPercent: 110,
+      opacity: 0,
     });
 
-    gsap.set(".why-description", {
+    gsap.set([".why-description", ".why-cta", ".why-stats"], {
       opacity: 0,
-      y: 30,
-    });
-
-    gsap.set(".why-cta", {
-      opacity: 0,
-      y: 20,
-    });
-
-    gsap.set(".why-stats", {
-      opacity: 0,
-      y: 20,
+      y: 24,
     });
 
     gsap.set(".why-visual", {
       opacity: 0,
-      scale: 0.94,
-      rotate: -3,
+      scale: 0.96,
+      rotate: -2,
     });
 
     gsap.set(".why-float-pill", {
       opacity: 0,
-      y: -16,
+      y: -12,
+      scale: 0.95,
     });
 
     gsap.set(".why-float-stat", {
       opacity: 0,
-      x: -20,
-      y: 10,
+      x: -16,
+      scale: 0.95,
     });
 
+    // ------------------------------------
     // MASTER TIMELINE
+    // ------------------------------------
     const tl = gsap.timeline({
+      defaults: {
+        ease: "power3.out",
+      },
+
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top 72%",
-        end: "bottom center",
+        start: "top 75%",
         once: true,
+      },
+
+      onComplete: () => {
+        // --------------------------------
+        // FLOATING EFFECTS
+        // Only start AFTER reveal
+        // --------------------------------
+
+        gsap.to(".why-float-pill", {
+          y: -8,
+          duration: 3,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        gsap.to(".why-float-stat", {
+          y: 10,
+          duration: 3.5,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
       },
     });
 
-    // BADGE
     tl.to(".why-badge", {
       opacity: 1,
       y: 0,
-      duration: 0.6,
-      ease: "power3.out",
-    });
+      duration: 0.5,
+    })
 
-    // TITLE REVEAL
-    tl.to(
-      ".why-title-line",
-      {
-        yPercent: 0,
-        duration: 1,
-        stagger: 0.12,
-        ease: "power4.out",
-      },
-      "-=0.2",
-    );
+      .to(
+        ".why-title-line",
+        {
+          opacity: 1,
+          yPercent: 0,
+          stagger: 0.08,
+          duration: 0.9,
+          ease: "power4.out",
+        },
+        "-=0.15",
+      )
 
-    // DESCRIPTION
-    tl.to(
-      ".why-description",
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      },
-      "-=0.6",
-    );
+      .to(
+        ".why-description",
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+        },
+        "-=0.55",
+      )
 
-    // CTA
-    tl.to(
-      ".why-cta",
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: "power3.out",
-      },
-      "-=0.5",
-    );
+      .to(
+        ".why-cta",
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+        },
+        "-=0.5",
+      )
 
-    // STATS ROW
-    tl.to(
-      ".why-stats",
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power3.out",
-      },
-      "-=0.4",
-    );
+      .to(
+        ".why-stats",
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.08,
+          duration: 0.6,
+        },
+        "-=0.45",
+      )
 
-    // VISUAL IMAGE
-    tl.to(
-      ".why-visual",
-      {
-        opacity: 1,
-        scale: 1,
-        rotate: 0,
-        duration: 1.2,
-        ease: "power4.out",
-      },
-      "-=1.2",
-    );
+      .to(
+        ".why-visual",
+        {
+          opacity: 1,
+          scale: 1,
+          rotate: 0,
+          duration: 1,
+          ease: "power4.out",
+        },
+        "-=1",
+      )
 
-    // FLOATING PILL
-    tl.to(
-      ".why-float-pill",
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: "back.out(2)",
-      },
-      "-=0.5",
-    );
+      .to(
+        ".why-float-pill",
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(1.8)",
+        },
+        "-=0.55",
+      )
 
-    // FLOATING STAT
-    tl.to(
-      ".why-float-stat",
-      {
-        opacity: 1,
-        x: 0,
-        y: 0,
-        duration: 0.7,
-        ease: "back.out(2)",
-      },
-      "-=0.4",
-    );
+      .to(
+        ".why-float-stat",
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(1.8)",
+        },
+        "-=0.45",
+      );
 
-    // FLOATING ANIMATIONS
-    gsap.to(".why-float-pill", {
-      y: -8,
-      duration: 2.8,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-    });
+    // ------------------------------------
+    // IMAGE PARALLAX
+    // ------------------------------------
 
-    gsap.to(".why-float-stat", {
-      y: 10,
-      duration: 3.2,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: 0.5,
-    });
-
-    // PARALLAX on image
     gsap.to(".why-img-inner", {
       yPercent: -8,
+
       ease: "none",
+
       scrollTrigger: {
         trigger: sectionRef.current,
         start: "top bottom",
         end: "bottom top",
-        scrub: 1.5,
+        scrub: 1,
       },
     });
   }, []);
@@ -298,7 +315,7 @@ export default function WhyUs() {
               {/* overflow wrapper for parallax */}
               <div className="why-img-inner will-change-transform">
                 <img
-                  src="/images/why-us.png"
+                  src="/images/why-us.webp"
                   alt="Skyveon AI Infrastructure"
                   className="h-[540px] w-full object-cover scale-110"
                   loading="lazy"

@@ -135,7 +135,7 @@ export default function FutureBanner() {
       <div className="future-bg pointer-events-none absolute inset-0 overflow-hidden">
         {/* IMAGE */}
         <img
-          src="/images/future-bg.png"
+          src="/images/future-bg.webp"
           alt=""
           aria-hidden="true"
           loading="lazy"
@@ -183,7 +183,7 @@ export default function FutureBanner() {
         {/* CTA */}
         <div className="mt-12">
           <Link
-            to="#services"
+            to="/services/digital-product-engineering"
             className="hero-btn group inline-flex items-center gap-2  bg-[#FF6B00] px-7 py-4 text-base font-semibold text-white shadow-2xl shadow-orange-500/20 hover:text-[#FF6B00] hover:bg-white border-2 hover:border-[#FF6B00]">
             Explore Services
             <ArrowRight

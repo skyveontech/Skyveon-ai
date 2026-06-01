@@ -1,4 +1,5 @@
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import {  Mail, MapPin, Phone } from "lucide-react";
+
 import { Link } from "react-router-dom";
 
 
@@ -6,16 +7,32 @@ import logo from "@/assets/logo.png";
 
 const footerLinks = {
   company: [
-    { label: "About", href: "#about" },
-    { label: "Careers", href: "#careers" },
-    { label: "Contact", href: "#contact" },
-  ],
-  services: [
-    { label: "AI & Machine Learning", href: "#services" },
-    { label: "Cloud & DevOps", href: "#services" },
-    { label: "Data Engineering", href: "#services" },
-    { label: "Enterprise Platforms", href: "#services" },
-  ],
+    { label: "About", href: "/about" },
+    { label: "Careers", href: "/careers" },
+    { label: "Contact", href: "/contact" },
+  ], 
+services: [
+  {
+    label: "Digital Product Engineering",
+    href: "/services/digital-product-engineering",
+  },
+  {
+    label: "Cloud & DevOps",
+    href: "/services/cloud-devops",
+  },
+  {
+    label: "Data Engineering & Analytics",
+    href: "/services/data-engineering-analytics",
+  },
+  {
+    label: "Enterprise Platforms",
+    href: "/services/enterprise-platforms",
+  },
+  {
+    label: "AI & Machine Learning",
+    href: "/services/ai-machine-learning",
+  },
+],
 };
 
 const contactItems = [
@@ -109,7 +126,7 @@ export default function Footer() {
               Building intelligent enterprise solutions through AI, cloud, data
               engineering, and digital transformation technologies.
             </p>
-
+{/* 
             <Link
               to="#services"
               className="hero-btn group mt-8 inline-flex items-center gap-2 border-2 border-[#FF6B00] bg-[#FF6B00] px-7 py-4 text-base font-semibold text-white shadow-2xl shadow-orange-500/20 transition-colors duration-200 hover:bg-white hover:text-[#FF6B00]"
@@ -119,7 +136,7 @@ export default function Footer() {
                 size={18}
                 className="transition-transform duration-300 group-hover:translate-x-1"
               />
-            </Link>
+            </Link> */}
           </div>
 
           <div>

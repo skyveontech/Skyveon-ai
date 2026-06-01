@@ -189,13 +189,13 @@ export default function ServiceHero({ service }: Props) {
                 Get Started
                 <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
-
+{/* 
               <Link
                 to="/services"
                 className="hero-btn inline-flex items-center gap-2  border border-white/25 bg-white/10 backdrop-blur-md px-8 py-4 text-white font-semibold transition-colors duration-200 hover:bg-white/20 hover:border-white/40"
               >
                 Explore Services
-              </Link>
+              </Link> */}
             </div>
 
           </div>

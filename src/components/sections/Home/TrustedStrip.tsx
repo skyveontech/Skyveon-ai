@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+// import { ArrowRight } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 
 import gsap from "@/lib/gsap";
@@ -239,12 +239,12 @@ export default function TrustedStrip() {
               scalability, and measurable business impact.
             </p>
 
-            <div className="trusted-desc mt-8 inline-flex items-center gap-3 text-sm font-semibold text-orange-600 group cursor-pointer">
+            {/* <div className="trusted-desc mt-8 inline-flex items-center gap-3 text-sm font-semibold text-orange-600 group cursor-pointer">
               <span>Explore our approach</span>
               <span className="flex h-8 w-8 items-center justify-center rounded-full border border-orange-200 bg-orange-50 transition-all duration-300 group-hover:bg-orange-500 group-hover:border-orange-500 group-hover:text-white">
                 <ArrowRight size={16} />
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
 

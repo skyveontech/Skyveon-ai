@@ -9,6 +9,8 @@ export interface IndustryData {
 
   heroImage: string;
 
+  overviewImage: string;
+
   accent: string;
 
   overview: string;
@@ -40,7 +42,10 @@ export const industries: IndustryData[] = [
     description:
       "Modernize financial operations with secure cloud platforms, real-time analytics, AI-driven insights, and enterprise-grade reliability.",
 
-    heroImage: "/images/servicepages/Cloud-Services-Houston.jpg",
+    // heroImage: "/images/industries/finance-banner.webp",
+        heroImage: "/images/services/hero-bg.webp",
+
+    overviewImage:"/images/industries/finance.webp",
 
     accent: "from-orange-500 to-red-500",
 
@@ -100,9 +105,13 @@ export const industries: IndustryData[] = [
     description:
       "Enable secure healthcare innovation through compliant platforms, advanced analytics, and intelligent automation.",
 
-    heroImage: "/images/industries/healthcare.webp",
+    // heroImage: "/images/industries/health-banner.webp",
+        heroImage: "/images/services/hero-bg.webp",
 
-    accent: "from-red-500 to-pink-500",
+        overviewImage:"/images/industries/health.webp",
+
+
+    accent: "from-orange-500 to-red-500",
 
     overview:
       "Healthcare organizations require secure, compliant, and scalable technology solutions to improve patient care, streamline operations, and support innovation.",
@@ -160,7 +169,11 @@ export const industries: IndustryData[] = [
     description:
       "Drive growth with modern commerce platforms, customer insights, and AI-powered personalization.",
 
-    heroImage: "/images/industries/retail.webp",
+    // heroImage: "/images/industries/retail-banner.webp",
+        heroImage: "/images/services/hero-bg.webp",
+
+    overviewImage:"/images/industries/retail.webp",
+
 
     accent: "from-orange-500 to-red-500",
 
@@ -220,9 +233,13 @@ export const industries: IndustryData[] = [
     description:
       "Modernize manufacturing operations through connected systems, predictive analytics, and intelligent automation.",
 
-    heroImage: "/images/industries/manufacturing.webp",
+    // heroImage: "/images/industries/manufacturing-banner.webp",
+        heroImage: "/images/services/hero-bg.webp",
 
-    accent: "from-amber-500 to-orange-600",
+        overviewImage:"/images/industries/manufacturing.webp",
+
+
+    accent: "from-orange-500 to-red-500",
 
     overview:
       "Manufacturers are transforming operations with connected devices, real-time data, and predictive technologies. Skyveon helps organizations unlock efficiency and resilience through digital transformation.",
@@ -280,9 +297,14 @@ export const industries: IndustryData[] = [
     description:
       "Deliver secure, reliable, and compliant digital services for government agencies and public institutions.",
 
-    heroImage: "/images/industries/public-sector.webp",
+    // heroImage: "/images/industries/public-banner.webp",
+        heroImage: "/images/services/hero-bg.webp",
 
-    accent: "from-blue-500 to-indigo-600",
+            overviewImage:"/images/industries/public.webp",
+
+    
+
+    accent: "from-orange-500 to-red-500",
 
     overview:
       "Government agencies require technology solutions that balance innovation, compliance, security, and public trust. We help modernize services while maintaining mission-critical reliability.",
@@ -340,9 +362,12 @@ export const industries: IndustryData[] = [
     description:
       "Accelerate innovation with scalable platforms, cloud-native architectures, and AI-powered solutions.",
 
-    heroImage: "/images/industries/media-tech.webp",
+    // heroImage: "/images/industries/media-banner.webp",
+        heroImage: "/images/services/hero-bg.webp",
 
-    accent: "from-violet-500 to-purple-600",
+            overviewImage:"/images/industries/media.webp",
+
+    accent: "from-orange-500 to-red-500",
 
     overview:
       "Technology and media companies must continuously innovate while maintaining platform reliability and user experience. Skyveon helps organizations build resilient and scalable digital ecosystems.",

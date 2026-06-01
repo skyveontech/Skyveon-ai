@@ -9,63 +9,84 @@ import heroimg from "@/assets/soul-banner-white.svg";
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
 
-  useGsap(() => {
-    const tl = gsap.timeline({ delay: 0.1 });
+useGsap(() => {
+  if (
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    return;
+  }
 
+  gsap.set(
+    [
+      ".hero-title-inner",
+      ".hero-desc-line",
+      ".hero-image",
+      ".hero-btn",
+    ],
+    {
+      force3D: true,
+      willChange: "transform, opacity",
+    }
+  );
 
-    // Badge — fade + slide
-    tl.from(".hero-badge", {
-      opacity: 0,
-      y: 16,
-      duration: 0.6,
+  const tl = gsap.timeline({
+    defaults: {
       ease: "power3.out",
-    })
+    },
+  });
 
-      // Each title word reveals upward from a clip mask
-      .from(
-        ".hero-title-inner",
-        {
-          yPercent: 105,
-          duration: 1,
-          opacity:0,
-          stagger: 0.12,
-          ease: "power4.out",
-        },
-        "-=0.2",
-      )
+  tl.from(".hero-badge", {
+    opacity: 0,
+    y: 20,
+    duration: 0.5,
+  })
 
-      // Description — each line reveals
-      .from(
-        ".hero-desc-line",
-        {
-          yPercent: 110,
-          opacity:0,
-          duration: 0.75,
-          stagger: 0.08,
-          ease: "power3.out",
-        },
-        "-=0.55",
-      )
+    .from(
+      ".hero-title-inner",
+      {
+        yPercent: 100,
+        opacity: 0,
+        stagger: 0.08,
+        duration: 1,
+        ease: "power4.out",
+      },
+      "-=0.2"
+    )
 
-      // Background image
-      .from(
-        ".hero-image",
-        {
-          opacity: 0,
-          scale: 1.08,
-          duration: 1.6,
-          ease: "power4.out",
-        },
-        0, // start at t=0 in parallel
-      ).from(".hero-btn",{
-                  opacity: 0,
-          scale: 1.08,
-          duration: 1.6,
-          ease: "power4.out",
-      });
+    .from(
+      ".hero-desc-line",
+      {
+        yPercent: 100,
+        opacity: 0,
+        stagger: 0.05,
+        duration: 0.7,
+      },
+      "-=0.65"
+    )
 
+    .from(
+      ".hero-btn",
+      {
+        opacity: 0,
+        y: 20,
+        stagger: 0.1,
+        duration: 0.5,
+      },
+      "-=0.4"
+    )
 
-  }, []);
+    .from(
+      ".hero-image",
+      {
+        opacity: 0,
+        scale: 1.05,
+        duration: 1.5,
+        ease: "power2.out",
+      },
+      0
+    );
+
+}, []);
 
   // Helper: wraps each word in a clip container for the reveal
   const titleLines = ["Engineering Intelligent", "Transformation"];
@@ -77,7 +98,7 @@ export default function Hero() {
   ];
 
   return (
-    <section ref={heroRef} className="relative h-screen mt-10 md:mt-0 overflow-hidden">
+    <section ref={heroRef} className="relative md:h-screen max-h-screen  md:mt-0 overflow-hidden">
       {/* BACKGROUND IMAGE */}
       <div className="absolute inset-0">
         <img
@@ -136,7 +157,7 @@ export default function Hero() {
           {/* BUTTONS */}
           <div className="mt-10 flex flex-wrap items-center gap-5">
             <Link
-              to="#services"
+              to="/services/digital-product-engineering"
               className="hero-btn group inline-flex items-center gap-2  bg-[#FF6B00] px-7 py-4 text-base font-semibold text-white shadow-2xl shadow-orange-500/20 hover:text-[#FF6B00] hover:bg-white border-2 hover:border-[#FF6B00]">
               Explore Services
               <ArrowRight
@@ -146,7 +167,7 @@ export default function Hero() {
             </Link>
 
             <Link
-              to="#contact"
+              to="/contact"
               className="hero-btn inline-flex items-center   backdrop-blur-md px-7 py-4 text-base font-medium text-[#FF6B00] hover:bg-[#FF6B00] border-2 hover:text-white  ">
               Book Consultation
             </Link>

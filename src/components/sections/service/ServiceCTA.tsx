@@ -68,7 +68,7 @@ export default function ServiceCTA() {
       {/* BACKGROUND IMAGE */}
       <div className="absolute inset-0">
         <img
-          src="/images/CTA-banner.png"
+          src="/images/CTA-banner.webp"
           alt=""
           loading="lazy"
           className="cta-bg h-full w-full object-cover"

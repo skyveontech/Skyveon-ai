@@ -1,15 +1,19 @@
-import { useLayoutEffect } from "react";
+import {  useLayoutEffect, useEffect } from "react";
 import gsap from "@/lib/gsap";
 
-export default function useGsap(
-  callback: () => gsap.Context | void,
-  deps: unknown[] = []
-) {
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      callback();
-    });
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-    return () => ctx.revert();
+export default function useGsap(
+  callback: () => void,
+  deps: unknown[] = [],
+  scope?: React.RefObject<HTMLElement>
+) {
+  useIsomorphicLayoutEffect(() => {
+    const ctx = gsap.context(callback, scope);
+
+    return () => {
+      ctx.revert();
+    };
   }, deps);
 }

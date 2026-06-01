@@ -614,12 +614,11 @@ export default function CareersPage() {
       >
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="/images/careers-bg.webp"
+            src="/images/career-banner.webp"
             alt="Skyveon Careers"
-            className="absolute inset-0 h-full w-full object-cover opacity-[0.12]"
+            className="absolute inset-0 h-full w-full object-cover opacity-100"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/80" />
-        </div>
+<div className="absolute inset-0 bg-black/30" />        </div>
 
         <div className="relative max-w-7xl mx-auto px-10">
           <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-[18px] py-2 text-[13px] font-semibold text-orange-500 tracking-widest">

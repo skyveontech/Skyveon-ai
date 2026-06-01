@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useRef, useEffect } from "react";
 import { industries } from "@/data/industries";
 import gsap from "gsap";
@@ -287,11 +287,11 @@ export default function IndustryPage() {
   return (
     // Fix: removed <link> tag from JSX body — add Google Fonts to your index.html <head> instead:
     // <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
-    <div>
+    <div className="overflow-x-hidden">
       {/* ═══════════════════ HERO ═══════════════════ */}
       <section
         ref={heroRef}
-        className="relative min-h-[92vh] overflow-hidden flex items-center">
+        className="relative md:min-h-[80vh] overflow-hidden flex items-center">
         {/* Parallax image */}
         <img
           ref={heroImgRef}
@@ -301,7 +301,7 @@ export default function IndustryPage() {
         />
 
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/55 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
         {/* Noise grain */}
@@ -339,7 +339,9 @@ export default function IndustryPage() {
           <div
             className="hero-cta mt-10 flex items-center gap-5"
             style={{ opacity: 0 }}>
-            <button className="group flex items-center gap-3 rounded-full bg-orange-500 px-8 py-4 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+            <Link
+              to="/contact"
+              className="group flex items-center gap-3 rounded-full bg-orange-500 px-8 py-4 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
               Schedule Consultation
               <svg
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
@@ -353,18 +355,18 @@ export default function IndustryPage() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
-            <button className="flex items-center gap-2 text-sm font-medium text-white/70 hover:text-white transition-colors duration-200">
+            </Link>
+            {/* <button className="flex items-center gap-2 text-sm font-medium text-white/70 hover:text-white transition-colors duration-200">
               <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 backdrop-blur-sm">
                 ↓
               </span>
               Explore More
-            </button>
+            </button> */}
           </div>
         </div>
 
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+        {/* <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" /> */}
       </section>
 
       {/* ═══════════════════ OVERVIEW ═══════════════════ */}
@@ -406,7 +408,7 @@ export default function IndustryPage() {
                 className={`absolute -inset-4 rounded-[48px] bg-gradient-to-br ${industry.accent} opacity-10 blur-2xl`}
               />
               <img
-                src={industry.heroImage}
+                src={industry.overviewImage}
                 alt={industry.title}
                 className="relative rounded-[32px] shadow-2xl w-full object-cover aspect-[4/3]"
               />
@@ -606,7 +608,7 @@ export default function IndustryPage() {
         {/* Fix: bg-gradient-radial is not a default Tailwind class — use inline style instead */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <img
-            src="/images/bg-metrics-orange-white.png"
+            src="/images/bg-metrics-orange-white.webp"
             alt=""
             className="absolute top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 opacity-100 blur-[10px]"
           />
@@ -639,7 +641,9 @@ export default function IndustryPage() {
           <div
             className="mt-12 flex items-center justify-center gap-4 flex-wrap"
             style={{ opacity: 0 }}>
-            <button className="group flex items-center gap-3 rounded-full bg-orange-500 px-10 py-5 text-sm font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-orange-500/30">
+              <Link
+              to="/contact"
+              className="group flex items-center gap-3 rounded-full bg-orange-500 px-8 py-4 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
               Schedule Consultation
               <svg
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
@@ -653,10 +657,10 @@ export default function IndustryPage() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
-            <button className="rounded-full border border-white/20 px-10 py-5 text-sm font-semibold text-white/80 hover:border-white/50 hover:text-white transition-all duration-300 hover:bg-white/5">
+            </Link>
+            {/* <button className="rounded-full border border-white/20 px-10 py-5 text-sm font-semibold text-white/80 hover:border-white/50 hover:text-white transition-all duration-300 hover:bg-white/5">
               View Case Studies
-            </button>
+            </button> */}
           </div>
         </div>
       </section>

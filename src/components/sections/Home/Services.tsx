@@ -10,6 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,9 +19,9 @@ const slides = [
     title: "Digital Product Engineering",
     description:
       "Web/mobile experiences with robust APIs. Design systems, performance budgets, DX you can feel.",
-    image: "/images/digital_product_engineering_1765953702630.png",
+    image: "/images/services/digital.webp",
     tags: ["Next.js", "React Native", "Edge/SSR", "Web Vitals"],
-    link: "/solutions#prod",
+    link: "/services/digital-product-engineering",
     tag: "01",
     accent: "from-orange-500 to-amber-400",
   },
@@ -28,41 +29,41 @@ const slides = [
     title: "Cloud & DevOps (SRE)",
     description:
       "IaC, CI/CD, policy-as-code, observability, reliability at scale. Golden paths you can reuse.",
-    image: "/images/cloud_devops_1765953724289.png",
+    image: "/images/services/cloud.webp",
     tags: ["Terraform", "EKS/GKE", "ArgoCD", "OpenTelemetry"],
-    link: "/solutions#sre",
+    link: "/services/cloud-devops",
     tag: "02",
-    accent: "from-sky-500 to-blue-600",
+    accent: "from-orange-500 to-amber-400",
   },
   {
     title: "Data Engineering & Analytics",
     description:
       "Pipelines, lakehouse models, semantic layers, and exec dashboards. Measurable freshness.",
-    image: "/images/data_analytics_1765953749508.png",
+    image: "/images/services/data.webp",
     tags: ["dbt", "Spark", "Delta/Lake", "Superset"],
-    link: "/solutions#data",
+    link: "/services/data-engineering-analytics",
     tag: "03",
-    accent: "from-violet-500 to-purple-600",
+    accent: "from-orange-500 to-amber-400",
   },
   {
     title: "Enterprise Platforms",
     description:
       "Workday HCM/Finance & Salesforce clouds, integrated end-to-end with guardrails.",
-    image: "/images/enterprise_platforms_1765953784664.png",
+    image: "/images/services/enterprise.webp",
     tags: ["Workday", "Salesforce", "Mulesoft", "Security"],
-    link: "/solutions#platforms",
+    link: "/services/enterprise-platforms",
     tag: "04",
-    accent: "from-emerald-500 to-teal-600",
+    accent: "from-orange-500 to-amber-400",
   },
   {
     title: "AI & Machine Learning",
     description:
       "Private LLM assistants with guardrails, forecasting & anomaly detection that ship.",
-    image: "/images/aiml.jpg",
+    image: "/images/services/ai.webp",
     tags: ["RAG", "LLM Eval", "Vector DB", "Guardrails"],
-    link: "/solutions#ai",
+    link: "/services/ai-machine-learning",
     tag: "05",
-    accent: "from-fuchsia-500 to-pink-600",
+    accent: "from-orange-500 to-amber-400",
   },
 ];
 
@@ -87,14 +88,15 @@ export default function ServicesSlider() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 75%",
-once: true         },
+          once: true,
+        },
       });
 
       // Badge reveal
       tl.fromTo(
         badgeRef.current,
         { opacity: 0, y: 16, scale: 0.92 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }
+        { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" },
       );
 
       // Title word-by-word stagger
@@ -111,7 +113,7 @@ once: true         },
             stagger: 0.07,
             ease: "power3.out",
           },
-          "-=0.25"
+          "-=0.25",
         );
       }
 
@@ -120,7 +122,7 @@ once: true         },
         ".heading-line",
         { scaleX: 0, transformOrigin: "left center" },
         { scaleX: 1, duration: 0.7, ease: "power3.inOut" },
-        "-=0.3"
+        "-=0.3",
       );
 
       // Slider panel
@@ -128,7 +130,7 @@ once: true         },
         sliderRef.current,
         { opacity: 0, y: 50 },
         { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-        "-=0.4"
+        "-=0.4",
       );
 
       // Nav controls
@@ -136,7 +138,7 @@ once: true         },
         navRef.current,
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
-        "-=0.35"
+        "-=0.35",
       );
     }, sectionRef);
 
@@ -161,7 +163,7 @@ once: true         },
         ease: "power3.out",
         delay: 0.15,
         onComplete: () => setIsAnimating(false),
-      }
+      },
     );
   };
 
@@ -186,7 +188,8 @@ once: true         },
   };
 
   const handleNavClick = (el: HTMLElement) => {
-    gsap.timeline()
+    gsap
+      .timeline()
       .to(el, { scale: 0.92, duration: 0.1, ease: "power2.in" })
       .to(el, { scale: 1.06, duration: 0.2, ease: "back.out(3)" })
       .to(el, { scale: 1, duration: 0.15, ease: "power2.out" });
@@ -203,27 +206,21 @@ once: true         },
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-8 lg:py-12 "
-    >
-   
-
+      className="relative overflow-hidden py-8 lg:py-12 ">
       {/* ── Heading ────────────────────────────────────────────────────────── */}
       <div
         ref={headingRef}
-        className="relative max-w-4xl mx-auto text-center px-6"
-      >
+        className="relative max-w-4xl mx-auto text-center px-6">
         <span
           ref={badgeRef}
-          className="inline-flex rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-600 tracking-wide"
-        >
+          className="inline-flex rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-600 tracking-wide">
           Powered By Innovation
         </span>
 
         <h2
           ref={titleRef}
           className="mt-6 text-4xl lg:text-5xl font-semibold tracking-tight text-slate-900 perspective-[800px]"
-          style={{ perspective: "800px" }}
-        >
+          style={{ perspective: "800px" }}>
           {wrapWords("Enterprise Solutions")}
           <br />
           <span className="text-3xl lg:text-4xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text">
@@ -262,8 +259,7 @@ once: true         },
             scale: 0.84,
             slideShadows: false,
           }}
-          className="!overflow-visible"
-        >
+          className="!overflow-visible">
           {slides.map((slide, index) => (
             <SwiperSlide key={index} className="!w-[320px] lg:!w-[600px]">
               {({ isActive }) => (
@@ -272,8 +268,7 @@ once: true         },
                     isActive
                       ? "border-slate-200 shadow-[0_24px_80px_rgba(15,23,42,0.14)]"
                       : "border-slate-100 shadow-[0_8px_30px_rgba(15,23,42,0.06)]"
-                  }`}
-                >
+                  }`}>
                   {/* Tag pill */}
                   <div className="absolute top-5 left-5 z-10">
                     {/* <span
@@ -297,8 +292,7 @@ once: true         },
                   <div
                     className={`absolute bottom-0 left-0 w-full p-7 lg:p-9 text-white ${
                       isActive ? "active-card-content" : ""
-                    }`}
-                  >
+                    }`}>
                     <h3 className="text-2xl lg:text-3xl font-semibold tracking-tight leading-tight">
                       {slide.title}
                     </h3>
@@ -307,12 +301,12 @@ once: true         },
                       {slide.description}
                     </p>
 
-                    <button
-                      className={`mt-6 inline-flex items-center gap-2.5 rounded-2xl bg-gradient-to-r ${slide.accent} px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-xl active:scale-[0.97]`}
-                    >
+                    <Link
+                      to={slide.link}
+                      className={`mt-6 inline-flex items-center gap-2.5 rounded-2xl bg-gradient-to-r ${slide.accent} px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-xl active:scale-[0.97]`}>
                       Explore Solution
                       <ArrowRight size={15} strokeWidth={2.5} />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               )}
@@ -324,8 +318,7 @@ once: true         },
       {/* ── Navigation & Progress ───────────────────────────────────────────── */}
       <div
         ref={navRef}
-        className="relative mt-10 flex flex-col items-center gap-6"
-      >
+        className="relative mt-10 flex flex-col items-center gap-6">
         {/* Dot indicators */}
         <div className="flex items-center gap-2.5">
           {slides.map((_, i) => (
@@ -356,16 +349,14 @@ once: true         },
               animateSlideChange("prev");
               swiperRef.current?.slidePrev();
             }}
-            className="flex items-center justify-center w-12 h-12 rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm hover:border-orange-300 hover:text-orange-600 transition-colors duration-200"
-          >
+            className="flex items-center justify-center w-12 h-12 rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm hover:border-orange-300 hover:text-orange-600 transition-colors duration-200">
             <ArrowLeft size={18} strokeWidth={2} />
           </button>
 
           {/* Progress bar */}
           <div
             ref={progressRef}
-            className="relative w-32 h-1 bg-slate-200 rounded-full overflow-hidden"
-          >
+            className="relative w-32 h-1 bg-slate-200 rounded-full overflow-hidden">
             <div
               ref={progressFillRef}
               className="absolute inset-y-0 left-0 w-full origin-left rounded-full bg-gradient-to-r from-orange-500 to-red-500"
@@ -382,8 +373,7 @@ once: true         },
               animateSlideChange("next");
               swiperRef.current?.slideNext();
             }}
-            className="flex items-center justify-center w-12 h-12 rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm hover:border-orange-300 hover:text-orange-600 transition-colors duration-200"
-          >
+            className="flex items-center justify-center w-12 h-12 rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm hover:border-orange-300 hover:text-orange-600 transition-colors duration-200">
             <ArrowRight size={18} strokeWidth={2} />
           </button>
         </div>

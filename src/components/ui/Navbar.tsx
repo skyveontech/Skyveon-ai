@@ -42,7 +42,7 @@ const servicesMenu = [
   { title: "Data Engineering & Analytics", description: "Modern data platforms", href: "/services/data-engineering-analytics", icon: BarChart2, accent: "#8b5cf6" },
   { title: "Enterprise Platforms", description: "Workday & Salesforce solutions", href: "/services/enterprise-platforms", icon: Layers, accent: "#10b981" },
   { title: "AI & Machine Learning", description: "Intelligent systems at scale", href: "/services/ai-machine-learning", icon: Brain, accent: "#f97316" },
-] satisfies MenuItem[];
+] satisfies MenuItem[]; 
 
 const industriesMenu = [
   { title: "Financial Services", href: "/industries/financial-services", icon: TrendingUp },
@@ -53,7 +53,7 @@ const industriesMenu = [
   { title: "Media & Technology", href: "/industries/media-technology", icon: Film },
 ] satisfies MenuItem[];
 
-const simpleLinks = [
+const simpleLinks = [ 
   { label: "About", href: "/about" },
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
