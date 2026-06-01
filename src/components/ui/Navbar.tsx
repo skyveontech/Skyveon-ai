@@ -562,7 +562,7 @@ useGsap(() => {
 
           <div className="px-4 py-4">
             <Link
-              to="#contact"
+              to="/contact"
               onClick={closeMobileMenu}
               className="mobile-link flex items-center justify-center gap-2 w-full rounded-2xl bg-slate-900 px-5 py-3.5 text-[14.5px] font-semibold text-white transition-all duration-200 hover:bg-orange-500 active:scale-[0.98] shadow-[0_2px_12px_rgba(0,0,0,0.15)] group"
               style={{ ...SF, letterSpacing: "-0.01em" }}>
