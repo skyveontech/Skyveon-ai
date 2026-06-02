@@ -1,5 +1,14 @@
 import { useRef, useState } from "react";
-import { Mail, MapPin, Phone, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Phone,
+  ArrowRight,
+  CheckCircle2,
+  Loader2,
+} from "lucide-react";
+import useGsap from "@/hooks/use-gsap";
+import gsap from "@/lib/gsap";
 
 // ── tiny helper ──────────────────────────────────────────────────────────────
 function cn(...classes: (string | boolean | undefined)[]) {
@@ -34,9 +43,8 @@ function InfoCard({
 }) {
   return (
     <div
-      className="group relative flex items-start gap-5 rounded-3xl border border-slate-100 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-      style={{ animationDelay: delay }}
-    >
+      className="group  relative flex items-start gap-5 rounded-3xl border border-slate-100 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+      style={{ animationDelay: delay }}>
       {/* accent line */}
       <span className="absolute left-0 top-8 h-10 w-1 rounded-r-full bg-orange-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
@@ -45,12 +53,13 @@ function InfoCard({
       </div>
 
       <div>
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">{label}</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+          {label}
+        </p>
         {href ? (
           <a
             href={href}
-            className="mt-1 block text-lg font-bold text-slate-800 transition-colors hover:text-orange-500"
-          >
+            className="mt-1 block text-lg font-bold text-slate-800 transition-colors hover:text-orange-500">
             {value}
           </a>
         ) : (
@@ -67,6 +76,8 @@ const fieldBase =
 
 // ── main component ────────────────────────────────────────────────────────────
 export default function Contact() {
+  const heroRef = useRef<HTMLElement>(null);
+  const infoRef = useRef<HTMLElement>(null);
   // ── form state ───────────────────────────────────────────────────────────
   const [form, setForm] = useState<FormState>({
     name: "",
@@ -79,12 +90,16 @@ export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
   const formRef = useRef<HTMLDivElement>(null);
 
-  const update = (field: keyof FormState) => (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    setForm((prev) => ({ ...prev, [field]: e.target.value }));
-    setErrors((prev) => ({ ...prev, [field]: "" }));
-  };
+  const update =
+    (field: keyof FormState) =>
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >,
+    ) => {
+      setForm((prev) => ({ ...prev, [field]: e.target.value }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
+    };
 
   const validate = (): boolean => {
     const next: Partial<FormState> = {};
@@ -133,12 +148,153 @@ export default function Contact() {
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  useGsap(() => {
+    // Performance hints
+    gsap.set([".info-card", ".feature-item", ".contact-form"], {
+      willChange: "transform, opacity",
+    });
+
+    // ====================================
+    // HERO
+    // ====================================
+
+    const heroTl = gsap.timeline({
+      defaults: {
+        ease: "power4.out",
+      },
+    });
+
+    heroTl
+      .from(".hero-badge", {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+      })
+
+      .from(
+        ".hero-title",
+        {
+          opacity: 0,
+          y: 60,
+          duration: 0.9,
+        },
+        "-=0.2",
+      )
+
+      .from(
+        ".hero-para",
+        {
+          opacity: 0,
+          y: 30,
+          duration: 0.7,
+        },
+        "-=0.5",
+      )
+
+      .from(
+        ".hero-actions",
+        {
+          opacity: 0,
+          y: 20,
+          duration: 0.5,
+        },
+        "-=0.4",
+      )
+
+      .from(
+        ".hero-trust span",
+        {
+          opacity: 0,
+          y: 20,
+          stagger: 0.08,
+          duration: 0.4,
+        },
+        "-=0.3",
+      );
+
+    // ====================================
+    // INFO CARDS
+    // ====================================
+
+    gsap.from(".info-card", {
+      opacity: 0,
+      y: 50,
+      stagger: 0.12,
+      duration: 0.7,
+      ease: "power3.out",
+
+      scrollTrigger: {
+        trigger: infoRef.current,
+        start: "top 80%",
+        once: true,
+      },
+    });
+
+    // ====================================
+    // CONTACT SECTION
+    // ====================================
+
+    gsap.from(".contact-copy", {
+      opacity: 0,
+      x: -50,
+      duration: 0.8,
+      ease: "power3.out",
+
+      scrollTrigger: {
+        trigger: formRef.current,
+        start: "top 75%",
+        once: true,
+      },
+    });
+
+    gsap.from(".feature-item", {
+      opacity: 0,
+      y: 25,
+      stagger: 0.08,
+      duration: 0.5,
+      ease: "power3.out",
+
+      scrollTrigger: {
+        trigger: formRef.current,
+        start: "top 70%",
+        once: true,
+      },
+    });
+
+    gsap.from(".contact-form", {
+      opacity: 0,
+      x: 50,
+      duration: 0.8,
+      ease: "power3.out",
+
+      scrollTrigger: {
+        trigger: formRef.current,
+        start: "top 75%",
+        once: true,
+      },
+    });
+
+    // ====================================
+    // SUCCESS STATE
+    // ====================================
+
+    if (status === "success") {
+      gsap.from(".success-state", {
+        scale: 0.9,
+        opacity: 0,
+        duration: 0.5,
+        ease: "back.out(1.7)",
+      });
+    }
+  }, [status]);
+
   // ── render ────────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
-
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-slate-50 py-8 lg:py-20">
+      <section
+        ref={heroRef}
+        className="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-slate-50 py-8 lg:py-20">
         {/* decorative blobs */}
         <div
           aria-hidden
@@ -151,13 +307,13 @@ export default function Contact() {
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
           {/* badge */}
-          <span className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-5 py-2 text-sm font-semibold text-orange-600">
+          <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-5 py-2 text-sm font-semibold text-orange-600">
             <span className="h-1.5 w-1.5 rounded-full bg-orange-400" />
             Contact Skyveon
           </span>
 
           {/* headline */}
-          <h1 className="mt-8   text-4xl font-bold     leading-[1] tracking-tight text-slate-900 md:text-6xl ">
+          <h1 className="mt-8 hero-title  text-4xl font-bold     leading-[1] tracking-tight text-slate-900 md:text-6xl ">
             Let's Build
             <br />
             <span className="bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
@@ -165,46 +321,46 @@ export default function Contact() {
             </span>
           </h1>
 
-          <p className="mt-7 max-w-2xl text-xl leading-relaxed text-slate-500">
-            Whether you're exploring AI, Cloud, Data Engineering, DevOps, or Enterprise
-            Platforms — we're ready to turn your vision into reality.
+          <p className="mt-7 hero-para max-w-2xl text-xl leading-relaxed text-slate-500">
+            Whether you're exploring AI, Cloud, Data Engineering, DevOps, or
+            Enterprise Platforms — we're ready to turn your vision into reality.
           </p>
 
           {/* CTA row */}
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 hero-actions flex flex-wrap gap-4">
             <button
               onClick={scrollToForm}
-              className="group flex items-center gap-3 rounded-2xl bg-orange-500 px-7 py-4 font-semibold text-white shadow-lg shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-200 active:scale-95"
-            >
+              className="group flex items-center gap-3 rounded-2xl bg-orange-500 px-7 py-4 font-semibold text-white shadow-lg shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-200 active:scale-95">
               Start a project
               <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
             </button>
 
             <a
               href="mailto:info@skyveon.ai"
-              className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-7 py-4 font-semibold text-slate-700 transition-all duration-200 hover:border-orange-300 hover:bg-orange-50 hover:text-orange-600"
-            >
+              className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-7 py-4 font-semibold text-slate-700 transition-all duration-200 hover:border-orange-300 hover:bg-orange-50 hover:text-orange-600">
               <Mail className="h-4 w-4" />
               Email us directly
             </a>
           </div>
 
           {/* trust strip */}
-          <div className="mt-14 flex flex-wrap items-center gap-6 text-sm text-slate-400">
-            {["Responds within 24 hrs", "Free initial consultation", "No long-term lock-in"].map(
-              (item) => (
-                <span key={item} className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-orange-400" />
-                  {item}
-                </span>
-              )
-            )}
+          <div className="mt-14 hero-trust flex flex-wrap items-center gap-6 text-sm text-slate-400">
+            {[
+              "Responds within 24 hrs",
+              "Free initial consultation",
+              "No long-term lock-in",
+            ].map((item) => (
+              <span key={item} className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-orange-400" />
+                {item}
+              </span>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ── INFO CARDS ───────────────────────────────────────────────────────── */}
-      <section className=" py-8 md:py-12 bg-slate-50">
+      <section ref={infoRef} className=" py-8 md:py-12 bg-slate-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="grid gap-5 sm:grid-cols-3">
             <InfoCard
@@ -231,256 +387,235 @@ export default function Contact() {
         </div>
       </section>
 
-   {/* ── FORM SECTION ─────────────────────────────────────────────────────── */}
-<section
-  id="contact"
-  ref={formRef}
-  className="scroll-mt-20 py-14 md:py-20 lg:py-28 bg-white"
->
-  <div className="mx-auto max-w-7xl px-5 md:px-6 lg:px-10">
-    <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 lg:items-start">
-
-      {/* LEFT — COPY */}
-      <div className="lg:sticky lg:top-24">
-        <p className="text-xs md:text-sm font-semibold uppercase tracking-widest text-orange-500">
-          Get in touch
-        </p>
-
-        <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-slate-900">
-          Tell us about
-          <br />
-          your project
-        </h2>
-
-        <p className="mt-5 text-base md:text-lg leading-relaxed text-slate-500">
-          Fill out the form and we'll follow up within one business day to
-          discuss how we can help.
-        </p>
-
-        {/* FEATURE LIST */}
-        <ul className="mt-8 md:mt-10 space-y-5">
-          {[
-            {
-              title: "AI & Machine Learning",
-              desc: "Custom models, LLM integrations, intelligent automation",
-            },
-            {
-              title: "Cloud & DevOps",
-              desc: "AWS, Azure, GCP migrations, CI/CD pipelines, infra-as-code",
-            },
-            {
-              title: "Data Engineering",
-              desc: "Pipelines, warehousing, real-time analytics at scale",
-            },
-            {
-              title: "Enterprise Platforms",
-              desc: "ERP, CRM, custom portals & digital transformation",
-            },
-          ].map(({ title, desc }) => (
-            <li key={title} className="flex gap-4">
-              <span className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-100">
-                <CheckCircle2 className="h-4 w-4 text-orange-500" />
-              </span>
-
-              <div>
-                <p className="font-bold text-slate-800">
-                  {title}
-                </p>
-
-                <p className="text-sm text-slate-500 leading-relaxed">
-                  {desc}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* RIGHT — FORM */}
-      <div className="rounded-[24px] md:rounded-[2.5rem] border border-slate-100 bg-white p-5 md:p-8 lg:p-10 shadow-xl shadow-slate-100">
-
-        {status === "success" ? (
-          <div className="flex flex-col items-center justify-center gap-6 py-10 md:py-16 text-center">
-
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-50">
-              <CheckCircle2 className="h-10 w-10 text-orange-500" />
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-black text-slate-900">
-                Message sent!
-              </h3>
-
-              <p className="mt-2 text-slate-500">
-                Your email client should have opened. We'll be in touch within
-                24 hours.
+      {/* ── FORM SECTION ─────────────────────────────────────────────────────── */}
+      <section
+        id="contact"
+        ref={formRef}
+        className="scroll-mt-20 py-14 md:py-20 lg:py-28 bg-white">
+        <div className="mx-auto max-w-7xl px-5 md:px-6 lg:px-10">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 lg:items-start">
+            {/* LEFT — COPY */}
+            <div className="contact-copy lg:sticky lg:top-24">
+              <p className="text-xs md:text-sm font-semibold uppercase tracking-widest text-orange-500">
+                Get in touch
               </p>
+
+              <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-slate-900">
+                Tell us about
+                <br />
+                your project
+              </h2>
+
+              <p className="mt-5 text-base md:text-lg leading-relaxed text-slate-500">
+                Fill out the form and we'll follow up within one business day to
+                discuss how we can help.
+              </p>
+
+              {/* FEATURE LIST */}
+              <ul className="mt-8 md:mt-10 space-y-5">
+                {[
+                  {
+                    title: "AI & Machine Learning",
+                    desc: "Custom models, LLM integrations, intelligent automation",
+                  },
+                  {
+                    title: "Cloud & DevOps",
+                    desc: "AWS, Azure, GCP migrations, CI/CD pipelines, infra-as-code",
+                  },
+                  {
+                    title: "Data Engineering",
+                    desc: "Pipelines, warehousing, real-time analytics at scale",
+                  },
+                  {
+                    title: "Enterprise Platforms",
+                    desc: "ERP, CRM, custom portals & digital transformation",
+                  },
+                ].map(({ title, desc }) => (
+                  <li key={title} className="feature-item flex gap-4">
+                    <span className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-100">
+                      <CheckCircle2 className="h-4 w-4 text-orange-500" />
+                    </span>
+
+                    <div>
+                      <p className="font-bold text-slate-800">{title}</p>
+
+                      <p className="text-sm text-slate-500 leading-relaxed">
+                        {desc}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <button
-              onClick={() => {
-                setStatus("idle");
-                setForm({
-                  name: "",
-                  email: "",
-                  company: "",
-                  service: "",
-                  message: "",
-                });
-              }}
-              className="rounded-2xl border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-600 transition-colors hover:border-orange-300 hover:text-orange-600"
-            >
-              Send another message
-            </button>
-          </div>
-        ) : (
-          <div className="space-y-5">
+            {/* RIGHT — FORM */}
+            <div className="contact-form rounded-[24px] md:rounded-[2.5rem] border border-slate-100 bg-white p-5 md:p-8 lg:p-10 shadow-xl shadow-slate-100">
+              {status === "success" ? (
+                <div className="flex flex-col items-center justify-center gap-6 py-10 md:py-16 text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-orange-50">
+                    <CheckCircle2 className="h-10 w-10 text-orange-500" />
+                  </div>
 
-            <h3 className="text-2xl font-black text-slate-900">
-              Send us a message
-            </h3>
+                  <div>
+                    <h3 className="text-2xl font-black text-slate-900">
+                      Message sent!
+                    </h3>
 
-            {/* NAME + COMPANY */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <p className="mt-2 text-slate-500">
+                      Your email client should have opened. We'll be in touch
+                      within 24 hours.
+                    </p>
+                  </div>
 
-              <div>
-                <input
-                  placeholder="Full Name *"
-                  value={form.name}
-                  onChange={update("name")}
-                  className={cn(
-                    fieldBase,
-                    errors.name &&
-                      "border-red-300 bg-red-50 focus:ring-red-100"
-                  )}
-                />
-
-                {errors.name && (
-                  <p className="mt-1.5 text-xs font-medium text-red-500">
-                    {errors.name}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <input
-                  placeholder="Company (optional)"
-                  value={form.company}
-                  onChange={update("company")}
-                  className={fieldBase}
-                />
-              </div>
-            </div>
-
-            {/* EMAIL */}
-            <div>
-              <input
-                type="email"
-                placeholder="Email Address *"
-                value={form.email}
-                onChange={update("email")}
-                className={cn(
-                  fieldBase,
-                  errors.email &&
-                    "border-red-300 bg-red-50 focus:ring-red-100"
-                )}
-              />
-
-              {errors.email && (
-                <p className="mt-1.5 text-xs font-medium text-red-500">
-                  {errors.email}
-                </p>
-              )}
-            </div>
-
-            {/* SERVICE */}
-            <select
-              value={form.service}
-              onChange={update("service")}
-              className={cn(
-                fieldBase,
-                "cursor-pointer appearance-none text-slate-500",
-                form.service && "text-slate-800"
-              )}
-            >
-              <option value="">
-                Select a service (optional)
-              </option>
-
-              <option value="AI & Machine Learning">
-                AI & Machine Learning
-              </option>
-
-              <option value="Cloud & DevOps">
-                Cloud & DevOps
-              </option>
-
-              <option value="Data Engineering">
-                Data Engineering
-              </option>
-
-              <option value="Enterprise Platforms">
-                Enterprise Platforms
-              </option>
-
-              <option value="Other">
-                Other / Not sure yet
-              </option>
-            </select>
-
-            {/* MESSAGE */}
-            <div>
-              <textarea
-                rows={6}
-                placeholder="Tell us about your project requirements... *"
-                value={form.message}
-                onChange={update("message")}
-                className={cn(
-                  fieldBase,
-                  "resize-none min-h-[180px]",
-                  errors.message &&
-                    "border-red-300 bg-red-50 focus:ring-red-100"
-                )}
-              />
-
-              {errors.message && (
-                <p className="mt-1.5 text-xs font-medium text-red-500">
-                  {errors.message}
-                </p>
-              )}
-            </div>
-
-            {/* SUBMIT */}
-            <button
-              onClick={handleSubmit}
-              disabled={status === "submitting"}
-              className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-orange-500 py-4 font-bold text-white shadow-lg shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-300 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              {status === "submitting" ? (
-                <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  Opening email client...
-                </>
+                  <button
+                    onClick={() => {
+                      setStatus("idle");
+                      setForm({
+                        name: "",
+                        email: "",
+                        company: "",
+                        service: "",
+                        message: "",
+                      });
+                    }}
+                    className="rounded-2xl border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-600 transition-colors hover:border-orange-300 hover:text-orange-600">
+                    Send another message
+                  </button>
+                </div>
               ) : (
-                <>
-                  Send Message
+                <div className="space-y-5">
+                  <h3 className="text-2xl font-black text-slate-900">
+                    Send us a message
+                  </h3>
 
-                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </>
+                  {/* NAME + COMPANY */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <input
+                        placeholder="Full Name *"
+                        value={form.name}
+                        onChange={update("name")}
+                        className={cn(
+                          fieldBase,
+                          errors.name &&
+                            "border-red-300 bg-red-50 focus:ring-red-100",
+                        )}
+                      />
+
+                      {errors.name && (
+                        <p className="mt-1.5 text-xs font-medium text-red-500">
+                          {errors.name}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <input
+                        placeholder="Company (optional)"
+                        value={form.company}
+                        onChange={update("company")}
+                        className={fieldBase}
+                      />
+                    </div>
+                  </div>
+
+                  {/* EMAIL */}
+                  <div>
+                    <input
+                      type="email"
+                      placeholder="Email Address *"
+                      value={form.email}
+                      onChange={update("email")}
+                      className={cn(
+                        fieldBase,
+                        errors.email &&
+                          "border-red-300 bg-red-50 focus:ring-red-100",
+                      )}
+                    />
+
+                    {errors.email && (
+                      <p className="mt-1.5 text-xs font-medium text-red-500">
+                        {errors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* SERVICE */}
+                  <select
+                    value={form.service}
+                    onChange={update("service")}
+                    className={cn(
+                      fieldBase,
+                      "cursor-pointer appearance-none text-slate-500",
+                      form.service && "text-slate-800",
+                    )}>
+                    <option value="">Select a service (optional)</option>
+
+                    <option value="AI & Machine Learning">
+                      AI & Machine Learning
+                    </option>
+
+                    <option value="Cloud & DevOps">Cloud & DevOps</option>
+
+                    <option value="Data Engineering">Data Engineering</option>
+
+                    <option value="Enterprise Platforms">
+                      Enterprise Platforms
+                    </option>
+
+                    <option value="Other">Other / Not sure yet</option>
+                  </select>
+
+                  {/* MESSAGE */}
+                  <div>
+                    <textarea
+                      rows={6}
+                      placeholder="Tell us about your project requirements... *"
+                      value={form.message}
+                      onChange={update("message")}
+                      className={cn(
+                        fieldBase,
+                        "resize-none min-h-[180px]",
+                        errors.message &&
+                          "border-red-300 bg-red-50 focus:ring-red-100",
+                      )}
+                    />
+
+                    {errors.message && (
+                      <p className="mt-1.5 text-xs font-medium text-red-500">
+                        {errors.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* SUBMIT */}
+                  <button
+                    onClick={handleSubmit}
+                    disabled={status === "submitting"}
+                    className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-orange-500 py-4 font-bold text-white shadow-lg shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-300 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70">
+                    {status === "submitting" ? (
+                      <>
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        Opening email client...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                      </>
+                    )}
+                  </button>
+
+                  <p className="text-center text-xs text-slate-400 leading-relaxed">
+                    Clicking Send will open your default email app with the
+                    details pre-filled. We respond within 24 hours.
+                  </p>
+                </div>
               )}
-            </button>
-
-            <p className="text-center text-xs text-slate-400 leading-relaxed">
-              Clicking Send will open your default email app with the details
-              pre-filled. We respond within 24 hours.
-            </p>
-
+            </div>
           </div>
-        )}
-      </div>
-    </div>
-  </div>
-</section>
+        </div>
+      </section>
     </div>
   );
 }

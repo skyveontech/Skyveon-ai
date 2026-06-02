@@ -11,13 +11,14 @@ import {
   BarChart2,
   Layers,
   Brain,
-  TrendingUp,
-  Heart,
-  ShoppingCart,
-  Cog,
-  Globe,
-  Film,
+  
   type LucideIcon,
+  Landmark,
+  HeartPulse,
+  ShoppingBag,
+  Factory,
+  Shield,
+  Monitor,
 } from "lucide-react";
 import useGsap from "@/hooks/use-gsap";
 import gsap from "@/lib/gsap";
@@ -59,21 +60,21 @@ const servicesMenu = [
     description: "Reliable cloud infrastructure",
     href: "/services/cloud-devops",
     icon: Cloud,
-    accent: "#3b82f6",
+    accent: "#f97316",
   },
   {
     title: "Data Engineering & Analytics",
     description: "Modern data platforms",
     href: "/services/data-engineering-analytics",
     icon: BarChart2,
-    accent: "#8b5cf6",
+    accent: "#f97316",
   },
   {
     title: "Enterprise Platforms",
     description: "Workday & Salesforce solutions",
     href: "/services/enterprise-platforms",
     icon: Layers,
-    accent: "#10b981",
+    accent: "#f97316",
   },
   {
     title: "AI & Machine Learning",
@@ -87,28 +88,41 @@ const servicesMenu = [
 const industriesMenu = [
   {
     title: "Financial Services",
+    description: "Secure banking, fintech & compliance platforms",
     href: "/industries/financial-services",
-    icon: TrendingUp,
+    icon: Landmark,
   },
   {
-    title: "Healthcare & Life Sciences",
+    title: "Healthcare",
+    description: "HIPAA-ready digital healthcare ecosystems",
     href: "/industries/healthcare",
-    icon: Heart,
+    icon: HeartPulse,
   },
   {
     title: "Retail & eCommerce",
+    description: "Personalization, analytics & omnichannel commerce",
     href: "/industries/retail",
-    icon: ShoppingCart,
+    icon: ShoppingBag,
   },
-  { title: "Manufacturing", href: "/industries/manufacturing", icon: Cog },
-  { title: "Public Sector", href: "/industries/public-sector", icon: Globe },
+  {
+    title: "Manufacturing",
+    description: "Industrial IoT, automation & predictive insights",
+    href: "/industries/manufacturing",
+    icon: Factory,
+  },
+  {
+    title: "Public Sector",
+    description: "Mission-critical government modernization",
+    href: "/industries/public-sector",
+    icon: Shield,
+  },
   {
     title: "Media & Technology",
+    description: "Scalable platforms & AI-powered experiences",
     href: "/industries/media-technology",
-    icon: Film,
+    icon: Monitor,
   },
-] satisfies MenuItem[];
-
+];
 const simpleLinks = [
   { label: "About", href: "/about" },
   { label: "Careers", href: "/careers" },
@@ -135,7 +149,7 @@ const ServicesMegaMenu = memo(function ServicesMegaMenu({
             ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
             : "opacity-0 scale-[0.97] pointer-events-none -translate-y-1"
         }`}
-      style={{ width: 280 }}>
+      style={{ width: 360 }}>
       <div className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white border-l border-t border-slate-200/80 z-10" />
       <div className="rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-[0_24px_64px_rgba(15,23,42,0.13),0_4px_16px_rgba(15,23,42,0.06)]">
         <div className="px-5 pt-4 pb-3 border-b border-slate-100">
@@ -192,40 +206,70 @@ const IndustriesMegaMenu = memo(function IndustriesMegaMenu({
 }: MegaMenuProps) {
   return (
     <div
-      className={`absolute left-1/2 top-full z-50 mt-3 -translate-x-1/2 transition-all duration-300 origin-top
-        ${
-          open
-            ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
-            : "opacity-0 scale-[0.97] pointer-events-none -translate-y-1"
-        }`}
-      style={{ width: 360 }}>
-      <div className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white border-l border-t border-slate-200/80 z-10" />
-      <div className="rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-[0_24px_64px_rgba(15,23,42,0.13),0_4px_16px_rgba(15,23,42,0.06)]">
-        <div className="px-5 pt-4 pb-3 border-b border-slate-100">
+      className={`absolute left-1/2 top-full z-50 mt-3 -translate-x-1/2 origin-top transition-all duration-300
+      ${
+        open
+          ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
+          : "pointer-events-none -translate-y-1 scale-[0.97] opacity-0"
+      }`}
+      style={{ width: 360 }}
+    >
+      {/* Arrow */}
+      <div className="absolute -top-[6px] left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-l border-t border-slate-200/80 bg-white z-10" />
+
+      <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_24px_64px_rgba(15,23,42,0.13),0_4px_16px_rgba(15,23,42,0.06)]">
+        {/* Header */}
+        <div className="border-b border-slate-100 px-5 pt-4 pb-3">
           <p
-            className="text-[11px] font-semibold tracking-[0.1em] uppercase text-slate-400"
-            style={SF}>
-            Industries served
+            className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-400"
+            style={SF}
+          >
+            Industries Served
           </p>
         </div>
-        <div className="p-3 grid grid-cols-2 gap-1">
-          {industriesMenu.map((ind) => {
-            const Icon = ind.icon;
+
+        {/* Items */}
+        <div className="grid gap-1 p-3">
+          {industriesMenu.map((industry) => {
+            const Icon = industry.icon;
+
             return (
               <Link
-                key={ind.title}
-                to={ind.href}
-                className="group flex items-center gap-2.5 rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-orange-50 active:bg-orange-100">
-                <Icon
+                key={industry.title}
+                to={industry.href}
+                className="group flex items-center gap-3.5 rounded-xl px-3.5 py-3 transition-all duration-200 hover:bg-slate-50 active:bg-slate-100"
+              >
+                {/* Icon */}
+                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-orange-50 transition-transform duration-300 group-hover:scale-110">
+                  <Icon
+                    size={16}
+                    className="text-orange-500"
+                    strokeWidth={1.8}
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="min-w-0 flex-1">
+                  <p
+                    className="truncate text-[13.5px] font-semibold leading-tight text-slate-900"
+                    style={SF}
+                  >
+                    {industry.title}
+                  </p>
+
+                  <p
+                    className="mt-0.5 truncate text-[12px] text-slate-400"
+                    style={SF}
+                  >
+                    {industry.description}
+                  </p>
+                </div>
+
+                {/* Arrow */}
+                <ArrowRight
                   size={14}
-                  className="flex-shrink-0 text-slate-400 group-hover:text-orange-500 transition-colors duration-200"
-                  strokeWidth={1.8}
+                  className="flex-shrink-0 -translate-x-1 text-slate-300 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100"
                 />
-                <span
-                  className="text-[13px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors duration-200 leading-tight"
-                  style={SF}>
-                  {ind.title}
-                </span>
               </Link>
             );
           })}

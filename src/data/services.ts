@@ -1,3 +1,9 @@
+export interface TechnologyGroup {
+  title: string;
+  description: string;
+  technologies: string[];
+}
+
 export interface ServiceData {
   slug: string;
 
@@ -8,15 +14,15 @@ export interface ServiceData {
   description: string;
 
   heroImage: string;
+
   overviewImage: string;
 
   accent: string;
 
   overview: string;
 
-  capabilities: string[];
-
-  technologies: string[];
+  technologyGroups: TechnologyGroup[];
+  
 
   process: {
     title: string;
@@ -45,7 +51,7 @@ export const services: ServiceData[] = [
       "Build scalable digital products engineered for performance, growth, and exceptional user experience.",
 
     heroImage: "/images/services/digital-banner.webp",
-      // heroImage: "/images/services/hero-bg.webp",
+    // heroImage: "/images/services/hero-bg.webp",
 
     overviewImage: "/images/services/digital.webp",
 
@@ -54,22 +60,36 @@ export const services: ServiceData[] = [
     overview:
       "We design and build high-performance digital products that combine exceptional user experiences with scalable engineering. From discovery to deployment, we help organizations launch products faster while maintaining quality and long-term maintainability.",
 
-    capabilities: [
-      "Web Applications",
-      "Mobile Applications",
-      "UI/UX Design",
-      "API Development",
-      "Design Systems",
-      "Progressive Web Apps",
-    ],
-
-    technologies: [
-      "React",
-      "Next.js",
-      "Node.js",
-      "TypeScript",
-      "React Native",
-      "Tailwind CSS",
+    technologyGroups: [
+      {
+        title: "Frontend & Experience",
+        description:
+          "Modern user interfaces and digital experiences designed for performance and engagement.",
+        technologies: [
+          "React",
+          "Next.js",
+          "TypeScript",
+          "Tailwind CSS",
+          "Figma",
+        ],
+      },
+      {
+        title: "Applications",
+        description:
+          "Cross-platform web and mobile applications built for scale.",
+        technologies: ["React Native", "PWA", "Android", "iOS"],
+      },
+      {
+        title: "Backend & APIs",
+        description: "Robust backend systems, integrations, and scalable APIs.",
+        technologies: ["Node.js", "Express", "GraphQL", "REST APIs"],
+      },
+      {
+        title: "Cloud & DevOps",
+        description:
+          "Automated deployment pipelines and cloud-native infrastructure.",
+        technologies: ["AWS", "Docker", "Kubernetes", "Terraform"],
+      },
     ],
 
     process: [
@@ -127,7 +147,7 @@ export const services: ServiceData[] = [
       },
     ],
   },
-  {
+{
   slug: "cloud-devops",
 
   title: "Cloud & DevOps (SRE)",
@@ -135,100 +155,164 @@ export const services: ServiceData[] = [
   subtitle: "Reliable Cloud Infrastructure",
 
   description:
-    "Automate deployments, improve reliability, and scale confidently with modern cloud and DevOps practices.",
+    "Build resilient cloud platforms, automate delivery pipelines, and operate with confidence through modern DevOps and Site Reliability Engineering practices.",
 
   heroImage: "/images/services/cloud-banner.webp",
-    // heroImage: "/images/services/1.png",
 
   overviewImage: "/images/services/cloud.webp",
 
   accent: "from-sky-500 to-blue-600",
 
   overview:
-    "We design and manage resilient cloud environments that help organizations deploy faster, recover quicker, and operate with confidence. From infrastructure automation to observability and reliability engineering, we build scalable cloud foundations that support long-term growth.",
+    "We help organizations modernize infrastructure, automate operations, and improve reliability through cloud-native architectures and DevOps best practices. From cloud migrations and platform engineering to observability and SRE, we create scalable systems that enable faster innovation while maintaining security, performance, and uptime.",
 
-  capabilities: [
-    "Infrastructure as Code",
-    "CI/CD Pipelines",
-    "Monitoring & Observability",
-    "Kubernetes & Containers",
-    "Cloud Migration",
-    "Site Reliability Engineering",
-  ],
+  technologyGroups: [
+    {
+      title: "Cloud Platforms",
+      description:
+        "Secure, scalable cloud environments designed for performance, resilience, and growth.",
+      technologies: [
+        "AWS",
+        "Microsoft Azure",
+        "Google Cloud",
+        "Multi-Cloud",
+        "Hybrid Cloud",
+      ],
+    },
 
-  technologies: [
-    "AWS",
-    "Azure",
-    "Google Cloud",
-    "Terraform",
-    "Kubernetes",
-    "ArgoCD",
-    "Docker",
-    "Prometheus",
+    {
+      title: "Infrastructure & Automation",
+      description:
+        "Infrastructure as Code and automation frameworks that ensure consistency and repeatability.",
+      technologies: [
+        "Terraform",
+        "CloudFormation",
+        "Pulumi",
+        "Ansible",
+        "GitOps",
+      ],
+    },
+
+    {
+      title: "Containers & Platform Engineering",
+      description:
+        "Modern container orchestration and internal platform solutions for developer productivity.",
+      technologies: [
+        "Docker",
+        "Kubernetes",
+        "OpenShift",
+        "Helm",
+        "ArgoCD",
+      ],
+    },
+
+    {
+      title: "Observability & Reliability",
+      description:
+        "End-to-end monitoring, tracing, and incident management for mission-critical systems.",
+      technologies: [
+        "Prometheus",
+        "Grafana",
+        "Datadog",
+        "OpenTelemetry",
+        "PagerDuty",
+      ],
+    },
+
+    {
+      title: "CI/CD & DevSecOps",
+      description:
+        "Automated delivery pipelines with built-in security, compliance, and governance controls.",
+      technologies: [
+        "GitHub Actions",
+        "GitLab CI",
+        "Jenkins",
+        "SonarQube",
+        "Snyk",
+      ],
+    },
+
+    {
+      title: "Security & Compliance",
+      description:
+        "Cloud security frameworks and compliance automation for enterprise environments.",
+      technologies: [
+        "IAM",
+        "Vault",
+        "Zero Trust",
+        "FedRAMP",
+        "SOC 2",
+      ],
+    },
   ],
 
   process: [
     {
       title: "Assess",
       description:
-        "Evaluate your current infrastructure, deployment flow, and reliability gaps.",
+        "Evaluate infrastructure, deployment workflows, security posture, and operational maturity.",
+    },
+    {
+      title: "Design",
+      description:
+        "Create cloud architectures, platform strategies, and automation blueprints aligned with business goals.",
     },
     {
       title: "Automate",
       description:
-        "Build Infrastructure as Code and CI/CD pipelines for repeatable delivery.",
+        "Implement Infrastructure as Code, CI/CD pipelines, and operational automation.",
     },
     {
       title: "Observe",
       description:
-        "Implement logging, metrics, tracing, and alerting for full visibility.",
+        "Deploy monitoring, logging, tracing, and incident response capabilities for full visibility.",
     },
     {
       title: "Optimize",
       description:
-        "Improve performance, reduce operational overhead, and strengthen resilience.",
-    },
-    {
-      title: "Scale",
-      description:
-        "Continuously refine systems to support growth, uptime, and future expansion.",
+        "Continuously improve reliability, security, performance, and cloud cost efficiency.",
     },
   ],
 
   benefits: [
     {
-      title: "Higher Uptime",
+      title: "Faster Delivery",
       description:
-        "Keep systems available and resilient with proactive monitoring and SRE practices.",
+        "Accelerate software releases through automation and streamlined deployment workflows.",
     },
     {
-      title: "Faster Deployments",
+      title: "Improved Reliability",
       description:
-        "Release confidently through automated pipelines and cloud-native workflows.",
+        "Reduce downtime with proactive monitoring, SRE practices, and resilient architectures.",
     },
     {
-      title: "Lower Costs",
+      title: "Cloud Cost Optimization",
       description:
-        "Optimize cloud usage and operational efficiency without sacrificing reliability.",
+        "Gain visibility and control over infrastructure spending while maximizing performance.",
+    },
+    {
+      title: "Enhanced Security",
+      description:
+        "Embed security and compliance into every stage of the software delivery lifecycle.",
     },
   ],
 
   stats: [
     {
       value: "99.99%",
-      label: "Infrastructure Availability",
+      label: "Platform Availability",
     },
     {
-      value: "70%",
+      value: "80%",
       label: "Deployment Automation",
     },
     {
-      value: "40%",
-      label: "Reduced Cloud Costs",
+      value: "50%",
+      label: "Faster Release Cycles",
     },
   ],
 },
-{
+  {
   slug: "data-engineering-analytics",
 
   title: "Data Engineering & Analytics",
@@ -236,63 +320,122 @@ export const services: ServiceData[] = [
   subtitle: "Modern Data Foundations",
 
   description:
-    "Build reliable data pipelines, analytics platforms, and executive dashboards that turn raw data into actionable business insights.",
+    "Build reliable data pipelines, analytics platforms, and executive dashboards that transform raw data into actionable business intelligence.",
 
   heroImage: "/images/services/data-banner.webp",
-    // heroImage: "/images/services/hero-bg.webp",
 
   overviewImage: "/images/services/data.webp",
 
   accent: "from-violet-500 to-fuchsia-500",
 
   overview:
-    "We design and implement modern data ecosystems that unify sources, improve data quality, and deliver trusted insights at scale. From ingestion to visualization, we help organizations build analytics platforms that support smarter decisions and measurable business outcomes.",
+    "We help organizations unlock the full value of their data through modern data engineering, analytics, and business intelligence solutions. From data ingestion and transformation to lakehouse architectures and executive dashboards, we create trusted data ecosystems that empower teams to make faster, smarter decisions.",
 
-  capabilities: [
-    "Data Pipelines",
-    "ETL / ELT Development",
-    "Data Warehousing",
-    "Lakehouse Architecture",
-    "Business Intelligence Dashboards",
-    "Real-time Analytics",
-  ],
+  technologyGroups: [
+    {
+      title: "Data Integration & Pipelines",
+      description:
+        "Automated ingestion and transformation pipelines that move data reliably across systems.",
+      technologies: [
+        "Apache Airflow",
+        "dbt",
+        "Fivetran",
+        "Kafka",
+        "Spark Streaming",
+      ],
+    },
 
-  technologies: [
-    "dbt",
-    "Spark",
-    "Databricks",
-    "Delta Lake",
-    "Snowflake",
-    "Airflow",
-    "Power BI",
-    "Tableau",
+    {
+      title: "Data Warehousing",
+      description:
+        "Centralized analytical platforms optimized for performance, governance, and scale.",
+      technologies: [
+        "Snowflake",
+        "BigQuery",
+        "Amazon Redshift",
+        "Azure Synapse",
+        "PostgreSQL",
+      ],
+    },
+
+    {
+      title: "Lakehouse Architecture",
+      description:
+        "Modern lakehouse platforms that unify structured and unstructured data workloads.",
+      technologies: [
+        "Databricks",
+        "Delta Lake",
+        "Apache Spark",
+        "Iceberg",
+        "Data Lake Storage",
+      ],
+    },
+
+    {
+      title: "Business Intelligence",
+      description:
+        "Executive dashboards and self-service analytics that drive data-informed decisions.",
+      technologies: [
+        "Power BI",
+        "Tableau",
+        "Looker",
+        "Superset",
+        "Metabase",
+      ],
+    },
+
+    {
+      title: "Real-Time Analytics",
+      description:
+        "Event-driven architectures that deliver operational insights as data is generated.",
+      technologies: [
+        "Kafka",
+        "Flink",
+        "Spark Streaming",
+        "Redis",
+        "Event Hubs",
+      ],
+    },
+
+    {
+      title: "Data Governance & Quality",
+      description:
+        "Data quality frameworks, lineage tracking, and governance controls for trusted analytics.",
+      technologies: [
+        "Great Expectations",
+        "Data Catalogs",
+        "Collibra",
+        "Monte Carlo",
+        "OpenMetadata",
+      ],
+    },
   ],
 
   process: [
     {
       title: "Discover",
       description:
-        "Identify data sources, business metrics, reporting needs, and governance requirements.",
+        "Assess data sources, business goals, reporting requirements, and governance needs.",
     },
     {
       title: "Ingest",
       description:
-        "Collect, clean, and standardize data from systems, APIs, and event streams.",
+        "Collect, cleanse, and standardize data from applications, APIs, databases, and event streams.",
     },
     {
       title: "Model",
       description:
-        "Design scalable warehouses, lakehouses, and semantic data layers.",
+        "Design scalable warehouses, lakehouses, and semantic layers optimized for analytics.",
     },
     {
       title: "Visualize",
       description:
-        "Deliver dashboards and self-service reporting for teams and leadership.",
+        "Create executive dashboards and self-service reporting experiences.",
     },
     {
       title: "Optimize",
       description:
-        "Continuously improve freshness, reliability, and cost efficiency.",
+        "Continuously improve performance, data quality, reliability, and cost efficiency.",
     },
   ],
 
@@ -300,23 +443,28 @@ export const services: ServiceData[] = [
     {
       title: "Trusted Insights",
       description:
-        "Make decisions based on clean, consistent, and well-modeled data.",
+        "Make business decisions using accurate, governed, and high-quality data.",
     },
     {
       title: "Faster Reporting",
       description:
-        "Reduce manual work with automated pipelines and dashboard refreshes.",
+        "Reduce manual effort with automated pipelines and near real-time dashboards.",
     },
     {
-      title: "Scalable Platform",
+      title: "Scalable Data Platform",
       description:
-        "Support growing data volumes and new use cases with a future-ready architecture.",
+        "Support growing data volumes and advanced analytics workloads with confidence.",
+    },
+    {
+      title: "Improved Visibility",
+      description:
+        "Gain a complete view of business operations through centralized analytics.",
     },
   ],
 
   stats: [
     {
-      value: "10M+",
+      value: "10B+",
       label: "Records Processed",
     },
     {
@@ -337,63 +485,122 @@ export const services: ServiceData[] = [
   subtitle: "Workday, Salesforce & Enterprise Transformation",
 
   description:
-    "Maximize the value of enterprise platforms through seamless implementation, integration, customization, and ongoing optimization.",
+    "Maximize the value of enterprise platforms through seamless implementation, integration, automation, and continuous optimization.",
 
   heroImage: "/images/services/enterprise-banner.webp",
-    // heroImage: "/images/services/hero-bg.webp",
 
   overviewImage: "/images/services/enterprise.webp",
 
   accent: "from-emerald-500 to-teal-600",
 
   overview:
-    "Enterprise platforms are the backbone of modern organizations. We help businesses implement, integrate, and optimize platforms such as Workday and Salesforce to streamline operations, improve employee experiences, and drive business growth. Our approach combines technical expertise with business strategy to ensure measurable outcomes and long-term success.",
+    "Enterprise platforms power the core operations of modern organizations. We help businesses implement, integrate, and optimize solutions such as Workday, Salesforce, ServiceNow, and ERP systems to improve efficiency, employee experiences, and business agility. Our consultants combine deep platform expertise with business process knowledge to deliver measurable outcomes and long-term value.",
 
-  capabilities: [
-    "Workday HCM & Finance",
-    "Salesforce Implementation",
-    "CRM & ERP Integration",
-    "Business Process Automation",
-    "Enterprise Application Modernization",
-    "Platform Support & Optimization",
-  ],
+  technologyGroups: [
+    {
+      title: "Workday Solutions",
+      description:
+        "End-to-end Workday implementations, upgrades, and optimization across HR, Finance, and Planning.",
+      technologies: [
+        "Workday HCM",
+        "Workday Finance",
+        "Workday Payroll",
+        "Workday Prism",
+        "Workday Extend",
+      ],
+    },
 
-  technologies: [
-    "Workday",
-    "Salesforce",
-    "MuleSoft",
-    "Boomi",
-    "ServiceNow",
-    "Oracle",
-    "SAP",
-    "Azure Integration Services",
+    {
+      title: "Salesforce Ecosystem",
+      description:
+        "Customer-centric solutions that improve sales, service, marketing, and business growth.",
+      technologies: [
+        "Sales Cloud",
+        "Service Cloud",
+        "Marketing Cloud",
+        "Experience Cloud",
+        "Salesforce Platform",
+      ],
+    },
+
+    {
+      title: "Enterprise Integration",
+      description:
+        "Connect business-critical systems and automate workflows across the enterprise.",
+      technologies: [
+        "MuleSoft",
+        "Boomi",
+        "Azure Integration Services",
+        "REST APIs",
+        "Event-Driven Integration",
+      ],
+    },
+
+    {
+      title: "ERP & Business Systems",
+      description:
+        "Modernize and optimize enterprise resource planning platforms for operational excellence.",
+      technologies: [
+        "SAP",
+        "Oracle ERP",
+        "Microsoft Dynamics 365",
+        "NetSuite",
+        "JD Edwards",
+      ],
+    },
+
+    {
+      title: "Workflow Automation",
+      description:
+        "Streamline operations through low-code automation and intelligent workflow orchestration.",
+      technologies: [
+        "ServiceNow",
+        "Power Platform",
+        "Power Automate",
+        "UiPath",
+        "Automation Anywhere",
+      ],
+    },
+
+    {
+      title: "Governance & Security",
+      description:
+        "Ensure enterprise platforms remain secure, compliant, and aligned with governance standards.",
+      technologies: [
+        "IAM",
+        "SSO",
+        "RBAC",
+        "Audit Controls",
+        "Compliance Frameworks",
+      ],
+    },
   ],
 
   process: [
     {
       title: "Assess",
       description:
-        "Evaluate business processes, platform landscape, and transformation goals.",
+        "Evaluate business processes, application landscape, and transformation objectives.",
     },
     {
       title: "Design",
       description:
-        "Create scalable platform architectures and integration strategies aligned with business objectives.",
+        "Create scalable platform architectures, integration models, and governance strategies.",
     },
     {
       title: "Implement",
       description:
-        "Deploy enterprise platforms with best practices, governance, and security controls.",
+        "Deploy enterprise platforms using industry best practices and proven methodologies.",
     },
     {
       title: "Integrate",
       description:
-        "Connect systems, automate workflows, and ensure seamless data exchange across the organization.",
+        "Connect applications, automate workflows, and enable seamless data movement.",
     },
     {
       title: "Optimize",
       description:
-        "Continuously enhance platform performance, adoption, and business value.",
+        "Continuously improve adoption, performance, automation, and business outcomes.",
     },
   ],
 
@@ -401,23 +608,28 @@ export const services: ServiceData[] = [
     {
       title: "Operational Efficiency",
       description:
-        "Eliminate manual processes and improve productivity through automation.",
+        "Reduce manual effort and streamline business operations through automation.",
     },
     {
-      title: "Unified Business Systems",
+      title: "Connected Enterprise",
       description:
-        "Connect people, processes, and data across departments and platforms.",
+        "Unify systems, people, and data across departments and business functions.",
     },
     {
-      title: "Faster Business Outcomes",
+      title: "Improved User Experience",
       description:
-        "Accelerate decision-making and transformation initiatives with modern enterprise tools.",
+        "Deliver intuitive employee and customer experiences through modern platforms.",
+    },
+    {
+      title: "Accelerated Transformation",
+      description:
+        "Drive faster business outcomes with scalable enterprise technology solutions.",
     },
   ],
 
   stats: [
     {
-      value: "50+",
+      value: "100+",
       label: "Enterprise Integrations",
     },
     {
@@ -430,8 +642,7 @@ export const services: ServiceData[] = [
     },
   ],
 },
-
-{
+ {
   slug: "ai-machine-learning",
 
   title: "AI & Machine Learning",
@@ -442,62 +653,119 @@ export const services: ServiceData[] = [
     "Transform business operations with AI-powered solutions, machine learning models, intelligent automation, and enterprise-grade generative AI systems.",
 
   heroImage: "/images/services/ai-banner.webp",
+
   overviewImage: "/images/services/ai.webp",
 
   accent: "from-fuchsia-500 to-purple-600",
 
   overview:
-    "Artificial Intelligence is reshaping how organizations operate, innovate, and compete. We help businesses design, develop, and deploy AI solutions that deliver measurable outcomes—from intelligent automation and predictive analytics to private LLM assistants and generative AI applications. Our approach focuses on security, governance, scalability, and business value to ensure AI initiatives move beyond experimentation and into production.",
+    "Artificial Intelligence is transforming how organizations operate, innovate, and compete. We help businesses design, develop, and deploy AI solutions that deliver measurable outcomes—from intelligent automation and predictive analytics to private LLM assistants and generative AI applications. Our focus on security, governance, scalability, and business value ensures AI initiatives move beyond experimentation into production-ready systems.",
 
-  capabilities: [
-    "Generative AI Applications",
-    "Private LLM Assistants",
-    "Retrieval-Augmented Generation (RAG)",
-    "Predictive Analytics",
-    "Machine Learning Models",
-    "Intelligent Process Automation",
-    "AI Chatbots & Virtual Assistants",
-    "MLOps & Model Monitoring",
-  ],
+  technologyGroups: [
+    {
+      title: "Generative AI & LLMs",
+      description:
+        "Enterprise-grade generative AI applications powered by modern large language models.",
+      technologies: [
+        "OpenAI",
+        "Azure OpenAI",
+        "Claude",
+        "Gemini",
+        "Llama",
+      ],
+    },
 
-  technologies: [
-    "OpenAI",
-    "Azure OpenAI",
-    "LangChain",
-    "LlamaIndex",
-    "Pinecone",
-    "Weaviate",
-    "Python",
-    "TensorFlow",
-    "PyTorch",
-    "MLflow",
+    {
+      title: "AI Assistants & RAG",
+      description:
+        "Private AI assistants that securely access enterprise knowledge and business data.",
+      technologies: [
+        "LangChain",
+        "LlamaIndex",
+        "RAG",
+        "Semantic Search",
+        "Prompt Engineering",
+      ],
+    },
+
+    {
+      title: "Vector Databases",
+      description:
+        "Scalable knowledge retrieval systems optimized for AI-powered search and recommendations.",
+      technologies: [
+        "Pinecone",
+        "Weaviate",
+        "ChromaDB",
+        "FAISS",
+        "Qdrant",
+      ],
+    },
+
+    {
+      title: "Machine Learning & Predictive Analytics",
+      description:
+        "Build predictive models that uncover insights, forecast outcomes, and drive smarter decisions.",
+      technologies: [
+        "Python",
+        "Scikit-Learn",
+        "TensorFlow",
+        "PyTorch",
+        "XGBoost",
+      ],
+    },
+
+    {
+      title: "MLOps & Model Lifecycle",
+      description:
+        "Production-ready machine learning pipelines with monitoring, governance, and continuous improvement.",
+      technologies: [
+        "MLflow",
+        "Kubeflow",
+        "Docker",
+        "Kubernetes",
+        "Azure ML",
+      ],
+    },
+
+    {
+      title: "Intelligent Automation",
+      description:
+        "Automate repetitive processes using AI, workflows, and intelligent decision-making systems.",
+      technologies: [
+        "AI Agents",
+        "Workflow Automation",
+        "Document Intelligence",
+        "OCR",
+        "Process Mining",
+      ],
+    },
   ],
 
   process: [
     {
       title: "Discover",
       description:
-        "Identify high-value AI opportunities, business objectives, and data readiness.",
+        "Identify high-impact AI opportunities, business objectives, and measurable success criteria.",
     },
     {
       title: "Prepare",
       description:
-        "Collect, clean, and structure data while establishing governance and security controls.",
+        "Assess data readiness, establish governance controls, and build secure AI foundations.",
     },
     {
       title: "Build",
       description:
-        "Develop machine learning models, AI assistants, and intelligent automation workflows.",
+        "Develop machine learning models, AI assistants, and intelligent automation solutions.",
     },
     {
       title: "Deploy",
       description:
-        "Launch production-ready AI systems with monitoring, evaluation, and guardrails.",
+        "Launch production-ready AI systems with monitoring, guardrails, and evaluation frameworks.",
     },
     {
       title: "Optimize",
       description:
-        "Continuously improve model performance, accuracy, and business impact.",
+        "Continuously improve model performance, user adoption, and business outcomes.",
     },
   ],
 
@@ -508,14 +776,19 @@ export const services: ServiceData[] = [
         "Reduce manual effort and increase productivity through AI-driven workflows.",
     },
     {
-      title: "Data-Driven Decisions",
+      title: "Faster Decision Making",
       description:
-        "Leverage predictive insights to improve planning, forecasting, and strategy.",
+        "Leverage predictive insights and real-time intelligence to improve business outcomes.",
     },
     {
-      title: "Enterprise AI Adoption",
+      title: "Enterprise-Ready AI",
       description:
-        "Deploy secure, scalable AI solutions with governance and compliance built in.",
+        "Deploy secure, scalable, and governed AI systems with confidence.",
+    },
+    {
+      title: "Knowledge Acceleration",
+      description:
+        "Enable teams to access information instantly through AI-powered assistants.",
     },
   ],
 
@@ -530,9 +803,8 @@ export const services: ServiceData[] = [
     },
     {
       value: "40%",
-      label: "Reduction In Operational Costs",
+      label: "Operational Cost Reduction",
     },
   ],
 }
-
 ];

@@ -1,16 +1,19 @@
-import {  useLayoutEffect, useEffect } from "react";
+import { useLayoutEffect } from "react";
 import gsap from "@/lib/gsap";
-
-const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function useGsap(
-  callback: () => void,
-  deps: unknown[] = [],
-  scope?: React.RefObject<HTMLElement>
+  callback: () => gsap.Context | void,
+  deps: unknown[] = []
 ) {
-  useIsomorphicLayoutEffect(() => {
-    const ctx = gsap.context(callback, scope);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      callback();
+    });
+
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
 
     return () => {
       ctx.revert();

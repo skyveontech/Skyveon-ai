@@ -132,7 +132,14 @@ const jobs: Job[] = [
   },
   {
     title: "Software Engineer — Cloud DevOps (Mid Level)",
-    tags: ["Cloud DevOps", "Mid level", "Cloud", "Kubernetes", "On-site", "Full-time"],
+    tags: [
+      "Cloud DevOps",
+      "Mid level",
+      "Cloud",
+      "Kubernetes",
+      "On-site",
+      "Full-time",
+    ],
     summary:
       "Build/optimize IaC and CI/CD across clouds; container orchestration; reliability at scale.",
     responsibilities: [
@@ -255,7 +262,8 @@ const jobs: Job[] = [
   {
     title: "Software Engineer — Full Stack Java (Entry Level)",
     tags: ["Java", "Entry level", "On-site", "Full-time"],
-    summary: "Build end-to-end web applications with Java, Spring Boot, and modern UIs.",
+    summary:
+      "Build end-to-end web applications with Java, Spring Boot, and modern UIs.",
     responsibilities: [
       "Assist with Java/Spring Boot features and REST endpoints.",
       "UI development with HTML/CSS/JS + React/Angular.",
@@ -288,7 +296,8 @@ const jobs: Job[] = [
   {
     title: "Software Engineer — Full Stack Python (Entry Level)",
     tags: ["Python", "Entry level", "On-site", "Full-time"],
-    summary: "Contribute to Python backends and modern front-ends; learn by shipping.",
+    summary:
+      "Contribute to Python backends and modern front-ends; learn by shipping.",
     responsibilities: [
       "Assist in Flask/Django services and REST endpoints.",
       "Build responsive UIs (React/Vue/Angular).",
@@ -338,7 +347,8 @@ const jobs: Job[] = [
   {
     title: "Software Engineer / Data Analyst (Mid Level)",
     tags: ["Data Analyst", "Mid level", "Analytics", "On-site", "Full-time"],
-    summary: "Build dashboards, automate reporting, and deliver analytical insights.",
+    summary:
+      "Build dashboards, automate reporting, and deliver analytical insights.",
     responsibilities: [
       "Create Power BI/Tableau dashboards for business KPIs.",
       "Write complex SQL; automate reporting workflows.",
@@ -354,7 +364,8 @@ const jobs: Job[] = [
   {
     title: "Software Engineer / Data Analyst (Entry Level)",
     tags: ["Data Analyst", "Entry level", "Analytics", "On-site", "Full-time"],
-    summary: "Learn BI fundamentals: clean data, build reports, and track metrics.",
+    summary:
+      "Learn BI fundamentals: clean data, build reports, and track metrics.",
     responsibilities: [
       "Gather/clean data (Excel/SQL/APIs); create charts/reports.",
       "Define metrics; assist ad-hoc analysis; document definitions.",
@@ -445,16 +456,29 @@ function JobCard({ job, index }: { job: Job; index: number }) {
   const [expanded, setExpanded] = useState(false);
 
   const mailtoHref = `mailto:hr@skyveon.ai?subject=${encodeURIComponent(
-    `Application for ${job.title}`
+    `Application for ${job.title}`,
   )}&body=${encodeURIComponent(
-    `Hi Skyveon Hiring Team,\n\nI'm applying for the ${job.title} role.\n\nBASICS\n* Full name:\n* Phone:\n* Current location (City, State):\n* Work authorization:\n\nLINKS\n* LinkedIn:\n* GitHub/Portfolio:\n\nEXPERIENCE SNAPSHOT\n* Years of experience:\n* Most recent employer / project:\n* Notice period / availability:\n\nPlease find my resume attached.\n\nThank you,`
+    `Hi Skyveon Hiring Team,\n\nI'm applying for the ${job.title} role.\n\nBASICS\n* Full name:\n* Phone:\n* Current location (City, State):\n* Work authorization:\n\nLINKS\n* LinkedIn:\n* GitHub/Portfolio:\n\nEXPERIENCE SNAPSHOT\n* Years of experience:\n* Most recent employer / project:\n* Notice period / availability:\n\nPlease find my resume attached.\n\nThank you,`,
   )}`;
+
+  const detailsRef = useRef<HTMLDivElement>(null);
+
+useGsap(() => {
+  if (!expanded || !detailsRef.current) return;
+
+  gsap.from(detailsRef.current, {
+    height: 0,
+    opacity: 0,
+    y: -10,
+    duration: 0.4,
+    ease: "power2.out",
+  });
+}, [expanded]);
 
   return (
     <div
       className="job-row group transition-all duration-200 rounded-[20px] border border-slate-100 bg-white shadow-sm hover:border-orange-200 hover:shadow-[0_8px_32px_rgba(249,115,22,0.10)]"
-      style={{ willChange: "transform, opacity" }}
-    >
+      style={{ willChange: "transform, opacity" }}>
       {/* Header row — always visible */}
       <div className="p-7 flex flex-wrap items-start justify-between gap-6">
         <div className="flex items-start gap-5 flex-1 min-w-0">
@@ -470,8 +494,7 @@ function JobCard({ job, index }: { job: Job; index: number }) {
               {job.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-3 py-0.5 text-[11px] font-semibold text-slate-500 tracking-wide"
-                >
+                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-3 py-0.5 text-[11px] font-semibold text-slate-500 tracking-wide">
                   {tag}
                 </span>
               ))}
@@ -487,8 +510,7 @@ function JobCard({ job, index }: { job: Job; index: number }) {
           <button
             onClick={() => setExpanded((v) => !v)}
             className="inline-flex items-center gap-1.5 rounded-[12px] border border-slate-200 bg-white px-4 py-2.5 text-[13px] font-semibold text-slate-600 transition-all duration-150 hover:border-orange-300 hover:text-orange-500"
-            aria-expanded={expanded}
-          >
+            aria-expanded={expanded}>
             {expanded ? (
               <>
                 Less <ChevronUp size={14} />
@@ -501,8 +523,7 @@ function JobCard({ job, index }: { job: Job; index: number }) {
           </button>
           <a
             href={mailtoHref}
-            className="inline-flex items-center gap-2 rounded-[12px] bg-orange-500 px-5 py-2.5 text-[13px] font-bold text-white shadow-[0_4px_14px_rgba(249,115,22,0.3)] transition-all duration-150 hover:scale-[1.03] hover:shadow-[0_6px_20px_rgba(249,115,22,0.42)]"
-          >
+            className="apply-btn  inline-flex items-center gap-2 rounded-[12px] bg-orange-500 px-5 py-2.5 text-[13px] font-bold text-white shadow-[0_4px_14px_rgba(249,115,22,0.3)] transition-all duration-150 hover:scale-[1.03] hover:shadow-[0_6px_20px_rgba(249,115,22,0.42)]">
             Apply Now <ArrowRight size={14} />
           </a>
         </div>
@@ -510,7 +531,7 @@ function JobCard({ job, index }: { job: Job; index: number }) {
 
       {/* Expandable detail panel */}
       {expanded && (
-        <div className="border-t border-slate-100 px-7 pb-7 pt-5 grid md:grid-cols-2 gap-8">
+        <div ref={detailsRef} className="job-details border-t border-slate-100 px-7 pb-7 pt-5 grid md:grid-cols-2 gap-8">
           {/* Responsibilities */}
           <div>
             <h4 className="text-[13px] font-bold text-slate-400 tracking-widest uppercase mb-3">
@@ -518,7 +539,9 @@ function JobCard({ job, index }: { job: Job; index: number }) {
             </h4>
             <ul className="space-y-2.5">
               {job.responsibilities.map((r) => (
-                <li key={r} className="flex items-start gap-2.5 text-sm text-slate-600 leading-relaxed">
+                <li
+                  key={r}
+                  className="flex items-start gap-2.5 text-sm text-slate-600 leading-relaxed">
                   <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange-400 shrink-0" />
                   {r}
                 </li>
@@ -533,7 +556,9 @@ function JobCard({ job, index }: { job: Job; index: number }) {
             </h4>
             <ul className="space-y-2.5">
               {job.qualifications.map((q) => (
-                <li key={q} className="flex items-start gap-2.5 text-sm text-slate-600 leading-relaxed">
+                <li
+                  key={q}
+                  className="flex items-start gap-2.5 text-sm text-slate-600 leading-relaxed">
                   <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange-400 shrink-0" />
                   {q}
                 </li>
@@ -544,14 +569,14 @@ function JobCard({ job, index }: { job: Job; index: number }) {
             <div className="mt-5 space-y-1.5">
               <p className="flex items-center gap-1.5 text-[12px] text-slate-400">
                 <MapPin size={11} />
-                Columbus, OH (On-site; may include unanticipated U.S. locations) · Full-time
+                Columbus, OH (On-site; may include unanticipated U.S. locations)
+                · Full-time
               </p>
               <p className="text-[12px] text-slate-400">
                 Equal Opportunity Employer · E-Verify participant ·{" "}
                 <a
                   href="mailto:hr@skyveon.ai"
-                  className="text-orange-400 hover:text-orange-500 transition-colors"
-                >
+                  className="text-orange-400 hover:text-orange-500 transition-colors">
                   hr@skyveon.ai
                 </a>{" "}
                 for accommodations
@@ -571,36 +596,164 @@ function JobCard({ job, index }: { job: Job; index: number }) {
 export default function CareersPage() {
   const heroRef = useRef<HTMLElement>(null);
   const benefitsRef = useRef<HTMLElement>(null);
+  const jobsRef = useRef<HTMLElement>(null);
 
   const [activeTrack, setActiveTrack] = useState("All tracks");
   const [activeLevel, setActiveLevel] = useState("All levels");
 
   const filteredJobs = jobs.filter((job) => {
-    const trackMatch = activeTrack === "All tracks" || job.track === activeTrack;
-    const levelMatch = activeLevel === "All levels" || job.level === activeLevel;
+    const trackMatch =
+      activeTrack === "All tracks" || job.track === activeTrack;
+    const levelMatch =
+      activeLevel === "All levels" || job.level === activeLevel;
     return trackMatch && levelMatch;
   });
 
   useGsap(() => {
-    gsap.set([".benefit-card", ".job-row", ".filter-pill"], {
-      willChange: "transform, opacity",
+    // =====================================
+    // HERO
+    // =====================================
+
+    const heroTl = gsap.timeline({
+      defaults: {
+        ease: "power4.out",
+      },
     });
 
-    const heroTl = gsap.timeline({ defaults: { ease: "power4.out" } });
     heroTl
-      .from(".hero-badge", { opacity: 0, y: 20, duration: 0.6 })
-      .from(".hero-h1-line", { opacity: 0, y: 60, stagger: 0.12, duration: 1 }, "-=0.2")
-      .from(".hero-para", { opacity: 0, y: 30, duration: 0.8 }, "-=0.5");
+      .from(".hero-badge", {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+      })
+      .from(
+        ".hero-h1-line",
+        {
+          opacity: 0,
+          y: 60,
+          stagger: 0.12,
+          duration: 0.9,
+        },
+        "-=0.2",
+      )
+      .from(
+        ".hero-para",
+        {
+          opacity: 0,
+          y: 30,
+          duration: 0.7,
+        },
+        "-=0.4",
+      );
+
+    // =====================================
+    // BENEFITS
+    // =====================================
+
+    gsap.set(".benefit-card", {
+      opacity: 0,
+      y: 50,
+    });
+
+    gsap.to(".benefit-card", {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      stagger: 0.08,
+      ease: "power3.out",
+
+      scrollTrigger: {
+        trigger: benefitsRef.current,
+        start: "top 80%",
+        once: true,
+      },
+    });
+
+    // =====================================
+    // FILTER PILLS
+    // =====================================
+
+    gsap.set(".filter-pill", {
+      opacity: 0,
+      scale: 0.9,
+    });
+
+    gsap.to(".filter-pill", {
+      opacity: 1,
+      scale: 1,
+      duration: 0.45,
+      stagger: 0.03,
+      ease: "back.out(1.6)",
+
+      scrollTrigger: {
+        trigger: jobsRef.current,
+        start: "top 85%",
+        once: true,
+      },
+    });
+
+    // =====================================
+    // JOB CARDS
+    // =====================================
+
+    gsap.utils.toArray<HTMLElement>(".job-row").forEach((card, index) => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 40,
+        x: index % 2 === 0 ? -40 : 40,
+        duration: 0.7,
+        ease: "power3.out",
+
+        scrollTrigger: {
+          trigger: card,
+          start: "top 88%",
+          once: true,
+        },
+      });
+    });
+
+    // =====================================
+    // CTA
+    // =====================================
 
     gsap.from(".career-cta", {
       opacity: 0,
       y: 50,
-      scale: 0.96,
+      scale: 0.97,
       duration: 1,
       ease: "power4.out",
-      scrollTrigger: { trigger: ".career-cta", start: "top 80%", once: true },
+
+      scrollTrigger: {
+        trigger: ".career-cta",
+        start: "top 80%",
+        once: true,
+      },
     });
-  }, []);
+
+    // =====================================
+    // BUTTON HOVER EFFECT
+    // =====================================
+
+    gsap.utils.toArray<HTMLElement>(".job-row").forEach((card) => {
+      const button = card.querySelector(".apply-btn");
+
+      if (!button) return;
+
+      card.addEventListener("mouseenter", () => {
+        gsap.to(button, {
+          x: 4,
+          duration: 0.25,
+        });
+      });
+
+      card.addEventListener("mouseleave", () => {
+        gsap.to(button, {
+          x: 0,
+          duration: 0.25,
+        });
+      });
+    });
+  }, [filteredJobs.length]);
 
   return (
     <div className="font-sans">
@@ -610,16 +763,15 @@ export default function CareersPage() {
         className="relative overflow-hidden py-8 md:py-12"
         style={{
           background: "linear-gradient(135deg,#fff7ed 0%,#fff 50%,#fff 100%)",
-        }}
-      >
+        }}>
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="/images/career-banner.webp"
+            src="/images/career-bg.webp"
             alt="Skyveon Careers"
             className="absolute inset-0 h-full w-full object-cover opacity-100"
           />
-          {/* <div className="absolute inset-0 bg-gradient-to-r from-white/97 via-white/15 to-orange-500/[0.09]" /> */}
-       </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/97 via-white/15 to-orange-500/[0.09]" />
+        </div>
 
         <div className="relative max-w-7xl mx-auto px-10">
           <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-[18px] py-2 text-[13px] font-semibold text-orange-500 tracking-widest">
@@ -632,7 +784,9 @@ export default function CareersPage() {
               <span className="hero-h1-line block">Build The Future</span>
             </span>
             <span className="block">
-              <span className="hero-h1-line block text-orange-500">With Skyveon</span>
+              <span className="hero-h1-line block text-orange-500">
+                With Skyveon
+              </span>
             </span>
           </h1>
 
@@ -646,8 +800,7 @@ export default function CareersPage() {
       {/* ═══════════ BENEFITS ═══════════ */}
       <section
         ref={benefitsRef}
-        className="py-8 md:py-12 bg-gray-50 border-t border-slate-100"
-      >
+        className="py-8 md:py-12 bg-gray-50 border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-10">
           <div className="mb-8">
             <span className="text-orange-500 font-bold text-[12px] tracking-[0.12em]">
@@ -664,12 +817,13 @@ export default function CareersPage() {
               return (
                 <div
                   key={b.title}
-                  className="benefit-card transition-transform duration-200 rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm cursor-default hover:-translate-y-1 hover:scale-[1.02]"
-                >
+                  className="benefit-card transition-transform duration-200 rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm cursor-default hover:-translate-y-1 hover:scale-[1.02]">
                   <div className="w-11 h-11 rounded-[14px] bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 flex items-center justify-center">
                     <Icon size={20} className="text-orange-500" />
                   </div>
-                  <h3 className="mt-5 text-[1.2rem] font-bold text-slate-900">{b.title}</h3>
+                  <h3 className="mt-5 text-[1.2rem] font-bold text-slate-900">
+                    {b.title}
+                  </h3>
                   <p className="mt-3 text-slate-500 leading-relaxed text-sm font-light">
                     {b.description}
                   </p>
@@ -681,7 +835,7 @@ export default function CareersPage() {
       </section>
 
       {/* ═══════════ OPEN POSITIONS ═══════════ */}
-      <section className="py-8 md:py-16 bg-white">
+      <section ref={jobsRef} className="py-8 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-10">
           {/* Section header */}
           <div className="mb-10">
@@ -692,8 +846,9 @@ export default function CareersPage() {
               Open Positions
             </h2>
             <p className="mt-3 text-slate-500 text-base max-w-xl">
-              We turn ideas into dependable systems. If you love practical engineering,
-              clear ownership, and measurable impact, you'll fit right in.
+              We turn ideas into dependable systems. If you love practical
+              engineering, clear ownership, and measurable impact, you'll fit
+              right in.
             </p>
           </div>
 
@@ -713,8 +868,7 @@ export default function CareersPage() {
                       activeTrack === track
                         ? "bg-orange-500 text-white shadow-[0_4px_12px_rgba(249,115,22,0.35)]"
                         : "border border-slate-200 bg-white text-slate-500 hover:border-orange-300 hover:text-orange-500"
-                    }`}
-                  >
+                    }`}>
                     {track}
                   </button>
                 ))}
@@ -735,8 +889,7 @@ export default function CareersPage() {
                       activeLevel === level
                         ? "bg-orange-500 text-white shadow-[0_4px_12px_rgba(249,115,22,0.35)]"
                         : "border border-slate-200 bg-white text-slate-500 hover:border-orange-300 hover:text-orange-500"
-                    }`}
-                  >
+                    }`}>
                     {level}
                   </button>
                 ))}
@@ -747,7 +900,9 @@ export default function CareersPage() {
           {/* Result count */}
           <p className="mb-6 text-[13px] text-slate-400 font-medium">
             Showing{" "}
-            <span className="text-orange-500 font-bold">{filteredJobs.length}</span>{" "}
+            <span className="text-orange-500 font-bold">
+              {filteredJobs.length}
+            </span>{" "}
             {filteredJobs.length === 1 ? "role" : "roles"}
           </p>
 
@@ -770,8 +925,7 @@ export default function CareersPage() {
             Don't see the right fit? Reach out directly at{" "}
             <a
               href="mailto:hr@skyveon.ai"
-              className="text-orange-500 font-semibold hover:text-orange-600 transition-colors"
-            >
+              className="text-orange-500 font-semibold hover:text-orange-600 transition-colors">
               hr@skyveon.ai
             </a>
           </div>

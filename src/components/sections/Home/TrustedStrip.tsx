@@ -142,7 +142,7 @@ export default function TrustedStrip() {
       scrollTrigger: {
         trigger: ".stats-grid",
         start: "top 82%",
-            toggleActions: "play reverse play reverse",
+        toggleActions: "play reverse play reverse",
 
         onEnter: () => setCountTrigger(true),
       },
@@ -160,14 +160,18 @@ export default function TrustedStrip() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden  py-12 lg:py-8">
+      className="relative overflow-hidden bg-white  py-12 lg:py-8">
       {/* ── DOT PATTERN ── */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.35]"
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.35]"
         style={{
-          backgroundImage: "radial-gradient(circle, #f97316 1px, transparent 1px)",
+          backgroundImage:
+            "radial-gradient(circle, #f97316 1px, transparent 1px)",
           backgroundSize: "32px 32px",
-          maskImage: "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)",
-        }} />
+          maskImage:
+            "radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%)",
+        }}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
         {/* ── HEADER ── */}

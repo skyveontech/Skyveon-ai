@@ -107,12 +107,9 @@ export default function FutureBanner() {
     // =====================================================
     // PARALLAX BACKGROUND
     // =====================================================
-
-    gsap.to(".future-bg img", {
+    gsap.to(".future-bg-img", {
       yPercent: -15,
-      scale: 1.15,
       ease: "none",
-
       scrollTrigger: {
         trigger: bannerRef.current,
         start: "top bottom",
@@ -125,33 +122,21 @@ export default function FutureBanner() {
   return (
     <section
       ref={bannerRef}
-      className="relative overflow-hidden py-16 lg:py-18 bg-[#F8FAFC]">
+      className="relative overflow-hidden py-16 z-100 lg:py-18 bg-[#F8FAFC]">
       {/* REVEAL COVERS */}
       <div className="cover-left absolute inset-y-0 left-0 w-1/2 bg-white z-30" />
 
       <div className="cover-right absolute inset-y-0 right-0 w-1/2 bg-white z-30" />
 
       {/* BACKGROUND */}
-      <div className="future-bg pointer-events-none absolute inset-0 overflow-hidden">
-        {/* IMAGE */}
+      <div className="future-bg absolute inset-0 overflow-hidden">
         <img
           src="/images/future-bg.webp"
           alt=""
-          aria-hidden="true"
-          loading="lazy"
-          className="absolute inset-0 h-full w-full scale-110 object-cover opacity-90"
+          className="future-bg-img absolute inset-0 h-[120%] w-full object-cover"
         />
 
-        {/* WHITE OVERLAY */}
-        <div className="absolute inset-0 bg-black/25" />
-
-        {/* GLOW */}
-        {/* <div className="absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-orange-200/40 blur-3xl" /> */}
-
-        {/* <div className="absolute -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-blue-200/30 blur-3xl" /> */}
-
-        {/* GRID */}
-        <div />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* CONTENT */}

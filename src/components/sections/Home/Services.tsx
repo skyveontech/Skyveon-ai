@@ -29,7 +29,7 @@ const slides = [
     title: "Cloud & DevOps (SRE)",
     description:
       "IaC, CI/CD, policy-as-code, observability, reliability at scale. Golden paths you can reuse.",
-    image: "/images/services/cloud.webp",
+    image: "/images/services/cloud-devops.webp",
     tags: ["Terraform", "EKS/GKE", "ArgoCD", "OpenTelemetry"],
     link: "/services/cloud-devops",
     tag: "02",
@@ -49,7 +49,7 @@ const slides = [
     title: "Enterprise Platforms",
     description:
       "Workday HCM/Finance & Salesforce clouds, integrated end-to-end with guardrails.",
-    image: "/images/services/enterprise.webp",
+    image: "/images/services/erp.webp",
     tags: ["Workday", "Salesforce", "Mulesoft", "Security"],
     link: "/services/enterprise-platforms",
     tag: "04",
@@ -206,7 +206,7 @@ export default function ServicesSlider() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-8 lg:py-12 ">
+      className="relative overflow-hidden py-8 lg:py-12 bg-white z-50">
       {/* ── Heading ────────────────────────────────────────────────────────── */}
       <div
         ref={headingRef}
@@ -233,7 +233,7 @@ export default function ServicesSlider() {
       </div>
 
       {/* ── Slider ─────────────────────────────────────────────────────────── */}
-      <div ref={sliderRef} className="relative mt-16 lg:mt-20">
+      <div ref={sliderRef} className="relative mt-2 lg:mt-10">
         <Swiper
           modules={[EffectCoverflow, Autoplay]}
           effect="coverflow"
@@ -279,7 +279,7 @@ export default function ServicesSlider() {
                   </div>
 
                   {/* Image */}
-                  <div className="relative h-[400px] lg:h-[460px] overflow-hidden">
+                  <div className="relative h-[400px] lg:h-[410px] overflow-hidden">
                     <img
                       src={slide.image}
                       alt={slide.title}

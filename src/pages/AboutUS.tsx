@@ -133,13 +133,13 @@ export default function AboutPage() {
         delay: 0.4,
       });
 
-      gsap.from(".hero-btn", {
-        opacity: 0,
-        y: 20,
-        stagger: 0.1,
-        duration: 0.6,
-        delay: 0.7,
-      });
+      // gsap.from(".hero-btn", {
+      //   opacity: 0,
+      //   y: 20,
+      //   stagger: 0.1,
+      //   duration: 0.6,
+      //   delay: 0.7,
+      // });
 
       // GLOBAL REVEALS
       gsap.utils.toArray<HTMLElement>(".fade-up").forEach((item) => {
