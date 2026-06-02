@@ -82,9 +82,9 @@ export default function ServiceCapabilitiesTech({
             return (
               <div
                 key={group.title}
-                className="tech-card rounded-[32px] border border-slate-200 bg-white p-8 transition-all duration-300 hover:border-orange-200 hover:shadow-lg"
+                className="tech-card rounded-[32px] border border-slate-200 bg-white px-2 py-4 md:p-8 transition-all duration-300 hover:border-orange-200 hover:shadow-lg"
               >
-                <div className="flex items-start gap-4">
+                <div className="flex items-start justify-around flex-col md:flex-row  gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50">
                     <Icon
                       size={22}
@@ -93,7 +93,7 @@ export default function ServiceCapabilitiesTech({
                   </div>
 
                   <div>
-                    <h3 className="text-2xl font-bold text-slate-900">
+                    <h3 className="text-2xl  font-bold text-slate-900">
                       {group.title}
                     </h3>
 

@@ -210,6 +210,11 @@ export default function Hero() {
                 Workday & Salesforce
               </div>
             </div>
+               {/* MICRO TEXT */}
+            <p className="mt-5 hero-desc-line-mini hidden lg:block text-sm text-slate-900">
+              Helping enterprises modernize through AI, Cloud, Data Engineering,
+              Workday, Salesforce, and Digital Product Engineering.
+            </p>
             {/* BUTTONS */}
             <div className="mt-10  flex flex-col sm:flex-row gap-4   ">
               <Link
@@ -229,11 +234,7 @@ export default function Hero() {
               </Link>
             </div>
 
-            {/* MICRO TEXT */}
-            <p className="mt-5 hero-desc-line-mini hidden lg:block text-sm text-slate-900">
-              Helping enterprises modernize through AI, Cloud, Data Engineering,
-              Workday, Salesforce, and Digital Product Engineering.
-            </p>
+         
           </div>
           <div className="hero-panel hidden lg:block relative max-w-[460px] ml-auto">
             <div className="overflow-hidden rounded-[32px] border border-white/40 bg-white/80 backdrop-blur-2xl shadow-[0_24px_80px_rgba(15,23,42,0.10)]">
