@@ -100,7 +100,7 @@ export default function Hero() {
         },
         0,
       )
-       .from(
+      .from(
         ".hero-desc-line-mini",
         {
           yPercent: 100,
@@ -119,6 +119,17 @@ export default function Hero() {
         },
         "-=1.2",
       );
+
+    gsap.to(".hero-bg-img", {
+    yPercent: -20,
+    ease: "none",
+    scrollTrigger: {
+      trigger: heroRef.current,
+      start: "top top",
+      end: "bottom top",
+      scrub: 1,
+    },
+  });
   }, []);
 
   // Helper: wraps each word in a clip container for the reveal
@@ -135,11 +146,11 @@ export default function Hero() {
       ref={heroRef}
       className="relative md:h-screen max-h-screen py-12 md:py-8 md:mt-0 overflow-hidden">
       {/* BACKGROUND IMAGE */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden">
         <img
           src={heroimg}
           alt="Skyveon AI"
-          className="hero-image h-full w-full md:fixed object-cover"
+          className="hero-bg-img absolute inset-0 h-[130%] w-full object-cover"
         />
       </div>
       <div className="absolute inset-0 bg-gradient-to-r from-white/97 via-white/15 to-orange-500/[0.09]" />
@@ -210,7 +221,7 @@ export default function Hero() {
                 Workday & Salesforce
               </div>
             </div>
-               {/* MICRO TEXT */}
+            {/* MICRO TEXT */}
             <p className="mt-5 hero-desc-line-mini hidden lg:block text-sm text-slate-900">
               Helping enterprises modernize through AI, Cloud, Data Engineering,
               Workday, Salesforce, and Digital Product Engineering.
@@ -233,8 +244,6 @@ export default function Hero() {
                 Book Consultation
               </Link>
             </div>
-
-         
           </div>
           <div className="hero-panel hidden lg:block relative max-w-[460px] ml-auto">
             <div className="overflow-hidden rounded-[32px] border border-white/40 bg-white/80 backdrop-blur-2xl shadow-[0_24px_80px_rgba(15,23,42,0.10)]">
