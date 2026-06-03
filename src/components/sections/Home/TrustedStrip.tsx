@@ -5,9 +5,9 @@ import gsap from "@/lib/gsap";
 import useGsap from "@/hooks/use-gsap";
 
 const stats = [
-  { number: 750, suffix: "+", label: "Global Employees" },
-  { number: 80, suffix: "+", label: "Global Customers" },
-  { number: 20, suffix: "+", label: "Global Markets" },
+  { number: 120, suffix: "+", label: "Global Employees" },
+  { number: 50, suffix: "+", label: "Global Customers" },
+  { number: 10, suffix: "+", label: "Global Markets" },
 ];
 
 const partners = [

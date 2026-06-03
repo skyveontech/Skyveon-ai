@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import gsap from "@/lib/gsap";
 import useGsap from "@/hooks/use-gsap";
 
-import heroimg from "@/assets/hero-banner.webp";
+// import heroimg from "@/assets/h2.jpg";
+import heroimg from "@/assets/hero-bg.webp";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -121,15 +122,15 @@ export default function Hero() {
       );
 
     gsap.to(".hero-bg-img", {
-    yPercent: -20,
-    ease: "none",
-    scrollTrigger: {
-      trigger: heroRef.current,
-      start: "top top",
-      end: "bottom top",
-      scrub: 1,
-    },
-  });
+      yPercent: -20,
+      ease: "none",
+      scrollTrigger: {
+        trigger: heroRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: 1,
+      },
+    });
   }, []);
 
   // Helper: wraps each word in a clip container for the reveal
@@ -153,7 +154,9 @@ export default function Hero() {
           className="hero-bg-img absolute inset-0 h-[130%] w-full object-cover"
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-r from-white/97 via-white/15 to-orange-500/[0.09]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/25" />
+
+      <div className="absolute inset-0 bg-slate-950/10" />
 
       {/* TOP BORDER */}
       <div className="absolute top-[90px] left-0 w-full h-px bg-white/10 z-20" />
@@ -180,7 +183,7 @@ export default function Hero() {
                   className="  leading-[1.0]">
                   <h1
                     className={`hero-title-inner text-5xl md:text-7xl font-bold tracking-tight ${
-                      i === 1 ? "" : "text-gray-900"
+                      i === 1 ? "" : "text-slate-950"
                     }`}>
                     {i === 1 ? (
                       <span className="bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
@@ -198,7 +201,7 @@ export default function Hero() {
             <div className="mt-8 max-w-3xl space-y-0">
               {descLines.map((line, i) => (
                 <div key={i} className="overflow-hidden">
-                  <p className="hero-desc-line text-[17px] leading-[1.75] text-gray-900">
+                  <p className="hero-desc-line text-[17px] leading-[1.75] text-slate-950">
                     {line}
                   </p>
                 </div>
@@ -240,7 +243,9 @@ export default function Hero() {
 
               <Link
                 to="/contact"
-                className="hero-btn inline-flex  justify-center items-center   backdrop-blur-md px-7 py-4 text-base font-medium text-[#FF6B00] hover:bg-[#FF6B00] border-2 hover:text-white  ">
+                className="hero-btn inline-flex  justify-center items-center   bg-white/80
+backdrop-blur-xl
+border-orange-200 px-7 py-4 text-base font-medium text-[#FF6B00] hover:bg-[#FF6B00] border-2 hover:text-white  ">
                 Book Consultation
               </Link>
             </div>

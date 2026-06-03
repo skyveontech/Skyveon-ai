@@ -42,10 +42,10 @@ export const industries: IndustryData[] = [
     description:
       "Modernize financial operations with secure cloud platforms, real-time analytics, AI-driven insights, and enterprise-grade reliability.",
 
-    heroImage: "/images/industries/finance-banner.webp",
-        // heroImage: "/images/services/hero-bg.webp",
+    heroImage: "/images/industries/finance-banner.avif",
+        // heroImage: "/images/services/hero-bg.avif",
 
-    overviewImage:"/images/industries/finance.webp",
+    overviewImage:"/images/industries/finance.avif",
 
     accent: "from-orange-500 to-red-500",
 
@@ -105,10 +105,10 @@ export const industries: IndustryData[] = [
     description:
       "Enable secure healthcare innovation through compliant platforms, advanced analytics, and intelligent automation.",
 
-    heroImage: "/images/industries/health-banner.webp",
-        // heroImage: "/images/services/hero-bg.webp",
+    heroImage: "/images/industries/health-banner.avif",
+        // heroImage: "/images/services/hero-bg.avif",
 
-        overviewImage:"/images/industries/health.webp",
+        overviewImage:"/images/industries/health.avif",
 
 
     accent: "from-orange-500 to-red-500",
@@ -169,10 +169,10 @@ export const industries: IndustryData[] = [
     description:
       "Drive growth with modern commerce platforms, customer insights, and AI-powered personalization.",
 
-    heroImage: "/images/industries/retail-banner.webp",
-        // heroImage: "/images/services/hero-bg.webp",
+    heroImage: "/images/industries/retail-banner.avif",
+        // heroImage: "/images/services/hero-bg.avif",
 
-    overviewImage:"/images/industries/retail.webp",
+    overviewImage:"/images/industries/retail.avif",
 
 
     accent: "from-orange-500 to-red-500",
@@ -233,10 +233,10 @@ export const industries: IndustryData[] = [
     description:
       "Modernize manufacturing operations through connected systems, predictive analytics, and intelligent automation.",
 
-    heroImage: "/images/industries/manufacturing-banner.webp",
-        // heroImage: "/images/services/hero-bg.webp",
+    heroImage: "/images/industries/manufacturing-banner.avif",
+        // heroImage: "/images/services/hero-bg.avif",
 
-        overviewImage:"/images/industries/manufacturing.webp",
+        overviewImage:"/images/industries/manufacturing.avif",
 
 
     accent: "from-orange-500 to-red-500",
@@ -297,10 +297,10 @@ export const industries: IndustryData[] = [
     description:
       "Deliver secure, reliable, and compliant digital services for government agencies and public institutions.",
 
-    heroImage: "/images/industries/public-banner.webp",
-        // heroImage: "/images/services/hero-bg.webp",
+    heroImage: "/images/industries/public-banner.avif",
+        // heroImage: "/images/services/hero-bg.avif",
 
-            overviewImage:"/images/industries/public.webp",
+            overviewImage:"/images/industries/public.avif",
 
     
 
@@ -362,8 +362,8 @@ export const industries: IndustryData[] = [
     description:
       "Accelerate innovation with scalable platforms, cloud-native architectures, and AI-powered solutions.",
 
-    heroImage: "/images/industries/media-banner.webp",
-        // heroImage: "/images/services/hero-bg.webp",
+    heroImage: "/images/industries/media-banner.jpg",
+        // heroImage: "/images/services/hero-bg.avif",
 
             overviewImage:"/images/industries/media.webp",
 

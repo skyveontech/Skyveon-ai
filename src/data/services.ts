@@ -50,10 +50,10 @@ export const services: ServiceData[] = [
     description:
       "Build scalable digital products engineered for performance, growth, and exceptional user experience.",
 
-    heroImage: "/images/services/digital-banner.webp",
-    // heroImage: "/images/services/hero-bg.webp",
+    heroImage: "/images/services/digital-banner.avif",
+    // heroImage: "/images/services/hero-bg.avif",
 
-    overviewImage: "/images/services/digital.webp",
+    overviewImage: "/images/services/digital.avif",
 
     accent: "from-orange-500 to-red-500",
 
@@ -150,16 +150,16 @@ export const services: ServiceData[] = [
 {
   slug: "cloud-devops",
 
-  title: "Cloud & DevOps (SRE)",
+  title: "Cloud & DevOps (SRE)", 
 
   subtitle: "Reliable Cloud Infrastructure",
 
   description:
     "Build resilient cloud platforms, automate delivery pipelines, and operate with confidence through modern DevOps and Site Reliability Engineering practices.",
 
-  heroImage: "/images/services/cloud-banner.webp",
+  heroImage: "/images/services/cloud-banner.jpg",
 
-  overviewImage: "/images/services/cloud.webp",
+  overviewImage: "/images/services/cloud.avif",
 
   accent: "from-sky-500 to-blue-600",
 
@@ -322,9 +322,9 @@ export const services: ServiceData[] = [
   description:
     "Build reliable data pipelines, analytics platforms, and executive dashboards that transform raw data into actionable business intelligence.",
 
-  heroImage: "/images/services/data-banner.webp",
+  heroImage: "/images/services/data-banner.avif",
 
-  overviewImage: "/images/services/data.webp",
+  overviewImage: "/images/services/data.avif",
 
   accent: "from-violet-500 to-fuchsia-500",
 
@@ -487,9 +487,9 @@ export const services: ServiceData[] = [
   description:
     "Maximize the value of enterprise platforms through seamless implementation, integration, automation, and continuous optimization.",
 
-  heroImage: "/images/services/enterprise-banner.webp",
+  heroImage: "/images/services/enterprise-banner.avif",
 
-  overviewImage: "/images/services/enterprise.webp",
+  overviewImage: "/images/services/enterprise.avif",
 
   accent: "from-emerald-500 to-teal-600",
 
@@ -652,9 +652,9 @@ export const services: ServiceData[] = [
   description:
     "Transform business operations with AI-powered solutions, machine learning models, intelligent automation, and enterprise-grade generative AI systems.",
 
-  heroImage: "/images/services/ai-banner.webp",
+  heroImage: "/images/services/ai-banner.avif",
 
-  overviewImage: "/images/services/ai.webp",
+  overviewImage: "/images/services/ai.avif",
 
   accent: "from-fuchsia-500 to-purple-600",
 

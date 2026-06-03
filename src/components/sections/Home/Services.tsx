@@ -19,7 +19,7 @@ const slides = [
     title: "Digital Product Engineering",
     description:
       "Web/mobile experiences with robust APIs. Design systems, performance budgets, DX you can feel.",
-    image: "/images/services/digital.webp",
+    image: "/images/services/digital.avif",
     tags: ["Next.js", "React Native", "Edge/SSR", "Web Vitals"],
     link: "/services/digital-product-engineering",
     tag: "01",
@@ -29,7 +29,7 @@ const slides = [
     title: "Cloud & DevOps (SRE)",
     description:
       "IaC, CI/CD, policy-as-code, observability, reliability at scale. Golden paths you can reuse.",
-    image: "/images/services/cloud-devops.webp",
+    image: "/images/services/cloud.avif",
     tags: ["Terraform", "EKS/GKE", "ArgoCD", "OpenTelemetry"],
     link: "/services/cloud-devops",
     tag: "02",
@@ -39,7 +39,7 @@ const slides = [
     title: "Data Engineering & Analytics",
     description:
       "Pipelines, lakehouse models, semantic layers, and exec dashboards. Measurable freshness.",
-    image: "/images/services/data.webp",
+    image: "/images/services/data.avif",
     tags: ["dbt", "Spark", "Delta/Lake", "Superset"],
     link: "/services/data-engineering-analytics",
     tag: "03",
@@ -49,7 +49,7 @@ const slides = [
     title: "Enterprise Platforms",
     description:
       "Workday HCM/Finance & Salesforce clouds, integrated end-to-end with guardrails.",
-    image: "/images/services/erp.webp",
+    image: "/images/services/enterprise.avif",
     tags: ["Workday", "Salesforce", "Mulesoft", "Security"],
     link: "/services/enterprise-platforms",
     tag: "04",
@@ -59,7 +59,7 @@ const slides = [
     title: "AI & Machine Learning",
     description:
       "Private LLM assistants with guardrails, forecasting & anomaly detection that ship.",
-    image: "/images/services/ai.webp",
+    image: "/images/services/ai.avif",
     tags: ["RAG", "LLM Eval", "Vector DB", "Guardrails"],
     link: "/services/ai-machine-learning",
     tag: "05",

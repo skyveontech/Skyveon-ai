@@ -11,13 +11,15 @@ body {
   overflow-x: hidden;
 }
 
+
+
 .section-padding {
   @apply px-6 md:px-12 lg:px-20;
 }
 
 .container-custom {
   @apply max-w-7xl mx-auto;
-}
+} 
 
 .gradient-text {
   @apply bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent;
