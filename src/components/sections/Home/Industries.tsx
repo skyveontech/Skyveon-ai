@@ -294,7 +294,7 @@ export default function IndustriesShowcase() {
                   }}
                 >
                   <h3
-                    className="whitespace-nowrap text-[15px] font-semibold tracking-wide text-white/90"
+                    className="whitespace-nowrap py-10 text-[15px] font-semibold tracking-wide text-white/90"
                     style={{ transform: "rotate(-90deg)" }}
                   >
                     {industry.title}
