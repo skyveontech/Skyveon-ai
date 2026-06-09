@@ -283,7 +283,7 @@ export const industries: IndustryData[] = [
     stats: [
       { value: "35%", label: "Reduced Downtime" },
       { value: "20%", label: "Higher Productivity" },
-      { value: "24/7", label: "Operational Visibility" },
+      { value: "99.9%", label: "Platform Reliability" },
     ],
   },
 
