@@ -105,7 +105,6 @@ export default function IndustriesShowcase() {
   // ── Single consolidated ScrollTrigger timeline ───────────────────────────
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // ONE timeline, ONE ScrollTrigger
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -150,7 +149,7 @@ export default function IndustriesShowcase() {
             duration: 0.7,
             ease: "power3.out",
           },
-          "<", // same start as panels
+          "<",
         );
     }, sectionRef);
 
@@ -175,7 +174,6 @@ export default function IndustriesShowcase() {
       ref={sectionRef}
       className="relative overflow-hidden bg-white py-8 lg:py-14"
     >
-      {/* ── Static ambient blob — no continuous animation ── */}
       <div
         className="pointer-events-none absolute inset-0 -z-0 overflow-hidden"
         aria-hidden
@@ -186,7 +184,6 @@ export default function IndustriesShowcase() {
             background:
               "radial-gradient(ellipse at center, #f97316 0%, transparent 70%)",
             filter: "blur(80px)",
-            // ✅ No blobFloat animation — saves GPU cycles
           }}
         />
       </div>
@@ -226,37 +223,40 @@ export default function IndustriesShowcase() {
                   panelRefs.current[index] = el;
                 }}
                 onClick={() => setActive(index)}
-                className="relative shrink-0 cursor-pointer overflow-hidden rounded-[32px]"
+                className="group relative shrink-0 cursor-pointer overflow-hidden rounded-[32px] transition-shadow duration-500 hover:shadow-xl"
                 style={{
-                  // flexGrow is driven by GSAP — only set initial value here
                   flexGrow: active === index ? 4.6 : 0.7,
                   flexShrink: 0,
                   flexBasis: 0,
                   border: "1px solid rgba(255,255,255,0.14)",
                   background: "#0f172a",
-                  // ✅ No willChange here — GSAP sets it during animation only
                 }}
               >
-                {/* Background image — no filter transition, use overlay instead */}
+                {/* Background image with cinematic hover zoom */}
                 <img
                   src={industry.image}
                   alt={industry.full}
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                   style={{
-                    // ✅ No filter animation — expensive. Static brightness via overlay below.
                     filter: "brightness(0.6) saturate(1.1)",
                   }}
                 />
 
-                {/* ✅ Cheap opacity transition replaces filter animation */}
                 <div
                   className="absolute inset-0 bg-black"
                   style={{
                     opacity: isActive ? 0.18 : 0.42,
                     transition: "opacity 0.6s ease",
                   }}
+                />
+
+                {/* Inactive panel hover flash */}
+                <div
+                  className={`absolute inset-0 bg-white/5 transition-opacity duration-300 ${
+                    isActive ? "opacity-0" : "opacity-0 group-hover:opacity-100"
+                  }`}
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/5" />
@@ -280,8 +280,6 @@ export default function IndustriesShowcase() {
                   aria-hidden
                 />
 
-                {/* ✅ No shimmer overlay — removed 6× infinite GPU animations */}
-
                 {/* Collapsed vertical label */}
                 <div
                   className="absolute bottom-10 left-1/2 -translate-x-1/2"
@@ -294,7 +292,7 @@ export default function IndustriesShowcase() {
                   }}
                 >
                   <h3
-                    className="whitespace-nowrap py-10 text-[15px] font-semibold tracking-wide text-white/90"
+                    className="whitespace-nowrap py-10 text-[15px] font-semibold tracking-wide text-white/90 transition-colors duration-300 group-hover:text-white"
                     style={{ transform: "rotate(-90deg)" }}
                   >
                     {industry.title}
@@ -313,7 +311,6 @@ export default function IndustriesShowcase() {
                     pointerEvents: isActive ? "auto" : "none",
                   }}
                 >
-                  {/* Stat badge */}
                   <div
                     className="mb-5 inline-flex w-fit items-center gap-2 rounded-full px-4 py-1.5"
                     style={{
@@ -327,7 +324,7 @@ export default function IndustriesShowcase() {
                     }}
                   >
                     <span
-                      className="h-1.5 w-1.5 rounded-full"
+                      className="h-1.5 w-1.5 rounded-full animate-pulse"
                       style={{
                         background: `linear-gradient(135deg, ${industry.accentHex}, ${industry.accentHex2})`,
                         boxShadow: `0 0 6px ${industry.accentHex}`,
@@ -338,7 +335,6 @@ export default function IndustriesShowcase() {
                     </span>
                   </div>
 
-                  {/* Icon */}
                   <div
                     className={`flex h-[62px] w-[62px] items-center justify-center rounded-[20px] bg-gradient-to-br ${industry.accent} text-white shadow-2xl`}
                     style={{
@@ -383,7 +379,7 @@ export default function IndustriesShowcase() {
 
                   <Link
                     to={industry.link}
-                    className="group mt-7 inline-flex w-fit items-center gap-2.5 rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold text-slate-900"
+                    className="group/btn mt-7 inline-flex w-fit items-center gap-2.5 rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold text-slate-900 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(255,255,255,0.2)] active:scale-95"
                     style={{
                       transform: isActive
                         ? "translateY(0)"
@@ -391,13 +387,12 @@ export default function IndustriesShowcase() {
                       opacity: isActive ? 1 : 0,
                       transition:
                         "opacity 0.4s ease 0.44s, transform 0.45s cubic-bezier(0.22,1,0.36,1) 0.44s",
-                      boxShadow: "0 4px 24px rgba(0,0,0,0.25)",
                     }}
                   >
                     Explore Industry
                     <ArrowRight
                       size={15}
-                      className="transition-transform duration-300 group-hover:translate-x-1"
+                      className="transition-transform duration-300 group-hover/btn:translate-x-1.5"
                     />
                   </Link>
                 </div>
@@ -420,45 +415,45 @@ export default function IndustriesShowcase() {
                 key={industry.title}
                 data-mobile-card
                 onClick={() => setActive(index)}
-                className="relative overflow-hidden rounded-[30px]"
+                className="group relative cursor-pointer overflow-hidden rounded-[28px] select-none"
                 style={{
-                  // ✅ maxHeight instead of height — avoids layout recalculation
-                  maxHeight: isActive ? 480 : 96,
-                  transition: "max-height 0.75s cubic-bezier(0.77,0,0.18,1)",
+                  maxHeight: isActive ? 340 : 88,
+                  transition: "max-height 0.6s cubic-bezier(0.32, 0.72, 0, 1)", // Premium fluid easing curve
                   border: "1px solid rgba(255,255,255,0.14)",
                   background: "#0f172a",
+                  WebkitTapHighlightColor: "transparent",
                 }}
               >
-                {/* Background image — static filter, overlay handles brightness */}
+                {/* Image scales slightly on mobile open for depth */}
                 <img
                   src={industry.image}
                   alt={industry.full}
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className={`absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out origin-center ${
+                    isActive ? "scale-110" : "scale-100"
+                  }`}
                   style={{ filter: "brightness(0.55) saturate(1)" }}
                 />
 
-                {/* ✅ Cheap overlay replaces filter transition */}
                 <div
                   className="absolute inset-0 bg-black"
                   style={{
-                    opacity: isActive ? 0.18 : 0.38,
+                    opacity: isActive ? 0.2 : 0.45,
                     transition: "opacity 0.6s ease",
                   }}
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${industry.accent}`}
                   style={{
-                    opacity: isActive ? 0.22 : 0.08,
-                    transition: "opacity 0.5s ease",
+                    opacity: isActive ? 0.25 : 0.05,
+                    transition: "opacity 0.6s ease",
                   }}
                 />
 
-                {/* Top accent line */}
                 <div
                   className="absolute inset-x-0 top-0 h-[2px]"
                   style={{
@@ -468,61 +463,75 @@ export default function IndustriesShowcase() {
                   }}
                 />
 
-                {/* Header row — always visible */}
-                <div className="relative z-10 flex items-center justify-between p-5">
-                  <div className="flex items-center gap-3">
-                    {/* Icon shown in collapsed state too */}
+                {/* Header row — Always visible touch target */}
+                <div className="relative z-10 flex h-[88px] items-center justify-between px-5 transition-colors duration-300 group-hover:bg-white/5">
+                  <div className="flex items-center gap-3.5">
                     <div
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] bg-gradient-to-br ${industry.accent} text-white`}
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] bg-gradient-to-br ${industry.accent} text-white shadow-lg transition-transform duration-500 ${
+                        isActive ? "scale-105" : "scale-100"
+                      }`}
                     >
-                      <Icon size={18} strokeWidth={1.6} />
+                      <Icon size={20} strokeWidth={1.8} />
                     </div>
                     <div>
                       <h3 className="text-base font-semibold tracking-tight text-white">
                         {industry.full}
                       </h3>
-                      <p className="mt-0.5 text-xs text-white/60">
+                      <p className="mt-0.5 text-xs font-medium text-white/60">
                         {industry.stat}
                       </p>
                     </div>
                   </div>
 
-                  {/* Chevron indicator */}
+                  {/* Interactive Mobile Chevron */}
                   <div
-                    className="flex h-7 w-7 items-center justify-center rounded-full"
+                    className="flex h-8 w-8 items-center justify-center rounded-full transition-all duration-500 ease-out"
                     style={{
-                      background: "rgba(255,255,255,0.1)",
-                      transform: isActive ? "rotate(90deg)" : "rotate(0deg)",
-                      transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1)",
+                      background: isActive 
+                        ? `linear-gradient(135deg, ${industry.accentHex}, ${industry.accentHex2})`
+                        : "rgba(255,255,255,0.1)",
+                      transform: isActive ? "rotate(90deg) scale(1.05)" : "rotate(0deg) scale(1)",
+                      boxShadow: isActive ? `0 4px 12px ${industry.accentHex}40` : 'none'
                     }}
                   >
-                    <ArrowRight size={13} className="text-white/70" />
+                    <ArrowRight size={14} className={isActive ? "text-white" : "text-white/70"} />
                   </div>
                 </div>
 
-                {/* Expanded body */}
+                {/* Expanded body - Staggered text & button slide up */}
                 <div
-                  className="relative z-10 px-5 pb-6"
+                  className="relative z-10 px-6 pb-7 pt-1"
                   style={{
                     opacity: isActive ? 1 : 0,
-                    transform: isActive ? "translateY(0)" : "translateY(16px)",
-                    transition: isActive
-                      ? "opacity 0.5s ease 0.22s, transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.22s"
-                      : "opacity 0.15s ease, transform 0.15s ease",
                     pointerEvents: isActive ? "auto" : "none",
                   }}
                 >
-                  <p className="max-w-md text-sm leading-7 text-white/75">
+                  <p 
+                    className="max-w-md text-[13px] leading-[1.6] text-white/80"
+                    style={{
+                      transform: isActive ? "translateY(0)" : "translateY(12px)",
+                      transition: isActive 
+                        ? "opacity 0.4s ease 0.15s, transform 0.4s cubic-bezier(0.22,1,0.36,1) 0.15s" 
+                        : "opacity 0.2s ease, transform 0.2s ease"
+                    }}
+                  >
                     {industry.description}
                   </p>
+                  
                   <Link
                     to={industry.link}
-                    className="group mt-5 inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-[0_4px_24px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-0.5"
+                    className="group/mobBtn mt-5 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-xl transition-all duration-300 active:scale-95"
+                    style={{
+                      transform: isActive ? "translateY(0)" : "translateY(16px)",
+                      transition: isActive 
+                        ? "opacity 0.4s ease 0.25s, transform 0.4s cubic-bezier(0.22,1,0.36,1) 0.25s" 
+                        : "opacity 0.2s ease, transform 0.2s ease"
+                    }}
                   >
                     Explore Industry
                     <ArrowRight
                       size={15}
-                      className="transition-transform duration-300 group-hover:translate-x-1"
+                      className="transition-transform duration-300 group-hover/mobBtn:translate-x-1"
                     />
                   </Link>
                 </div>
@@ -531,25 +540,26 @@ export default function IndustriesShowcase() {
           })}
         </div>
 
-        {/* ── Progress dots — no entrance animation (removed) ── */}
-        <div className="mt-8 flex items-center justify-center gap-2">
+        {/* ── Interactive Progress dots ── */}
+        <div className="mt-8 flex items-center justify-center gap-2.5">
           {industries.map((_, i) => (
             <button
               key={i}
               onClick={() => setActive(i)}
               aria-label={`Go to ${industries[i].title}`}
-              className="transition-all duration-500"
+              className="transition-all duration-300 hover:scale-110"
               style={{
-                height: 6,
-                width: active === i ? 28 : 6,
+                height: 8,
+                width: active === i ? 28 : 8,
                 borderRadius: 99,
                 background:
                   active === i
                     ? `linear-gradient(90deg, ${industries[active].accentHex}, ${industries[active].accentHex2})`
-                    : "rgba(148,163,184,0.4)",
+                    : "rgba(148,163,184,0.3)",
                 border: "none",
                 cursor: "pointer",
                 padding: 0,
+                boxShadow: active === i ? `0 0 10px ${industries[active].accentHex}60` : "none"
               }}
             />
           ))}

@@ -341,7 +341,7 @@ export default function IndustryPage() {
             style={{ opacity: 0 }}>
             <Link
               to="/contact"
-              className="group flex items-center gap-3 rounded-full bg-orange-500 px-8 py-4 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+              className="group relative inline-flex items-center gap-3 rounded-full border-2 border-orange-500 bg-orange-500 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:text-orange-600 hover:shadow-xl hover:shadow-orange-500/40 active:scale-95">
               Schedule Consultation
               <svg
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
@@ -370,57 +370,82 @@ export default function IndustryPage() {
       </section>
 
       {/* ═══════════════════ OVERVIEW ═══════════════════ */}
-      <section ref={overviewRef} className="py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
+      <section
+        ref={overviewRef}
+        className="relative overflow-hidden py-24 lg:py-32 bg-white">
+        {/* Subtle background pattern (optional, adds depth) */}
+        <div className="absolute inset-0 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            {/* ── LEFT COLUMN: CONTENT ── */}
             <div>
+              {/* Eyebrow with interactive expanding line */}
               <span
-                className="overview-label inline-block text-xs font-bold uppercase tracking-[0.2em] text-orange-500 mb-5"
+                className="overview-label group inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.25em] text-orange-500 mb-6 cursor-default transition-colors duration-300 hover:text-orange-600"
                 style={{ opacity: 0 }}>
+                <span className="h-px w-6 bg-orange-500 transition-all duration-300 group-hover:w-10 group-hover:bg-orange-600" />
                 Industry Overview
               </span>
 
-              {/* Fix: use a real gradient class instead of bg-orange bg-clip-text */}
+              {/* Heading */}
               <h2
-                className="overview-heading text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.05] tracking-tight"
+                className="overview-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.08] tracking-tight"
                 style={{ opacity: 0 }}>
                 Understanding
                 <br />
-                <span className="bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-orange-500 via-orange-400 to-red-500 bg-clip-text text-transparent pb-2">
                   The Industry
                 </span>
               </h2>
 
+              {/* Body Text */}
               <div
-                className="overview-body mt-8 space-y-4 text-[1.05rem] leading-loose text-slate-500"
+                className="overview-body mt-8 space-y-5 text-base sm:text-lg leading-relaxed text-slate-600 font-medium"
                 style={{ fontFamily: "'DM Sans', sans-serif", opacity: 0 }}>
                 <p>{industry.overview}</p>
               </div>
 
+              {/* Future container for buttons/links */}
               <div
                 className="overview-body mt-10 flex items-center gap-3"
                 style={{ opacity: 0 }}></div>
             </div>
 
-            <div className="overview-image relative" style={{ opacity: 0 }}>
-              {/* Decorative background blob */}
+            {/* ── RIGHT COLUMN: IMAGE ── */}
+            <div
+              className="overview-image relative group cursor-default"
+              style={{ opacity: 0 }}>
+              {/* Decorative background blob - Intensifies on hover */}
               <div
-                className={`absolute -inset-4 rounded-[48px] bg-gradient-to-br ${industry.accent} opacity-10 blur-2xl`}
+                className={`absolute -inset-4 rounded-[48px] bg-gradient-to-br ${industry.accent} opacity-15 blur-2xl transition-all duration-700 group-hover:opacity-30 group-hover:blur-[32px] group-hover:scale-105 pointer-events-none`}
               />
-              <img
-                src={industry.overviewImage}
-                alt={industry.title}
-                className="relative rounded-[32px] shadow-2xl w-full object-cover aspect-[4/3]"
-              />
-              {/* Floating badge */}
-              <div className="absolute -bottom-5 -left-5 flex items-center gap-3 rounded-2xl bg-white px-5 py-3 shadow-xl border border-slate-100">
+
+              {/* Image Wrapper - Lifts and adds deep shadow on hover */}
+              <div className="relative overflow-hidden rounded-[32px] border border-slate-100 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.08)] transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_30px_80px_rgba(15,23,42,0.12)] group-hover:border-orange-100/50">
+                <img
+                  src={industry.overviewImage}
+                  alt={industry.title}
+                  loading="lazy"
+                  className="w-full object-cover aspect-[4/3] transition-transform duration-[1.5s] ease-out group-hover:scale-105"
+                />
+
+                {/* Subtle glossy overlay */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-white/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none" />
+              </div>
+
+              {/* Floating badge - Interactive tactile hover */}
+              <div className="absolute -bottom-6 -left-6 z-20 flex items-center gap-4 rounded-2xl border border-slate-100 bg-white/95 backdrop-blur-xl px-6 py-4 shadow-[0_10px_40px_rgba(15,23,42,0.06)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(255,107,0,0.12)] hover:border-orange-100">
                 <div
-                  className={`h-10 w-10 rounded-xl bg-gradient-to-br ${industry.accent} flex items-center justify-center text-white text-lg`}>
-                  ★
+                  className={`h-12 w-12 rounded-xl bg-gradient-to-br ${industry.accent} flex items-center justify-center text-white shadow-inner transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3`}>
+                  <span className="text-xl">★</span>
                 </div>
+
                 <div>
-                  <p className="text-xs text-slate-400">Trusted by</p>
-                  <p className="text-sm font-bold text-slate-800">
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
+                    Trusted by
+                  </p>
+                  <p className="text-sm font-extrabold text-slate-900 mt-0.5">
                     500+ Companies
                   </p>
                 </div>
@@ -429,7 +454,6 @@ export default function IndustryPage() {
           </div>
         </div>
       </section>
-
       {/* ═══════════════════ CHALLENGES ═══════════════════ */}
       <section
         ref={challengesRef}
@@ -643,7 +667,7 @@ export default function IndustryPage() {
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 md:mt-12">
             <Link
               to="/contact"
-              className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-orange-500 px-7 py-4 text-sm font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl sm:w-auto md:px-8">
+              className="group relative inline-flex items-center gap-3 rounded-full border-2 border-orange-500 bg-orange-500 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:text-orange-600 hover:shadow-xl hover:shadow-orange-500/40 active:scale-95">
               Schedule Consultation
               <svg
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"

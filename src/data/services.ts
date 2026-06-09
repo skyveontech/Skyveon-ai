@@ -50,7 +50,7 @@ export const services: ServiceData[] = [
     description:
       "Build scalable digital products engineered for performance, growth, and exceptional user experience.",
 
-    heroImage: "/images/services/digital-banner.avif",
+    heroImage: "/images/services/digital-banner.webp",
     // heroImage: "/images/services/hero-bg.avif",
 
     overviewImage: "/images/services/digital.avif",
@@ -322,7 +322,7 @@ export const services: ServiceData[] = [
   description:
     "Build reliable data pipelines, analytics platforms, and executive dashboards that transform raw data into actionable business intelligence.",
 
-  heroImage: "/images/services/data-banner.avif",
+  heroImage: "/images/services/data-banner.jpg",
 
   overviewImage: "/images/services/data.avif",
 
@@ -487,7 +487,7 @@ export const services: ServiceData[] = [
   description:
     "Maximize the value of enterprise platforms through seamless implementation, integration, automation, and continuous optimization.",
 
-  heroImage: "/images/services/enterprise-banner.avif",
+  heroImage: "/images/services/enterprise-banner.webp",
 
   overviewImage: "/images/services/enterprise.avif",
 
@@ -652,7 +652,7 @@ export const services: ServiceData[] = [
   description:
     "Transform business operations with AI-powered solutions, machine learning models, intelligent automation, and enterprise-grade generative AI systems.",
 
-  heroImage: "/images/services/ai-banner.avif",
+  heroImage: "/images/services/ai-banner.webp",
 
   overviewImage: "/images/services/ai.avif",
 

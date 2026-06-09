@@ -213,7 +213,7 @@ export default function ServicesSlider() {
         className="relative max-w-4xl mx-auto text-center px-6">
         <span
           ref={badgeRef}
-          className="inline-flex rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-600 tracking-wide">
+          className="inline-flex rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-600 tracking-wide transition-all duration-300 hover:bg-orange-100 hover:-translate-y-0.5 hover:shadow-md hover:shadow-orange-500/5 cursor-default">
           Powered By Innovation
         </span>
 
@@ -264,28 +264,20 @@ export default function ServicesSlider() {
             <SwiperSlide key={index} className="!w-[320px] lg:!w-[600px]">
               {({ isActive }) => (
                 <div
-                  className={`group relative overflow-hidden rounded-[32px] bg-white border transition-all duration-500 ${
+                  className={`group relative overflow-hidden rounded-[32px] bg-white border transition-all duration-500 transform-gpu ${
                     isActive
-                      ? "border-slate-200 shadow-[0_24px_80px_rgba(15,23,42,0.14)]"
+                      ? "border-slate-200 shadow-[0_24px_80px_rgba(15,23,42,0.14)] hover:-translate-y-1.5 hover:shadow-[0_30px_90px_rgba(255,107,0,0.12)] hover:border-orange-200"
                       : "border-slate-100 shadow-[0_8px_30px_rgba(15,23,42,0.06)]"
                   }`}>
-                  {/* Tag pill */}
-                  <div className="absolute top-5 left-5 z-10">
-                    {/* <span
-                      className={`inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br ${slide.accent} text-white text-xs font-bold shadow-lg`}
-                    >
-                      {slide.tag}
-                    </span> */}
-                  </div>
-
+                  
                   {/* Image */}
                   <div className="relative h-[400px] lg:h-[410px] overflow-hidden">
                     <img
                       src={slide.image}
                       alt={slide.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
                   </div>
 
                   {/* Content */}
@@ -297,15 +289,19 @@ export default function ServicesSlider() {
                       {slide.title}
                     </h3>
 
-                    <p className="mt-3 text-base lg:text-lg leading-relaxed text-white/70 max-w-sm">
+                    <p className="mt-3 text-base lg:text-lg leading-relaxed text-white/80 max-w-sm">
                       {slide.description}
                     </p>
 
                     <Link
                       to={slide.link}
-                      className={`mt-6 inline-flex items-center gap-2.5 rounded-2xl bg-gradient-to-r ${slide.accent} px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-xl active:scale-[0.97]`}>
+                      className={`group/btn mt-6 inline-flex items-center gap-2.5 rounded-2xl bg-gradient-to-r ${slide.accent} px-5 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-orange-500/30 active:scale-[0.97]`}>
                       Explore Solution
-                      <ArrowRight size={15} strokeWidth={2.5} />
+                      <ArrowRight 
+                        size={16} 
+                        strokeWidth={2.5} 
+                        className="transition-transform duration-300 group-hover/btn:translate-x-1"
+                      />
                     </Link>
                   </div>
                 </div>
@@ -329,10 +325,10 @@ export default function ServicesSlider() {
                 swiperRef.current?.slideToLoop(i);
                 setActiveIndex(i);
               }}
-              className={`rounded-full transition-all duration-350 ${
+              className={`rounded-full transition-all duration-300 ${
                 activeIndex === i
-                  ? "w-7 h-2.5 bg-orange-500"
-                  : "w-2.5 h-2.5 bg-slate-300 hover:bg-slate-400"
+                  ? "w-7 h-2.5 bg-orange-500 shadow-md shadow-orange-500/20"
+                  : "w-2.5 h-2.5 bg-slate-300 hover:bg-slate-400 hover:scale-110"
               }`}
             />
           ))}
@@ -349,14 +345,14 @@ export default function ServicesSlider() {
               animateSlideChange("prev");
               swiperRef.current?.slidePrev();
             }}
-            className="flex items-center justify-center w-12 h-12 rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm hover:border-orange-300 hover:text-orange-600 transition-colors duration-200">
+            className="flex items-center justify-center w-12 h-12 rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-all duration-300 hover:border-orange-400 hover:text-orange-600 hover:bg-orange-50 hover:-translate-y-1 hover:shadow-md">
             <ArrowLeft size={18} strokeWidth={2} />
           </button>
 
           {/* Progress bar */}
           <div
             ref={progressRef}
-            className="relative w-32 h-1 bg-slate-200 rounded-full overflow-hidden">
+            className="relative w-32 h-1.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
             <div
               ref={progressFillRef}
               className="absolute inset-y-0 left-0 w-full origin-left rounded-full bg-gradient-to-r from-orange-500 to-red-500"
@@ -373,7 +369,7 @@ export default function ServicesSlider() {
               animateSlideChange("next");
               swiperRef.current?.slideNext();
             }}
-            className="flex items-center justify-center w-12 h-12 rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm hover:border-orange-300 hover:text-orange-600 transition-colors duration-200">
+            className="flex items-center justify-center w-12 h-12 rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm transition-all duration-300 hover:border-orange-400 hover:text-orange-600 hover:bg-orange-50 hover:-translate-y-1 hover:shadow-md">
             <ArrowRight size={18} strokeWidth={2} />
           </button>
         </div>

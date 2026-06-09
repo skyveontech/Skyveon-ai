@@ -169,11 +169,12 @@ export default function FutureBanner() {
         <div className="mt-12">
           <Link
             to="/services/digital-product-engineering"
-            className="hero-btn group inline-flex items-center gap-2  bg-[#FF6B00] px-7 py-4 text-base font-semibold text-white shadow-2xl shadow-orange-500/20 hover:text-[#FF6B00] hover:bg-white border-2 hover:border-[#FF6B00]">
+            className="group inline-flex items-center gap-3 bg-[#FF6B00] border-2 border-[#FF6B00] px-8 py-4 text-base font-bold text-white rounded-xl shadow-lg shadow-orange-500/20 transition-all duration-300 hover:bg-white hover:text-[#FF6B00] hover:shadow-orange-500/40 hover:-translate-y-1"
+          >
             Explore Services
             <ArrowRight
               size={18}
-              className="transition-transform duration-300 group-hover:translate-x-1"
+              className="transition-transform duration-300 group-hover:translate-x-1.5"
             />
           </Link>
         </div>

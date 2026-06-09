@@ -1,7 +1,5 @@
-import {  Mail, MapPin, Phone } from "lucide-react";
-
+import { Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-
 
 import logo from "@/assets/logo.png";
 
@@ -10,29 +8,29 @@ const footerLinks = {
     { label: "About", href: "/about" },
     { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
-  ], 
-services: [
-  {
-    label: "Digital Product Engineering",
-    href: "/services/digital-product-engineering",
-  },
-  {
-    label: "Cloud & DevOps",
-    href: "/services/cloud-devops",
-  },
-  {
-    label: "Data Engineering & Analytics",
-    href: "/services/data-engineering-analytics",
-  },
-  {
-    label: "Enterprise Platforms",
-    href: "/services/enterprise-platforms",
-  },
-  {
-    label: "AI & Machine Learning",
-    href: "/services/ai-machine-learning",
-  },
-],
+  ],
+  services: [
+    {
+      label: "Digital Product Engineering",
+      href: "/services/digital-product-engineering",
+    },
+    {
+      label: "Cloud & DevOps",
+      href: "/services/cloud-devops",
+    },
+    {
+      label: "Data Engineering & Analytics",
+      href: "/services/data-engineering-analytics",
+    },
+    {
+      label: "Enterprise Platforms",
+      href: "/services/enterprise-platforms",
+    },
+    {
+      label: "AI & Machine Learning",
+      href: "/services/ai-machine-learning",
+    },
+  ],
 };
 
 const contactItems = [
@@ -43,13 +41,13 @@ const contactItems = [
       <>
         <a
           href="mailto:info@skyveon.ai"
-          className="footer-link mt-1 block text-[15px] text-slate-700"
+          className="footer-link mt-1 block text-[15px] text-slate-700 transition-colors duration-300 hover:text-orange-500"
         >
           info@skyveon.ai
         </a>
         <a
           href="mailto:hr@skyveon.ai"
-          className="footer-link mt-1 block text-[15px] text-slate-700"
+          className="footer-link mt-1 block text-[15px] text-slate-700 transition-colors duration-300 hover:text-orange-500"
         >
           hr@skyveon.ai
         </a>
@@ -62,7 +60,7 @@ const contactItems = [
     content: (
       <a
         href="tel:+16146733427"
-        className="footer-link mt-1 block text-[15px] text-slate-700"
+        className="footer-link mt-1 block text-[15px] text-slate-700 transition-colors duration-300 hover:text-orange-500"
       >
         +1 (614) 673-3427
       </a>
@@ -72,7 +70,7 @@ const contactItems = [
     icon: MapPin,
     label: "Address",
     content: (
-      <p className="mt-1 text-[15px] leading-6 text-slate-700">
+      <p className="mt-1 text-[15px] leading-6 text-slate-700 transition-colors duration-300 group-hover:text-slate-900">
         15 Clairedan Drive,
         <br />
         15A, Powell,
@@ -84,9 +82,6 @@ const contactItems = [
 ];
 
 export default function Footer() {
-
-
-
   return (
     <footer
       className="relative overflow-hidden border-t border-slate-200 bg-[#F8FAFC]"
@@ -126,17 +121,6 @@ export default function Footer() {
               Building intelligent enterprise solutions through AI, cloud, data
               engineering, and digital transformation technologies.
             </p>
-{/* 
-            <Link
-              to="#services"
-              className="hero-btn group mt-8 inline-flex items-center gap-2 border-2 border-[#FF6B00] bg-[#FF6B00] px-7 py-4 text-base font-semibold text-white shadow-2xl shadow-orange-500/20 transition-colors duration-200 hover:bg-white hover:text-[#FF6B00]"
-            >
-              Explore Services
-              <ArrowRight
-                size={18}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </Link> */}
           </div>
 
           <div>
@@ -148,7 +132,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="footer-nav-link inline-block text-[15px] text-slate-600"
+                    className="footer-nav-link inline-block text-[15px] text-slate-600 transition-all duration-300 hover:translate-x-1 hover:text-orange-500"
                   >
                     {link.label}
                   </a>
@@ -166,7 +150,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="footer-nav-link inline-block text-[15px] text-slate-600"
+                    className="footer-nav-link inline-block text-[15px] text-slate-600 transition-all duration-300 hover:translate-x-1 hover:text-orange-500"
                   >
                     {link.label}
                   </a>
@@ -183,15 +167,15 @@ export default function Footer() {
               {contactItems.map(({ icon: Icon, label, content }) => (
                 <div
                   key={label}
-                  className="footer-contact-row flex items-start gap-3"
+                  className="footer-contact-row group flex items-start gap-3"
                 >
                   <div
-                    className="contact-icon-box flex h-10 w-10 cursor-default items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm"
+                    className="contact-icon-box flex h-10 w-10 shrink-0 cursor-default items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-orange-200 group-hover:bg-orange-50 group-hover:shadow-md"
                   >
-                    <Icon size={18} className="text-orange-500" />
+                    <Icon size={18} className="text-orange-500 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <div>
-                    <p className="text-sm text-slate-400">{label}</p>
+                    <p className="text-sm text-slate-400 transition-colors duration-300 group-hover:text-slate-500">{label}</p>
                     {content}
                   </div>
                 </div>
@@ -211,13 +195,13 @@ export default function Footer() {
           <div className="flex items-center gap-6">
             <a
               href="#"
-              className="footer-link inline-block text-sm text-slate-500"
+              className="footer-link inline-block text-sm text-slate-500 transition-colors duration-300 hover:text-orange-500"
             >
               Privacy Policy
             </a>
             <a
               href="#"
-              className="footer-link inline-block text-sm text-slate-500"
+              className="footer-link inline-block text-sm text-slate-500 transition-colors duration-300 hover:text-orange-500"
             >
               Terms &amp; Conditions
             </a>

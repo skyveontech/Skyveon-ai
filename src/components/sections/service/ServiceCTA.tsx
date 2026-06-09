@@ -33,6 +33,7 @@ export default function ServiceCTA() {
       },
     });
 
+    // Light beams animations
     gsap.to(q(".light-beam-1"), {
       x: 200,
       duration: 10,
@@ -63,60 +64,67 @@ export default function ServiceCTA() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden py-12">
-      {/* BACKGROUND */}
+    // Added 'group' to trigger the background image zoom on section hover
+    <section ref={sectionRef} className="group relative overflow-hidden py-20 lg:py-28 bg-slate-950">
+      
       {/* BACKGROUND IMAGE */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <img
           src="/images/CTA-banner.webp"
-          alt=""
+          alt="Abstract Technology Background"
           loading="lazy"
-          className="cta-bg h-full w-full object-cover"
+          className="cta-bg h-full w-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
         />
 
-        {/* DARK OVERLAY */}
-        <div className="absolute inset-0 bg-black/60" />
-
-        {/* BRAND OVERLAY */}
+        {/* DARK OVERLAY - layered gradients for readability */}
+        <div className="absolute inset-0 bg-black/60 transition-opacity duration-700 group-hover:bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/80" />
       </div>
 
       {/* LIGHT STREAKS */}
-      <div className="light-beam-1 absolute left-[-20%] top-1/2 h-[140px] w-[1200px] -translate-y-1/2 rotate-[-8deg] bg-gradient-to-r from-cyan-400/0 via-cyan-400/30 to-white/0 blur-3xl" />
+      <div className="light-beam-1 absolute left-[-20%] top-1/2 h-[140px] w-[1200px] -translate-y-1/2 rotate-[-8deg] bg-gradient-to-r from-cyan-400/0 via-cyan-400/20 to-white/0 blur-3xl pointer-events-none" />
 
-      <div className="light-beam-2 absolute right-[-20%] top-[55%] h-[120px] w-[1000px] -translate-y-1/2 rotate-[6deg] bg-gradient-to-r from-orange-500/0 via-orange-500/30 to-red-500/0 blur-3xl" />
-
-      {/* VIGNETTE */}
-      <div className="absolute inset-0 bg-black/20" />
+      <div className="light-beam-2 absolute right-[-20%] top-[55%] h-[120px] w-[1000px] -translate-y-1/2 rotate-[6deg] bg-gradient-to-r from-orange-500/0 via-orange-500/20 to-red-500/0 blur-3xl pointer-events-none" />
 
       {/* CONTENT */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <div className="cta-content">
-          <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-medium text-white backdrop-blur">
+          
+          {/* GLASSMORPHISM BADGE */}
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-xs sm:text-sm font-semibold text-white backdrop-blur shadow-lg transition-all duration-300 hover:bg-white/20 hover:border-white/40 hover:-translate-y-0.5 cursor-default">
+            <span className="h-1.5 w-1.5 rounded-full bg-orange-400 animate-pulse" />
             Future-Ready AI Solutions
           </span>
 
-          <h2 className="mt-8 text-3xl md:text-xl lg:text-5xl font-semibold tracking-tight text-white">
+          {/* HEADING */}
+          <h2 className="mt-8 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
             READY TO
-            <span className="block bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
-              BUILD WHAT'S NEXT
+            <span className="block mt-1 bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent pb-1">
+              BUILD WHAT'S NEXT?
             </span>
           </h2>
 
-          <p className="mx-auto mt-8 max-w-3xl text-sm md:text-lg leading-8 text-slate-300">
+          {/* DESCRIPTION */}
+          <p className="mx-auto mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-slate-300 font-medium">
             Transform your business with scalable cloud platforms, intelligent
             automation, modern applications, and enterprise AI solutions
             engineered for long-term growth.
           </p>
 
-          <Link
-            to="/contact"
-            className="hero-btn mt-2 group inline-flex items-center gap-2  bg-[#FF6B00] px-7 py-4 text-base font-semibold text-white shadow-2xl shadow-orange-500/20 hover:text-[#FF6B00] hover:bg-white border-2 border-[#FF6B00]">
-            Schedule Consultation
-            <ArrowRight
-              size={18}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </Link>
+          {/* CTA BUTTON */}
+          <div className="mt-10 flex justify-center">
+            <Link
+              to="/contact"
+              className="hero-btn group inline-flex items-center gap-2 bg-[#FF6B00] border-2 border-[#FF6B00] px-8 py-4 text-base font-bold text-white rounded-xl shadow-xl shadow-orange-500/20 transition-all duration-300 hover:bg-white hover:text-[#FF6B00] hover:shadow-orange-500/40 hover:-translate-y-1 active:scale-95"
+            >
+              Schedule Consultation
+              <ArrowRight
+                size={18}
+                className="transition-transform duration-300 group-hover:translate-x-1.5"
+              />
+            </Link>
+          </div>
+          
         </div>
       </div>
     </section>

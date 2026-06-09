@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import useGsap from "@/hooks/use-gsap";
 import gsap from "@/lib/gsap";
+import Mailgun from "mailgun.js";
 
 // ── tiny helper ──────────────────────────────────────────────────────────────
 function cn(...classes: (string | boolean | undefined)[]) {
@@ -114,14 +115,19 @@ export default function Contact() {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setStatus("submitting");
+    const mailgun = new Mailgun(FormData);
+    const mg = mailgun.client({
+      username: "api",
+      key: "171edf51b8e88d482a2f24bd3f33d304-d2d7ea9a-93bb3da9",
+    });
 
     // Build mailto payload
-    const to = "info@skyveon.ai";
+    // const to = "info@skyveon.ai";
     const subject = `Project Inquiry from ${form.name}${form.company ? ` — ${form.company}` : ""}`;
     const body = [
       `Name: ${form.name}`,
@@ -134,14 +140,18 @@ export default function Contact() {
     ]
       .filter((line) => line !== undefined)
       .join("\n");
+    const data = await mg.messages.create(
+      "sandbox14b4d4fac2f347b19e14e010f6d65310.mailgun.org",
+      {
+        from: "Mailgun Sandbox <postmaster@sandbox14b4d4fac2f347b19e14e010f6d65310.mailgun.org>",
+        to: [" <info@skyveon.ai>"],
+        subject: subject,
+        text: body,
+      },
+    );
 
-    const mailtoUrl = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    // Small delay for UX feedback, then open mail client
-    setTimeout(() => {
-      window.location.href = mailtoUrl;
-      setStatus("success");
-    }, 800);
+    console.log(data);
+setStatus("success")
   };
 
   const scrollToForm = () => {
@@ -596,7 +606,7 @@ export default function Contact() {
                     {status === "submitting" ? (
                       <>
                         <Loader2 className="h-5 w-5 animate-spin" />
-                        Opening email client...
+                        sending...
                       </>
                     ) : (
                       <>

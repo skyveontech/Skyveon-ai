@@ -108,7 +108,6 @@ export default function WhyUs() {
       y: 0,
       duration: 0.5,
     })
-
       .to(
         ".why-title-line",
         {
@@ -120,7 +119,6 @@ export default function WhyUs() {
         },
         "-=0.15",
       )
-
       .to(
         ".why-description",
         {
@@ -130,7 +128,6 @@ export default function WhyUs() {
         },
         "-=0.55",
       )
-
       .to(
         ".why-cta",
         {
@@ -140,7 +137,6 @@ export default function WhyUs() {
         },
         "-=0.5",
       )
-
       .to(
         ".why-stats",
         {
@@ -151,7 +147,6 @@ export default function WhyUs() {
         },
         "-=0.45",
       )
-
       .to(
         ".why-visual",
         {
@@ -163,7 +158,6 @@ export default function WhyUs() {
         },
         "-=1",
       )
-
       .to(
         ".why-float-pill",
         {
@@ -175,7 +169,6 @@ export default function WhyUs() {
         },
         "-=0.55",
       )
-
       .to(
         ".why-float-stat",
         {
@@ -194,9 +187,7 @@ export default function WhyUs() {
 
     gsap.to(".why-img-inner", {
       yPercent: -8,
-
       ease: "none",
-
       scrollTrigger: {
         trigger: sectionRef.current,
         start: "top bottom",
@@ -215,7 +206,8 @@ export default function WhyUs() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-white py-8 lg:py-12">
+      className="relative overflow-hidden bg-white py-8 lg:py-12"
+    >
       {/* subtle dot grid background */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -229,11 +221,12 @@ export default function WhyUs() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-center">
+          
           {/* ── LEFT CONTENT ── */}
           <div>
             {/* BADGE */}
-            <div className="why-badge inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-5 py-2.5 text-sm font-semibold text-orange-600">
-              <Sparkles size={15} />
+            <div className="why-badge inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-5 py-2.5 text-sm font-semibold text-orange-600 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-orange-300 cursor-default">
+              <Sparkles size={15} className="animate-pulse" />
               Why Organizations Choose Skyveon
             </div>
 
@@ -268,7 +261,8 @@ export default function WhyUs() {
             {/* CTA */}
             <Link
               to="#services"
-              className="why-cta mt-8 group inline-flex items-center gap-2 bg-[#FF6B00] px-7 py-4 text-base font-semibold text-white shadow-2xl shadow-orange-500/20 hover:text-[#FF6B00] hover:bg-white border-2 border-[#FF6B00] transition-all duration-300">
+              className="why-cta group inline-flex items-center gap-3 bg-[#FF6B00] border-2 border-[#FF6B00] px-8 py-4 text-base font-bold text-white rounded-xl shadow-lg shadow-orange-500/20 transition-all duration-300 hover:bg-white hover:text-[#FF6B00] hover:shadow-orange-500/40 hover:-translate-y-1 mt-5"
+            >
               Explore Capabilities
               <ArrowRight
                 size={18}
@@ -281,8 +275,9 @@ export default function WhyUs() {
               {stats.map((stat, i) => (
                 <div
                   key={i}
-                  className="why-stats flex-1 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-5 text-center">
-                  <p className="text-2xl font-bold text-slate-900 tracking-tight">
+                  className="why-stats group flex-1 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-5 text-center transition-all duration-300 hover:-translate-y-1.5 hover:bg-white hover:border-orange-200 hover:shadow-lg hover:shadow-orange-500/10 cursor-default"
+                >
+                  <p className="text-2xl font-bold text-slate-900 tracking-tight transition-transform duration-300 group-hover:scale-105">
                     {stat.value}
                   </p>
                   <p className="mt-1 text-xs font-semibold text-orange-500 uppercase tracking-wider">
@@ -295,9 +290,10 @@ export default function WhyUs() {
 
           {/* ── RIGHT IMAGE ── */}
           <div className="relative">
+            
             {/* FLOATING PILL — top centre */}
-            <div className="why-float-pill absolute -top-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 rounded-full border border-slate-200 bg-white/90 backdrop-blur-xl px-5 py-3 shadow-[0_8px_32px_rgba(15,23,42,0.10)]">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-50">
+            <div className="why-float-pill absolute -top-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 rounded-full border border-slate-200 bg-white/90 backdrop-blur-xl px-5 py-3 shadow-[0_8px_32px_rgba(15,23,42,0.10)] transition-colors duration-300 hover:border-orange-300 hover:shadow-[0_8px_32px_rgba(255,107,0,0.15)] cursor-default">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-50 transition-colors duration-300 hover:bg-orange-100">
                 <Sparkles size={14} className="text-orange-500" />
               </div>
               <div>
@@ -311,33 +307,33 @@ export default function WhyUs() {
             </div>
 
             {/* MAIN IMAGE */}
-            <div className="why-visual relative overflow-hidden  shadow-[0_24px_80px_rgba(15,23,42,0.14)]">
+            <div className="why-visual group relative overflow-hidden rounded-3xl shadow-[0_24px_80px_rgba(15,23,42,0.14)] transition-shadow duration-500 hover:shadow-[0_30px_90px_rgba(255,107,0,0.15)]">
               {/* overflow wrapper for parallax */}
-              <div className="why-img-inner will-change-transform">
+              <div className="why-img-inner will-change-transform h-full w-full">
                 <img
                   src="/images/why-us.webp"
                   alt="Skyveon AI Infrastructure"
-                  className="h-[540px] w-full object-cover scale-110"
+                  className="h-[540px] w-full object-cover scale-110 transition-transform duration-1000 ease-out group-hover:scale-[1.14]"
                   loading="lazy"
                 />
               </div>
 
               {/* bottom gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/75 via-slate-900/10 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-90" />
 
               {/* caption inside image */}
               <div className="absolute bottom-7 left-7 right-7">
                 <p className="text-base font-semibold text-white">
                   Skyveon AI Infrastructure
                 </p>
-                <p className="mt-0.5 text-sm text-white/50">
+                <p className="mt-0.5 text-sm text-white/60">
                   Enterprise-Grade · Cloud-Native · Intelligent
                 </p>
               </div>
             </div>
 
             {/* FLOATING STAT — bottom left */}
-            <div className="why-float-stat absolute -bottom-6 -left-6 z-20 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur-xl px-6 py-5 shadow-[0_10px_40px_rgba(15,23,42,0.10)]">
+            <div className="why-float-stat absolute -bottom-6 -left-6 z-20 rounded-2xl border border-slate-200 bg-white/90 backdrop-blur-xl px-6 py-5 shadow-[0_10px_40px_rgba(15,23,42,0.10)] transition-all duration-300 hover:border-orange-200 hover:shadow-[0_15px_50px_rgba(255,107,0,0.15)] cursor-default">
               <p className="text-sm text-slate-500">AI Efficiency</p>
               <h4 className="mt-1 text-4xl font-bold text-slate-900 tracking-tight">
                 +87%
@@ -346,6 +342,7 @@ export default function WhyUs() {
                 Workflow Optimization
               </p>
             </div>
+            
           </div>
         </div>
       </div>

@@ -42,7 +42,7 @@ export const industries: IndustryData[] = [
     description:
       "Modernize financial operations with secure cloud platforms, real-time analytics, AI-driven insights, and enterprise-grade reliability.",
 
-    heroImage: "/images/industries/finance-banner.avif",
+    heroImage: "/images/industries/finance-banner.webp",
         // heroImage: "/images/services/hero-bg.avif",
 
     overviewImage:"/images/industries/finance.avif",
@@ -169,7 +169,7 @@ export const industries: IndustryData[] = [
     description:
       "Drive growth with modern commerce platforms, customer insights, and AI-powered personalization.",
 
-    heroImage: "/images/industries/retail-banner.avif",
+    heroImage: "/images/industries/retail-banner.webp",
         // heroImage: "/images/services/hero-bg.avif",
 
     overviewImage:"/images/industries/retail.avif",
@@ -233,7 +233,7 @@ export const industries: IndustryData[] = [
     description:
       "Modernize manufacturing operations through connected systems, predictive analytics, and intelligent automation.",
 
-    heroImage: "/images/industries/manufacturing-banner.avif",
+    heroImage: "/images/industries/manufacturing-banner.webp",
         // heroImage: "/images/services/hero-bg.avif",
 
         overviewImage:"/images/industries/manufacturing.avif",
@@ -297,7 +297,7 @@ export const industries: IndustryData[] = [
     description:
       "Deliver secure, reliable, and compliant digital services for government agencies and public institutions.",
 
-    heroImage: "/images/industries/public-banner.avif",
+    heroImage: "/images/industries/public-banner.webp",
         // heroImage: "/images/services/hero-bg.avif",
 
             overviewImage:"/images/industries/public.avif",

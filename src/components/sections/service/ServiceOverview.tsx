@@ -10,46 +10,36 @@ interface Props {
   service: ServiceData;
 }
 
-export default function ServiceOverview({
-  service,
-}: Props) {
-  const sectionRef =
-    useRef<HTMLElement>(null);
+export default function ServiceOverview({ service }: Props) {
+  const sectionRef = useRef<HTMLElement>(null);
 
   useGsap(() => {
     const section = sectionRef.current;
 
     if (!section) return;
 
-    const q =
-      gsap.utils.selector(section);
+    const q = gsap.utils.selector(section);
 
     const animatedItems = q(
       ".overview-eyebrow, .overview-title, .overview-copy, .overview-image, .overview-card"
     );
 
     gsap.set(animatedItems, {
-      willChange:
-        "transform, opacity",
+      willChange: "transform, opacity",
     });
 
     gsap.set(
-      q(
-        ".overview-eyebrow, .overview-title, .overview-copy, .overview-card"
-      ),
+      q(".overview-eyebrow, .overview-title, .overview-copy, .overview-card"),
       {
         opacity: 0,
         y: 40,
       }
     );
 
-    gsap.set(
-      q(".overview-image"),
-      {
-        opacity: 0,
-        x: 80,
-      }
-    );
+    gsap.set(q(".overview-image"), {
+      opacity: 0,
+      x: 80,
+    });
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -62,20 +52,16 @@ export default function ServiceOverview({
       },
       onComplete: () => {
         gsap.set(animatedItems, {
-          clearProps:
-            "willChange",
+          clearProps: "willChange",
         });
       },
     });
 
-    tl.to(
-      q(".overview-eyebrow"),
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-      }
-    )
+    tl.to(q(".overview-eyebrow"), {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+    })
       .to(
         q(".overview-title"),
         {
@@ -118,10 +104,7 @@ export default function ServiceOverview({
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden bg-white"
-    >
+    <section ref={sectionRef} className="relative overflow-hidden bg-white">
       {/* ========================================= */}
       {/* HERO SECTION */}
       {/* ========================================= */}
@@ -134,19 +117,20 @@ export default function ServiceOverview({
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
           <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">
+            
             {/* ========================================= */}
             {/* CONTENT */}
             {/* ========================================= */}
-
             <div>
-              <span className="overview-eyebrow inline-flex items-center gap-3 text-xs md:text-sm font-semibold uppercase tracking-[0.25em] text-orange-500">
-                <span className="h-px w-8 bg-orange-500" />
+              {/* Added group to trigger the line expansion on hover */}
+              <span className="overview-eyebrow group inline-flex items-center gap-3 text-xs md:text-sm font-semibold uppercase tracking-[0.25em] text-orange-500 cursor-default transition-colors duration-300 hover:text-orange-600">
+                <span className="h-px w-8 bg-orange-500 transition-all duration-300 group-hover:w-12 group-hover:bg-orange-600" />
                 What We Deliver
               </span>
 
               <h2 className="overview-title mt-6 text-3xl font-semibold leading-[1.05] tracking-tight text-slate-900 md:text-5xl lg:text-6xl">
                 Building Solutions
-                <span className="block bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent pb-1">
                   That Deliver Results
                 </span>
               </h2>
@@ -159,24 +143,25 @@ export default function ServiceOverview({
             {/* ========================================= */}
             {/* IMAGE */}
             {/* ========================================= */}
+            {/* Added group for cinematic hover effect */}
+            <div className="overview-image group relative cursor-default">
+              
+              {/* Glow - expands and intensifies on hover */}
+              <div className="absolute -inset-5 rounded-[40px] bg-gradient-to-r from-orange-500/20 to-red-500/20 blur-3xl transition-all duration-700 group-hover:from-orange-500/30 group-hover:to-red-500/30 group-hover:blur-[40px]" />
 
-            <div className="overview-image relative">
-              {/* Glow */}
-              <div className="absolute -inset-5 rounded-[40px] bg-gradient-to-r from-orange-500/20 to-red-500/20 blur-3xl" />
-
-              <div className="relative overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_25px_80px_rgba(15,23,42,0.12)]">
+              {/* Wrapper - lifts and casts deeper shadow on hover */}
+              <div className="relative overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_25px_80px_rgba(15,23,42,0.12)] transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_35px_100px_rgba(255,107,0,0.15)] group-hover:border-orange-200/50">
+                
+                {/* Image - slow cinematic zoom */}
                 <img
-                  src={
-                    service.overviewImage ||
-                    service.heroImage
-                  }
+                  src={service.overviewImage || service.heroImage}
                   alt={service.title}
                   loading="lazy"
                   draggable={false}
-                  className="aspect-[4/3] w-full object-cover lg:aspect-[5/4]"
+                  className="aspect-[4/3] w-full object-cover lg:aspect-[5/4] transition-transform duration-[1.5s] ease-out group-hover:scale-105"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-orange-500/10" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-orange-500/10 transition-opacity duration-500 group-hover:opacity-60" />
               </div>
             </div>
           </div>
@@ -191,25 +176,25 @@ export default function ServiceOverview({
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-500/40 to-transparent" />
 
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="grid grid-cols-1 divide-y divide-slate-200 md:grid-cols-3 md:divide-x md:divide-y-0">
-            {service.stats.map(
-              (stat, index) => (
-                <div
-                  key={index}
-                  className="overview-card group flex flex-col items-center justify-center px-8 py-10 text-center"
-                >
-                  <div className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-5xl font-black text-transparent md:text-6xl">
-                    {stat.value}
-                  </div>
-
-                  <div className="mt-4 h-px w-12 bg-gradient-to-r from-orange-500 to-red-500 transition-all duration-300 group-hover:w-20" />
-
-                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.25em] text-slate-500 md:text-sm">
-                    {stat.label}
-                  </p>
+          <div className="grid grid-cols-1 divide-y divide-slate-100 md:grid-cols-3 md:divide-x md:divide-y-0">
+            {service.stats.map((stat, index) => (
+              <div
+                key={index}
+                // Added lifting transform, soft background shift, and shadow on hover
+                className="overview-card group flex flex-col items-center justify-center px-8 py-10 text-center transition-all duration-500 hover:-translate-y-2 hover:bg-orange-50/30 hover:shadow-2xl hover:shadow-orange-500/5 hover:z-10 cursor-default rounded-2xl md:rounded-none"
+              >
+                {/* Number scales up slightly on hover */}
+                <div className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-5xl font-black text-transparent md:text-6xl transition-transform duration-500 ease-out group-hover:scale-110">
+                  {stat.value}
                 </div>
-              )
-            )}
+
+                <div className="mt-4 h-px w-12 bg-gradient-to-r from-orange-500 to-red-500 transition-all duration-300 group-hover:w-20" />
+
+                <p className="mt-4 text-xs font-semibold uppercase tracking-[0.25em] text-slate-500 md:text-sm transition-colors duration-300 group-hover:text-slate-700">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 
