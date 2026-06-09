@@ -260,7 +260,7 @@ export default function WhyUs() {
 
             {/* CTA */}
             <Link
-              to="#services"
+              to="/services/digital-product-engineering"
               className="why-cta group inline-flex items-center gap-3 bg-[#FF6B00] border-2 border-[#FF6B00] px-8 py-4 text-base font-bold text-white rounded-xl shadow-lg shadow-orange-500/20 transition-all duration-300 hover:bg-white hover:text-[#FF6B00] hover:shadow-orange-500/40 hover:-translate-y-1 mt-5"
             >
               Explore Capabilities

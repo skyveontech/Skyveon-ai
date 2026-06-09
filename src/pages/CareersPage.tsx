@@ -545,7 +545,7 @@ function ApplicationModal({
         },
       );
 
-      // console.log(data);
+      console.log(data);
       setIsSuccess(true);
     } catch (error) {
       console.error("Mailgun Error:", error);

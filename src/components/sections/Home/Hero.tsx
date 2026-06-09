@@ -119,7 +119,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative md:h-screen  max-h-[1050px] py-12 md:py-0 flex items-center overflow-hidden bg-slate-50">
+      className="relative  md:h-screen  max-h-[1050px] py-12 md:py-0 flex items-center overflow-hidden bg-slate-50">
       {/* PERFORMANCE FIX: Removed blur filters and animated pulse gradients */}
       <div className="absolute inset-0 overflow-hidden bg-slate-900">
         <img
@@ -138,7 +138,7 @@ export default function Hero() {
         <div className="grid lg:grid-cols-[1.35fr_0.65fr] gap-12 lg:gap-2 items-center">
           {/* LEFT COLUMN */}
           <div className="w-full max-w-4xl">
-            <div className="hero-badge inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-white px-4 py-2 shadow-sm">
+            <div className="hero-badge mt-8 inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-white px-4 py-2 shadow-sm">
               <Sparkles size={14} className="text-orange-500" />
               <span className="text-xs font-semibold tracking-wider text-orange-600 uppercase">
                 AI-Powered Enterprise Solutions

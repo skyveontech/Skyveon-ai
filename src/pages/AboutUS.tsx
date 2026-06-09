@@ -236,7 +236,7 @@ export default function AboutPage() {
 
         <div className="relative z-10 max-w-[1200px]  px-10">
           {/* Badge */}
-          <div className="hero-badge inline-block border border-orange-500/[0.19] bg-orange-500/[0.05] rounded-full px-5 py-1.5 text-[13px] font-bold text-orange-500 tracking-[0.08em] uppercase mb-8">
+          <div className="mt-10 hero-badge inline-block border border-orange-500/[0.19] bg-orange-500/[0.05] rounded-full px-5 py-1.5 text-[13px] font-bold text-orange-500 tracking-[0.08em] uppercase mb-8">
             About Us
           </div>
 

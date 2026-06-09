@@ -4,11 +4,12 @@ import MainLayout from "@/layouts/MainLayout";
 
 import NotFound from "@/pages/NotFound";
 import { lazy } from "react";
-import ServicePage from "./pages/ServicePage";
+// import ServicePage from "./pages/ServicePage";
 import IndustryPage from "./pages/IndustryPage";
 import AboutPage from "./pages/AboutUS";
 import CareersPage from "./pages/CareersPage";
 import Contact from "./pages/Contact";
+import ServicePageWrapper from "./pages/ServicePageWrapper";
 
 const Home = lazy(() => import("@/pages/Home"));
 
@@ -17,7 +18,7 @@ export default function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/services/:slug" element={<ServicePage />} />
+        <Route path="/services/:slug" element={<ServicePageWrapper />} />
         <Route path="/industries/:slug" element={<IndustryPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/careers" element={<CareersPage />} /> 

@@ -11,7 +11,6 @@ import {
   BarChart2,
   Layers,
   Brain,
-  
   type LucideIcon,
   Landmark,
   HeartPulse,
@@ -46,7 +45,10 @@ type MobileAccordionProps = {
   title: string;
   items: MenuItem[];
   onItemClick: () => void;
+  isOpen: boolean;
+  onToggle: () => void;
 };
+
 const servicesMenu = [
   {
     title: "Digital Product Engineering",
@@ -91,38 +93,45 @@ const industriesMenu = [
     description: "Secure banking, fintech & compliance platforms",
     href: "/industries/financial-services",
     icon: Landmark,
+    accent: "#f97316",
   },
   {
     title: "Healthcare",
     description: "HIPAA-ready digital healthcare ecosystems",
     href: "/industries/healthcare",
     icon: HeartPulse,
+    accent: "#f97316",
   },
   {
     title: "Retail & eCommerce",
     description: "Personalization, analytics & omnichannel commerce",
     href: "/industries/retail",
     icon: ShoppingBag,
+    accent: "#f97316",
   },
   {
     title: "Manufacturing",
     description: "Industrial IoT, automation & predictive insights",
     href: "/industries/manufacturing",
     icon: Factory,
+    accent: "#f97316",
   },
   {
     title: "Public Sector",
     description: "Mission-critical government modernization",
     href: "/industries/public-sector",
     icon: Shield,
+    accent: "#f97316",
   },
   {
     title: "Media & Technology",
     description: "Scalable platforms & AI-powered experiences",
     href: "/industries/media-technology",
     icon: Monitor,
+    accent: "#f97316",
   },
-];
+] satisfies MenuItem[];
+
 const simpleLinks = [
   { label: "About", href: "/about" },
   { label: "Careers", href: "/careers" },
@@ -132,6 +141,7 @@ const simpleLinks = [
 const SF: CSSProperties = {
   fontFamily: "-apple-system,'SF Pro Text',BlinkMacSystemFont,sans-serif",
 };
+
 const ctaStyle: CSSProperties = {
   ...SF,
   letterSpacing: "-0.01em",
@@ -212,60 +222,45 @@ const IndustriesMegaMenu = memo(function IndustriesMegaMenu({
           ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
           : "pointer-events-none -translate-y-1 scale-[0.97] opacity-0"
       }`}
-      style={{ width: 360 }}
-    >
-      {/* Arrow */}
+      style={{ width: 360 }}>
       <div className="absolute -top-[6px] left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-l border-t border-slate-200/80 bg-white z-10" />
-
       <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_24px_64px_rgba(15,23,42,0.13),0_4px_16px_rgba(15,23,42,0.06)]">
-        {/* Header */}
         <div className="border-b border-slate-100 px-5 pt-4 pb-3">
           <p
             className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-400"
-            style={SF}
-          >
+            style={SF}>
             Industries Served
           </p>
         </div>
-
-        {/* Items */}
         <div className="grid gap-1 p-3">
           {industriesMenu.map((industry) => {
             const Icon = industry.icon;
-
             return (
               <Link
                 key={industry.title}
                 to={industry.href}
-                className="group flex items-center gap-3.5 rounded-xl px-3.5 py-3 transition-all duration-200 hover:bg-slate-50 active:bg-slate-100"
-              >
-                {/* Icon */}
-                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-orange-50 transition-transform duration-300 group-hover:scale-110">
+                className="group flex items-center gap-3.5 rounded-xl px-3.5 py-3 transition-all duration-200 hover:bg-slate-50 active:bg-slate-100">
+                <div
+                  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
+                  style={{ background: `${industry.accent}15` }}>
                   <Icon
                     size={16}
-                    className="text-orange-500"
+                    style={{ color: industry.accent }}
                     strokeWidth={1.8}
                   />
                 </div>
-
-                {/* Content */}
                 <div className="min-w-0 flex-1">
                   <p
                     className="truncate text-[13.5px] font-semibold leading-tight text-slate-900"
-                    style={SF}
-                  >
+                    style={SF}>
                     {industry.title}
                   </p>
-
                   <p
                     className="mt-0.5 truncate text-[12px] text-slate-400"
-                    style={SF}
-                  >
+                    style={SF}>
                     {industry.description}
                   </p>
                 </div>
-
-                {/* Arrow */}
                 <ArrowRight
                   size={14}
                   className="flex-shrink-0 -translate-x-1 text-slate-300 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100"
@@ -287,12 +282,11 @@ const NavDropdown = memo(function NavDropdown({
   const [open, setOpen] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(
-    () => () => {
+  useEffect(() => {
+    return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    },
-    [],
-  );
+    };
+  }, []);
 
   const handleMouseEnter = useCallback(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -334,39 +328,57 @@ const MobileAccordion = memo(function MobileAccordion({
   title,
   items,
   onItemClick,
+  isOpen,
+  onToggle,
 }: MobileAccordionProps) {
-  const [open, setOpen] = useState(false);
-  const toggle = useCallback(() => setOpen((v) => !v), []);
-
   return (
     <div className="mobile-link">
       <button
-        onClick={toggle}
-        className="flex items-center justify-between w-full px-4 py-3.5 rounded-xl text-[15px] font-medium text-slate-800 hover:bg-black/[0.04] transition-colors duration-150"
+        onClick={onToggle}
+        className={`flex items-center justify-between w-full px-4 py-3.5 rounded-xl text-[15px] font-medium transition-colors duration-200 ${
+          isOpen
+            ? "bg-black/[0.04] text-orange-600"
+            : "text-slate-800 hover:bg-black/[0.04]"
+        }`}
         style={SF}>
         {title}
         <ChevronDown
           size={16}
-          className={`text-slate-400 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+          className={`transition-transform duration-300 ${isOpen ? "rotate-180 text-orange-500" : "text-slate-400"}`}
         />
       </button>
+      {/* CSS Grid trick for buttery smooth height transition */}
       <div
-        className={`overflow-hidden transition-all duration-300 ${open ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}`}>
-        <div className="pl-4 pr-2 pb-2 grid gap-0.5">
-          {items.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.title}
-                to={item.href}
-                onClick={onItemClick}
-                className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13.5px] text-slate-600 hover:text-slate-900 hover:bg-orange-50 transition-all duration-150"
-                style={SF}>
-                <Icon size={14} className="text-slate-400" strokeWidth={1.8} />
-                {item.title}
-              </Link>
-            );
-          })}
+        className={`grid transition-all duration-300 ease-in-out ${
+          isOpen
+            ? "grid-rows-[1fr] opacity-100 mt-1 pb-2"
+            : "grid-rows-[0fr] opacity-0"
+        }`}>
+        <div className="overflow-hidden">
+          <div className="pl-3 pr-2 grid gap-1">
+            {items.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.title}
+                  to={item.href}
+                  onClick={onItemClick}
+                  className="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-[14px] text-slate-600 hover:text-slate-900 hover:bg-orange-50 transition-all duration-200"
+                  style={SF}>
+                  <div
+                    className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                    style={{ background: `${item.accent || "#f97316"}15` }}>
+                    <Icon
+                      size={14}
+                      style={{ color: item.accent || "#f97316" }}
+                      strokeWidth={1.8}
+                    />
+                  </div>
+                  {item.title}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
@@ -376,109 +388,105 @@ const MobileAccordion = memo(function MobileAccordion({
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-
-
- useEffect(() => {
-  let lastState = false;
-
-  const handleScroll = () => {
-    const nextState = window.scrollY > 20;
-
-    if (nextState !== lastState) {
-      lastState = nextState;
-      setIsScrolled(nextState);
-    }
-  };
-
-  handleScroll();
-
-  window.addEventListener("scroll", handleScroll, {
-    passive: true,
-  });
-
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-}, []);
+  const [openAccordion, setOpenAccordion] = useState<
+    "services" | "industries" | null
+  >(null);
 
   useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    handleScroll(); // Check initial scroll position
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
     return () => {
       document.body.style.overflow = "";
     };
   }, [mobileMenuOpen]);
 
-useGsap(() => {
+  useGsap(() => {
+    gsap.set([".navbar-animate", ".mobile-link", ".mobile-menu-panel"], {
+      force3D: true,
+    });
+    gsap.set(".navbar-animate", { willChange: "transform, opacity" });
 
-  gsap.set(
-  [
-    ".navbar-animate",
-    ".mobile-link",
-    ".mobile-menu-panel",
-  ],
-  {
-    force3D: true,
-  }
-);
-  gsap.set(".navbar-animate", {
-    willChange: "transform, opacity",
-  });
+    gsap.from(".navbar-animate", {
+      opacity: 0,
+      y: -16,
+      duration: 0.6,
+      stagger: 0.04,
+      ease: "power3.out",
+      clearProps: "willChange",
+    });
+  }, []);
 
-  gsap.from(".navbar-animate", {
-    opacity: 0,
-    y: -16,
-    duration: 0.6,
-    stagger: 0.04,
-    ease: "power3.out",
-    clearProps: "willChange",
-  });
-}, []);
+  useGsap(() => {
+    if (!mobileMenuOpen) return;
 
-useGsap(() => {
-  if (!mobileMenuOpen) return;
+    gsap.fromTo(
+      ".mobile-menu-panel",
+      { y: -20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.35, ease: "power3.out" },
+    );
 
-  gsap.from(".mobile-menu-panel", {
-    y: -20,
-    opacity: 0,
-    duration: 0.35,
-    ease: "power3.out",
-  });
+    gsap.fromTo(
+      ".mobile-link",
+      { opacity: 0, y: 10 },
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.03,
+        duration: 0.3,
+        ease: "power2.out",
+        delay: 0.1,
+      },
+    );
+  }, [mobileMenuOpen]);
 
-  gsap.from(".mobile-link", {
-    opacity: 0,
-    y: 10,
-    stagger: 0.03,
-    duration: 0.25,
-    ease: "power2.out",
-  });
-}, [mobileMenuOpen]);
+  const closeMobileMenu = useCallback(() => {
+    setMobileMenuOpen(false);
+    // Reset accordion state when menu is closed
+    setTimeout(() => setOpenAccordion(null), 300);
+  }, []);
 
-
-
-  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
   const toggleMobileMenu = useCallback(() => setMobileMenuOpen((v) => !v), []);
+
+  const handleAccordionToggle = useCallback(
+    (section: "services" | "industries") => {
+      setOpenAccordion((prev) => (prev === section ? null : section));
+    },
+    [],
+  );
 
   return (
     <>
       <header
-        className={`sticky top-0 left-0 w-full z-40 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
-          isScrolled
-            ? "bg-white/80 backdrop-blur-2xl backdrop-saturate-[2] border-b border-black/[0.07] shadow-[0_1px_0_0_rgba(0,0,0,0.04),0_4px_24px_-4px_rgba(0,0,0,0.08)]"
-            : "bg-transparent"
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+          isScrolled || mobileMenuOpen
+            ? "bg-white/90 backdrop-blur-2xl backdrop-saturate-[2] border-b border-black/[0.07] shadow-[0_1px_0_0_rgba(0,0,0,0.04),0_4px_24px_-4px_rgba(0,0,0,0.08)]"
+            : "bg-transparent border-b border-transparent"
         }`}>
-   
-
         <div className="max-w-[1200px] mx-auto px-5 lg:px-8">
           <div className="flex items-center justify-between h-[60px] md:h-[68px]">
             <Link
               to="/"
+              onClick={closeMobileMenu}
               className="navbar-animate flex items-center gap-2.5 group select-none flex-shrink-0">
               <div className="relative">
                 <img
                   src={logo}
                   alt="Skyveon AI"
-                  className="md:h-[52px] h-10 w-auto transition-all duration-500 group-hover:scale-[1.04]"
+                  className="md:h-[52px] h-10 w-auto transition-transform duration-500 group-hover:scale-[1.04]"
                   width={160}
                   height={52}
                   loading="eager"
@@ -488,6 +496,7 @@ useGsap(() => {
               </div>
             </Link>
 
+            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-0.5">
               <NavDropdown
                 label="Services"
@@ -515,6 +524,7 @@ useGsap(() => {
               ))}
             </nav>
 
+            {/* Actions & Mobile Toggle */}
             <div className="flex items-center gap-2.5">
               <Link
                 to="/contact"
@@ -531,26 +541,26 @@ useGsap(() => {
                 onClick={toggleMobileMenu}
                 aria-label="Toggle menu"
                 aria-expanded={mobileMenuOpen}
-                className="navbar-animate lg:hidden relative flex items-center justify-center w-9 h-9 rounded-full bg-black/[0.05] hover:bg-black/[0.09] active:bg-black/[0.13] text-slate-800 transition-all duration-200">
+                className="navbar-animate lg:hidden relative flex items-center justify-center w-10 h-10 rounded-full bg-black/[0.05] hover:bg-black/[0.09] active:bg-black/[0.13] text-slate-800 transition-all duration-200">
                 <span
-                  className="absolute transition-all duration-300"
+                  className="absolute transition-all duration-300 ease-in-out"
                   style={{
                     opacity: mobileMenuOpen ? 0 : 1,
                     transform: mobileMenuOpen
                       ? "rotate(45deg) scale(0.5)"
                       : "rotate(0deg) scale(1)",
                   }}>
-                  <Menu size={18} strokeWidth={2} />
+                  <Menu size={20} strokeWidth={2} />
                 </span>
                 <span
-                  className="absolute transition-all duration-300"
+                  className="absolute transition-all duration-300 ease-in-out"
                   style={{
                     opacity: mobileMenuOpen ? 1 : 0,
                     transform: mobileMenuOpen
                       ? "rotate(0deg) scale(1)"
                       : "rotate(-45deg) scale(0.5)",
                   }}>
-                  <X size={18} strokeWidth={2} />
+                  <X size={20} strokeWidth={2} />
                 </span>
               </button>
             </div>
@@ -558,34 +568,42 @@ useGsap(() => {
         </div>
       </header>
 
+      {/* Mobile Backdrop Overlay */}
       <div
-        className={`fixed inset-0 z-30 bg-black/25 backdrop-blur-[3px] lg:hidden transition-opacity duration-350 ${
+        className={`fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-sm lg:hidden transition-all duration-400 ease-out ${
           mobileMenuOpen
             ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+            : "opacity-0 pointer-events-none delay-100"
         }`}
         onClick={closeMobileMenu}
       />
 
+      {/* Mobile Menu Panel */}
       <div
-        className={`fixed top-0 left-0 right-0 z-30 lg:hidden transition-all duration-450 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+        className={`fixed top-[60px] md:top-[68px] left-0 right-0 z-40 lg:hidden transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
           mobileMenuOpen
             ? "translate-y-0 opacity-100"
-            : "-translate-y-3 opacity-0 pointer-events-none"
+            : "-translate-y-4 opacity-0 pointer-events-none"
         }`}>
-        <div className="mx-3 mt-[64px] mobile-menu-panel rounded-2xl bg-white/97 backdrop-blur-2xl shadow-[0_24px_64px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.07)] overflow-hidden">
-          <nav className="px-2 py-2.5">
+        <div className="mx-4 mt-3 mb-6 mobile-menu-panel rounded-2xl bg-white/95 backdrop-blur-xl shadow-[0_24px_64px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.07)] overflow-hidden max-h-[calc(100vh-100px)] overflow-y-auto overscroll-contain">
+          <nav className="px-2 py-3">
             <MobileAccordion
               title="Services"
               items={servicesMenu}
               onItemClick={closeMobileMenu}
+              isOpen={openAccordion === "services"}
+              onToggle={() => handleAccordionToggle("services")}
             />
-
             <MobileAccordion
               title="Industries"
               items={industriesMenu}
               onItemClick={closeMobileMenu}
+              isOpen={openAccordion === "industries"}
+              onToggle={() => handleAccordionToggle("industries")}
             />
+
+            <div className="my-2 mx-4 h-px bg-slate-100" />
+
             {simpleLinks.map((link) => (
               <Link
                 key={link.label}
@@ -602,13 +620,11 @@ useGsap(() => {
             ))}
           </nav>
 
-          <div className="mx-4 h-px bg-black/[0.06]" />
-
-          <div className="px-4 py-4">
+          <div className="bg-slate-50 border-t border-slate-100 p-5 grid gap-4">
             <Link
               to="/contact"
               onClick={closeMobileMenu}
-              className="mobile-link flex items-center justify-center gap-2 w-full rounded-2xl bg-slate-900 px-5 py-3.5 text-[14.5px] font-semibold text-white transition-all duration-200 hover:bg-orange-500 active:scale-[0.98] shadow-[0_2px_12px_rgba(0,0,0,0.15)] group"
+              className="mobile-link flex items-center justify-center gap-2 w-full rounded-xl bg-slate-900 px-5 py-3.5 text-[15px] font-semibold text-white transition-all duration-200 hover:bg-orange-500 active:scale-[0.98] shadow-[0_2px_12px_rgba(0,0,0,0.15)] group"
               style={{ ...SF, letterSpacing: "-0.01em" }}>
               Book a Consultation
               <ArrowRight
@@ -616,22 +632,22 @@ useGsap(() => {
                 className="transition-transform duration-200 group-hover:translate-x-0.5"
               />
             </Link>
-          </div>
 
-          <div className="mobile-link px-6 pb-5 flex items-center justify-center gap-5">
-            <a
-              href="mailto:info@skyveon.ai"
-              className="text-[12px] text-slate-400 hover:text-orange-500 transition-colors duration-200"
-              style={SF}>
-              info@skyveon.ai
-            </a>
-            <span className="w-px h-3 bg-slate-200" />
-            <a
-              href="tel:+16146733427"
-              className="text-[12px] text-slate-400 hover:text-orange-500 transition-colors duration-200"
-              style={SF}>
-              +1 (614) 673-3427
-            </a>
+            <div className="mobile-link flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="mailto:info@skyveon.ai"
+                className="text-[13px] font-medium text-slate-500 hover:text-orange-500 transition-colors duration-200"
+                style={SF}>
+                info@skyveon.ai
+              </a>
+              <span className="w-1 h-1 rounded-full bg-slate-300" />
+              <a
+                href="tel:+16146733427"
+                className="text-[13px] font-medium text-slate-500 hover:text-orange-500 transition-colors duration-200"
+                style={SF}>
+                +1 (614) 673-3427
+              </a>
+            </div>
           </div>
         </div>
       </div>

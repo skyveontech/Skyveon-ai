@@ -148,13 +148,13 @@ export default function ServiceHero({ service }: Props) {
 
               {/* Title — masked line reveal (Added overflow-hidden) */}
               <div className="space-y-1">
-                <div className="overflow-hidden leading-none py-1">
+                <div className=" leading-none py-1">
                   <h1 className="hero-line text-4xl sm:text-5xl md:text-6xl font-semibold leading-[0.9] tracking-tight text-white">
                     {service.title}
                   </h1>
                 </div>
 
-                <div className="overflow-hidden leading-none py-1">
+                <div className="- leading-none py-1">
                   <h2 className="hero-line text-4xl sm:text-5xl md:text-6xl font-semibold leading-[0.95] tracking-tight">
                     <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent pb-2">
                       {service.subtitle}

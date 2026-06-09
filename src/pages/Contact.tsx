@@ -305,7 +305,7 @@ setStatus("success")
 
   // ── render ────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-white font-sans antialiased">
+    <div className="min-h-screen  bg-white font-sans antialiased">
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section
         ref={heroRef}
@@ -322,7 +322,7 @@ setStatus("success")
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
           {/* badge */}
-          <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-5 py-2 text-sm font-semibold text-orange-600">
+          <span className="hero-badge mt-8 inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-5 py-2 text-sm font-semibold text-orange-600">
             <span className="h-1.5 w-1.5 rounded-full bg-orange-400" />
             Contact Skyveon
           </span>
