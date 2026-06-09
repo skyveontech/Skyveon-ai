@@ -1,5 +1,8 @@
 "use client";
 
+import FormData from "form-data";
+import Mailgun from "mailgun.js";
+
 import { useRef, useState, useEffect } from "react";
 import {
   ArrowRight,
@@ -22,6 +25,9 @@ import type { LucideIcon } from "lucide-react";
 
 import gsap from "@/lib/gsap";
 import useGsap from "@/hooks/use-gsap";
+
+const apiKey = import.meta.env.Mailgun_API;
+
 
 // ---------------------------------------------------------------------------
 // Types & Data
@@ -92,13 +98,10 @@ const tracks = [
   "Data Science & AI",
 ];
 const levels = ["All levels", "Entry", "Mid"];
-const MAX_RESUME_SIZE = 5 * 1024 * 1024;
-const CAREERS_APPLICATION_ENDPOINT = import.meta.env
-  .VITE_CAREERS_APPLICATION_ENDPOINT as string | undefined;
 
 const jobs: Job[] = [
   {
-    title: "Software Engineer - Full Stack .NET (Mid Level)",
+    title: "Software Engineer — Full Stack .NET (Mid Level)",
     tags: [".NET", "Mid level", "On-site", "Full-time"],
     summary:
       "Own .NET services and modern front-ends; drive CI/CD and quality across the stack.",
@@ -131,7 +134,6 @@ function ApplicationModal({
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -159,7 +161,6 @@ function ApplicationModal({
     } else {
       document.body.style.overflow = "unset";
       setIsSuccess(false);
-      setSubmitError(null);
       setFileName(null);
     }
     return () => {
@@ -169,42 +170,51 @@ function ApplicationModal({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitError(null);
 
-    if (!CAREERS_APPLICATION_ENDPOINT) {
-      setSubmitError(
-        "Applications are temporarily unavailable. Please email your resume to hr@skyveon.ai.",
-      );
-      return;
-    }
+    setIsSubmitting(true);
+    const mailgun = new Mailgun(FormData);
+    const mg = mailgun.client({
+      username: "api",
+      key: apiKey || "",
+    });
 
     try {
       const formData = new window.FormData(e.currentTarget);
+      console.log("Form Data:", Object.fromEntries(formData.entries()));
+
+      const firstName = formData.get("firstName");
+      const lastName = formData.get("lastName");
+      const email = formData.get("email");
+      const phone = formData.get("phone");
+      const linkedin = formData.get("linkedin");
       const resume = formData.get("resume") as File;
-      formData.set("jobTitle", jobTitle);
 
-      if (resume.size > MAX_RESUME_SIZE) {
-        setSubmitError("Resume must be 5MB or smaller.");
-        return;
-      }
+      // console.log({ firstName, lastName, email, phone, linkedin, jobTitle });
 
-      setIsSubmitting(true);
+      const data = await mg.messages.create(
+        "sandbox14b4d4fac2f347b19e14e010f6d65310.mailgun.org",
+        {
+          from: "Mailgun Sandbox <postmaster@sandbox14b4d4fac2f347b19e14e010f6d65310.mailgun.org>",
+          // to: ["<hr@skyveon.ai>"],
+          to: ["<vishnumarripalli123@gmail.com>"],
+          subject: `New Application - ${jobTitle} (${firstName} ${lastName})`,
+          text: `
+        Position: ${jobTitle}
+        First Name: ${firstName}
+        Last Name: ${lastName}
+        Email: ${email}
+        Phone: ${phone}
+        LinkedIn: ${linkedin}
+      `,
+      attachment: resume,
+        },
+      );
 
-      const response = await fetch(CAREERS_APPLICATION_ENDPOINT, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Application submission failed.");
-      }
-
+      console.log(data);
       setIsSuccess(true);
     } catch (error) {
-      console.error("Application Error:", error);
-      setSubmitError(
-        "Failed to send application. Please try again or email hr@skyveon.ai.",
-      );
+      console.error("Mailgun Error:", error);
+      alert("Failed to send application.");
     } finally {
       setIsSubmitting(false);
     }
@@ -256,12 +266,6 @@ function ApplicationModal({
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
-              {submitError && (
-                <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
-                  {submitError}
-                </div>
-              )}
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label
@@ -363,17 +367,9 @@ function ApplicationModal({
                       id="resume"
                       accept=".pdf,.doc,.docx,.txt"
                       className="hidden"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        setSubmitError(null);
-                        setFileName(file?.name || null);
-
-                        if (file && file.size > MAX_RESUME_SIZE) {
-                          setSubmitError("Resume must be 5MB or smaller.");
-                          e.target.value = "";
-                          setFileName(null);
-                        }
-                      }}
+                      onChange={(e) =>
+                        setFileName(e.target.files?.[0]?.name || null)
+                      }
                     />
                   </label>
                 </div>
@@ -526,10 +522,10 @@ function JobCard({
             {/* Location & EEO info - Adjusting font sizes for smaller screens */}
             <div className="mt-6 space-y-1.5">
               <p className="flex items-center gap-1.5 text-[11px] md:text-[12px] text-slate-400">
-                <MapPin size={11} /> Columbus, OH (On-site) - Full-time
+                <MapPin size={11} /> Columbus, OH (On-site) · Full-time
               </p>
               <p className="text-[11px] md:text-[12px] text-slate-400">
-                Equal Opportunity Employer -{" "}
+                Equal Opportunity Employer ·{" "}
                 <a
                   href="mailto:hr@skyveon.ai"
                   className="text-orange-400 hover:text-orange-500 transition-colors"
@@ -639,7 +635,7 @@ export default function CareersPage() {
         jobTitle={selectedJob}
       />
 
-      {/* HERO */}
+      {/* ═══════════ HERO ═══════════ */}
       <section
         ref={heroRef}
         className="relative overflow-hidden py-12 md:py-20 bg-slate-50">
@@ -676,7 +672,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* BENEFITS */}
+      {/* ═══════════ BENEFITS ═══════════ */}
       <section ref={benefitsRef} className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="mb-12">
@@ -711,7 +707,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* OPEN POSITIONS */}
+      {/* ═══════════ OPEN POSITIONS ═══════════ */}
       <section
         ref={jobsRef}
         className="py-16 md:py-24 bg-slate-50 border-t border-slate-100">
@@ -799,7 +795,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* CTA STRIP */}
+      {/* ═══════════ CTA STRIP ═══════════ */}
       <section className="career-cta py-20 bg-orange-500 text-center">
         <div className="max-w-2xl mx-auto px-8">
           <h2 className="text-[clamp(2rem,4vw,3rem)] font-extrabold text-white">
