@@ -11,6 +11,10 @@ import useGsap from "@/hooks/use-gsap";
 import gsap from "@/lib/gsap";
 import Mailgun from "mailgun.js";
 
+
+
+const apiKey = import.meta.env.VITE_MAILGUN_API;
+console.log("Mailgun API Key:", apiKey);
 // ── tiny helper ──────────────────────────────────────────────────────────────
 function cn(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -123,7 +127,7 @@ export default function Contact() {
     const mailgun = new Mailgun(FormData);
     const mg = mailgun.client({
       username: "api",
-      key: "171edf51b8e88d482a2f24bd3f33d304-d2d7ea9a-93bb3da9",
+      key: apiKey|| "",
     });
 
     // Build mailto payload
@@ -141,10 +145,11 @@ export default function Contact() {
       .filter((line) => line !== undefined)
       .join("\n");
     const data = await mg.messages.create(
-      "sandbox14b4d4fac2f347b19e14e010f6d65310.mailgun.org",
-      {
-        from: "Mailgun Sandbox <postmaster@sandbox14b4d4fac2f347b19e14e010f6d65310.mailgun.org>",
-        to: [" <info@skyveon.ai>"],
+      "sandboxb6f850e17aa84a5b805bedd32e84107e.mailgun.org",
+        {
+          from: "Mailgun Sandbox <postmaster@sandboxb6f850e17aa84a5b805bedd32e84107e.mailgun.org>",
+          // to: ["<hr@skyveon.ai>"],
+          to: ["<nexvosolutions@gmail.com>"],
         subject: subject,
         text: body,
       },

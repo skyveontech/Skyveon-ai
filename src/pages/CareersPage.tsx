@@ -26,7 +26,8 @@ import type { LucideIcon } from "lucide-react";
 import gsap from "@/lib/gsap";
 import useGsap from "@/hooks/use-gsap";
 
-const apiKey = import.meta.env.Mailgun_API;
+const apiKey = import.meta.env.VITE_MAILGUN_API;
+console.log("Mailgun API Key:", apiKey);
 
 
 // ---------------------------------------------------------------------------
@@ -177,7 +178,8 @@ function ApplicationModal({
       username: "api",
       key: apiKey || "",
     });
-
+    console.log("Mailgun Client Initialized:", mg);
+    console.log("api key:", apiKey);
     try {
       const formData = new window.FormData(e.currentTarget);
       console.log("Form Data:", Object.fromEntries(formData.entries()));
@@ -192,11 +194,11 @@ function ApplicationModal({
       // console.log({ firstName, lastName, email, phone, linkedin, jobTitle });
 
       const data = await mg.messages.create(
-        "sandbox14b4d4fac2f347b19e14e010f6d65310.mailgun.org",
+        "sandboxb6f850e17aa84a5b805bedd32e84107e.mailgun.org",
         {
-          from: "Mailgun Sandbox <postmaster@sandbox14b4d4fac2f347b19e14e010f6d65310.mailgun.org>",
+          from: "Mailgun Sandbox <postmaster@sandboxb6f850e17aa84a5b805bedd32e84107e.mailgun.org>",
           // to: ["<hr@skyveon.ai>"],
-          to: ["<vishnumarripalli123@gmail.com>"],
+          to: ["<nexvosolutions@gmail.com>"],
           subject: `New Application - ${jobTitle} (${firstName} ${lastName})`,
           text: `
         Position: ${jobTitle}
