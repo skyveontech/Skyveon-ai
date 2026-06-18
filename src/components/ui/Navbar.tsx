@@ -455,22 +455,24 @@ export default function Navbar() {
     <>
       <header className="fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] bg-white/95 backdrop-blur-2xl backdrop-saturate-[2] border-b border-black/[0.07] shadow-[0_1px_0_0_rgba(0,0,0,0.04),0_4px_24px_-4px_rgba(0,0,0,0.08)]">
         <div className="max-w-[1200px] mx-auto px-5 lg:px-8">
-          <div className="flex items-center justify-between h-[60px] md:h-[68px]">
+          <div className="flex items-center justify-between h-[75px] md:h-[99px]">
             <Link
               to="/"
               onClick={closeMobileMenu}
               className="navbar-animate flex items-center gap-2.5 group select-none flex-shrink-0">
-              <div className="relative">
+              <div className="relative flex items-center">
                 <img
                   src={logo}
                   alt="Skyveon AI"
-                  className="md:h-[52px] h-10 w-auto transition-transform duration-500 group-hover:scale-[1.04]"
-                  width={160}
-                  height={52}
+                  // Increased mobile height from h-10 to h-13 (52px) and desktop from md:h-[52px] to md:h-[68px]
+                  className="h-18 md:h-[105px] w-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                  // Adjusted layout width/height hints for the new aspect scale
+                  width={210}
+                  height={68}
                   loading="eager"
                   decoding="async"
                 />
-                <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-1 bg-orange-500/25 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-1 bg-orange-500/25 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
             </Link>
 
@@ -545,7 +547,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Panel */}
       <div
-        className={`fixed top-[60px] md:top-[68px] left-0 right-0 z-40 lg:hidden transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+        className={`fixed top-[70px] md:top-[68px] left-0 right-0 z-40 lg:hidden transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
           mobileMenuOpen
             ? "translate-y-0 opacity-100"
             : "-translate-y-4 opacity-0 pointer-events-none"

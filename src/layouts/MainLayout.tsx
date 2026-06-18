@@ -16,7 +16,7 @@ export default function MainLayout() {
       <Navbar />
       
 
-      <main>
+      <main className="overflow-x-hidden overflow-y-hidden">
         <Outlet />
       </main>
 

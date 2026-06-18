@@ -306,37 +306,44 @@ setStatus("success")
   // ── render ────────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen  bg-white font-sans antialiased">
-      {/* ── HERO ──────────────────────────────────────────────────────────── */}
+    {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section
         ref={heroRef}
-        className="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-slate-50 py-8 lg:py-20">
-        {/* decorative blobs */}
+        className="relative overflow-hidden bg-cover bg-center bg-no-repeat py-16 lg:pt-32 lg:pb-24"
+        style={{ 
+          backgroundImage: `url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1920&q=80')` 
+        }}
+      >
+        {/* Dark Background Overlay (Ensures white text contrast) */}
+<div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/80 to-transparent" />
+
+        {/* decorative blobs (Adjusted opacity for dark background) */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 right-0 h-[600px] w-[600px] rounded-full bg-orange-100/50 blur-3xl"
+          className="pointer-events-none absolute -top-32 right-0 h-[600px] w-[600px] rounded-full bg-orange-500/10 blur-3xl"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute bottom-0 left-1/4 h-72 w-72 rounded-full bg-amber-100/40 blur-2xl"
+          className="pointer-events-none absolute bottom-0 left-1/4 h-72 w-72 rounded-full bg-amber-500/10 blur-2xl"
         />
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
           {/* badge */}
-          <span className="hero-badge mt-8 inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-5 py-2 text-sm font-semibold text-orange-600">
+          <span className="hero-badge mt-8 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 backdrop-blur-sm px-5 py-2 text-sm font-semibold text-orange-400">
             <span className="h-1.5 w-1.5 rounded-full bg-orange-400" />
             Contact Skyveon
           </span>
 
           {/* headline */}
-          <h1 className="mt-8 hero-title  text-4xl font-bold     leading-[1] tracking-tight text-slate-900 md:text-6xl ">
+          <h1 className="mt-8 hero-title text-4xl font-bold leading-[1] tracking-tight text-white md:text-6xl">
             Let's Build
             <br />
-            <span className="bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
               Something Great
             </span>
           </h1>
 
-          <p className="mt-7 hero-para max-w-2xl text-xl leading-relaxed text-slate-500">
+          <p className="mt-7 hero-para max-w-2xl text-xl leading-relaxed text-slate-300">
             Whether you're exploring AI, Cloud, Data Engineering, DevOps, or
             Enterprise Platforms — we're ready to turn your vision into reality.
           </p>
@@ -345,27 +352,27 @@ setStatus("success")
           <div className="mt-10 hero-actions flex flex-wrap gap-4">
             <button
               onClick={scrollToForm}
-              className="group flex items-center gap-3 rounded-2xl bg-orange-500 px-7 py-4 font-semibold text-white shadow-lg shadow-orange-200 transition-all duration-200 hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-200 active:scale-95">
+              className="group flex items-center gap-3 rounded-2xl bg-orange-500 px-7 py-4 font-semibold text-white shadow-lg shadow-orange-950/20 transition-all duration-200 hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-950/30 active:scale-95">
               Start a project
               <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
             </button>
 
             <a
               href="mailto:info@skyveon.ai"
-              className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-7 py-4 font-semibold text-slate-700 transition-all duration-200 hover:border-orange-300 hover:bg-orange-50 hover:text-orange-600">
+              className="flex items-center gap-2 rounded-2xl border border-slate-700 bg-slate-900/60 backdrop-blur-sm px-7 py-4 font-semibold text-slate-200 transition-all duration-200 hover:border-orange-500/50 hover:bg-slate-800/80 hover:text-orange-400">
               <Mail className="h-4 w-4" />
               Email us directly
             </a>
           </div>
 
           {/* trust strip */}
-          <div className="mt-14 hero-trust flex flex-wrap items-center gap-6 text-sm text-slate-400">
+          <div className="mt-14 hero-trust flex flex-wrap items-center gap-6 text-sm font-medium text-slate-300">
             {[
               "Responds within 24 hrs",
               "Free initial consultation",
               "No long-term lock-in",
             ].map((item) => (
-              <span key={item} className="flex items-center gap-2">
+              <span key={item} className="flex items-center gap-2 bg-slate-800/40 border border-slate-700/50 backdrop-blur-xs px-3 py-1 rounded-full">
                 <CheckCircle2 className="h-4 w-4 text-orange-400" />
                 {item}
               </span>
@@ -373,7 +380,6 @@ setStatus("success")
           </div>
         </div>
       </section>
-
       {/* ── INFO CARDS ───────────────────────────────────────────────────────── */}
       <section ref={infoRef} className=" py-8 md:py-12 bg-slate-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">

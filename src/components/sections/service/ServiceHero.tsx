@@ -126,7 +126,7 @@ export default function ServiceHero({ service }: Props) {
         </div>
 
         {/* ── CONTENT ────────────────────────────────────────────────────────── */}
-        <div className="relative z-10 flex min-h-[600px] items-center py-12 md:py-24">
+        <div className="relative z-10 flex min-h-[600px] items-center pt-16 md:pt-30 md:pb-24">
           <div className="max-w-7xl mx-auto px-6 lg:px-10 w-full">
             <div className="max-w-4xl">
 

@@ -119,7 +119,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative  md:h-screen  max-h-[1050px] py-12 md:py-0 flex items-center overflow-hidden bg-slate-50">
+      className="relative  md:h-screen  max-h-[1050px] py-16 md:py-0 flex items-center overflow-hidden bg-slate-50">
       {/* PERFORMANCE FIX: Removed blur filters and animated pulse gradients */}
       <div className="absolute inset-0 overflow-hidden bg-slate-900">
         <img

@@ -973,7 +973,7 @@ export default function CareersPage() {
       {/* ═══════════ HERO ═══════════ */}
       <section
         ref={heroRef}
-        className="relative overflow-hidden py-12 md:py-20 bg-slate-50">
+        className="relative overflow-hidden py-24 md:pt-40   bg-slate-50">
         <div className="absolute inset-0 overflow-hidden">
           <img
             src="/images/career-bg.webp"
