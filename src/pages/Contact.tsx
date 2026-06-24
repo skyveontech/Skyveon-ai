@@ -143,7 +143,7 @@ export default function Contact() {
     ]
       .filter((line) => line !== undefined)
       .join("\n");
-    const data = await mg.messages.create(
+ await mg.messages.create(
       "sandboxb6f850e17aa84a5b805bedd32e84107e.mailgun.org",
         {
           from: "Mailgun Sandbox <postmaster@sandboxb6f850e17aa84a5b805bedd32e84107e.mailgun.org>",
