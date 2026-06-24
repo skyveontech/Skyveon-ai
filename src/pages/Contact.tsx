@@ -14,7 +14,6 @@ import Mailgun from "mailgun.js";
 
 
 const apiKey = import.meta.env.VITE_MAILGUN_API;
-console.log("Mailgun API Key:", apiKey);
 // ── tiny helper ──────────────────────────────────────────────────────────────
 function cn(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -148,14 +147,13 @@ export default function Contact() {
       "sandboxb6f850e17aa84a5b805bedd32e84107e.mailgun.org",
         {
           from: "Mailgun Sandbox <postmaster@sandboxb6f850e17aa84a5b805bedd32e84107e.mailgun.org>",
-          // to: ["<hr@skyveon.ai>"],
-          to: ["<nexvosolutions@gmail.com>"],
+          to: ["<hr@skyveon.ai>"],
         subject: subject,
         text: body,
       },
     );
 
-    console.log(data);
+    // console.log(data);
 setStatus("success")
   };
 
