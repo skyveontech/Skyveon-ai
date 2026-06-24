@@ -194,16 +194,12 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-6">
             <a
-              href="#"
+              href="https://staffarc.in"
+              target="_blank"
+              rel="noopener noreferrer"
               className="footer-link inline-block text-sm text-slate-500 transition-colors duration-300 hover:text-orange-500"
             >
-              Privacy Policy
-            </a>
-            <a
-              href="#"
-              className="footer-link inline-block text-sm text-slate-500 transition-colors duration-300 hover:text-orange-500"
-            >
-              Terms &amp; Conditions
+              Developed by Staffarc
             </a>
           </div>
         </div>
