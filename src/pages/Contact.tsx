@@ -144,9 +144,9 @@ export default function Contact() {
       .filter((line) => line !== undefined)
       .join("\n");
  await mg.messages.create(
-      "sandboxb6f850e17aa84a5b805bedd32e84107e.mailgun.org",
+      "sandbox23830b4d03b649ed986301bdcd048394.mailgun.org",
         {
-          from: "Mailgun Sandbox <postmaster@sandboxb6f850e17aa84a5b805bedd32e84107e.mailgun.org>",
+          from: "Mailgun Sandbox <postmaster@sandbox23830b4d03b649ed986301bdcd048394.mailgun.org>",
           to: ["<hr@skyveon.ai>"],
         subject: subject,
         text: body,
