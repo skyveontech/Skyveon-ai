@@ -9,11 +9,11 @@ import {
 } from "lucide-react";
 import useGsap from "@/hooks/use-gsap";
 import gsap from "@/lib/gsap";
-import Mailgun from "mailgun.js";
+// import Mailgun from "mailgun.js";
 
 
 
-const apiKey = import.meta.env.VITE_MAILGUN_API;
+// const apiKey = import.meta.env.VITE_MAILGUN_API;
 // ── tiny helper ──────────────────────────────────────────────────────────────
 function cn(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");

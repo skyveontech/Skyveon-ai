@@ -1,7 +1,7 @@
 "use client";
 
-import FormData from "form-data";
-import Mailgun from "mailgun.js";
+// import FormData from "form-data";
+// import Mailgun from "mailgun.js";
 
 import { useRef, useState, useEffect } from "react";
 import {
@@ -26,7 +26,7 @@ import type { LucideIcon } from "lucide-react";
 import gsap from "@/lib/gsap";
 import useGsap from "@/hooks/use-gsap";
 
-const apiKey = import.meta.env.VITE_MAILGUN_API;
+// const apiKey = import.meta.env.VITE_MAILGUN_API;
 
 
 // ---------------------------------------------------------------------------
