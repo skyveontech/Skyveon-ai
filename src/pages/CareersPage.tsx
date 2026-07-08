@@ -25,7 +25,7 @@ import type { LucideIcon } from "lucide-react";
 
 import gsap from "@/lib/gsap";
 import useGsap from "@/hooks/use-gsap";
-
+// import ApplicationModal from "../ApplicationModal";
 // const apiKey = import.meta.env.VITE_MAILGUN_API;
 
 
