@@ -27,8 +27,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       .filter(Boolean)
       .join("\n");
 
-    const data = await mg.messages.create("skyveon.ai", {
-      from: "Mailgun Sandbox <postmaster@skyveon.ai>",
+    const data = await mg.messages.create("sandbox23830b4d03b649ed986301bdcd048394.mailgun.org", {
+      from: "Mailgun Sandbox <postmaster@sandbox23830b4d03b649ed986301bdcd048394.mailgun.org>",
       to: ["Skyveon <hr@skyveon.ai>"],
       subject: subject,
       text: body,
