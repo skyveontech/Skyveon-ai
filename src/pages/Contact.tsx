@@ -118,43 +118,31 @@ export default function Contact() {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = async (e: React.MouseEvent) => {
+    const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setStatus("submitting");
-    const mailgun = new Mailgun(FormData);
-    const mg = mailgun.client({
-      username: "api",
-      key: apiKey|| "",
-    });
 
-    // Build mailto payload
-    // const to = "info@skyveon.ai";
-    const subject = `Project Inquiry from ${form.name}${form.company ? ` — ${form.company}` : ""}`;
-    const body = [
-      `Name: ${form.name}`,
-      `Email: ${form.email}`,
-      form.company ? `Company: ${form.company}` : "",
-      form.service ? `Service: ${form.service}` : "",
-      "",
-      "Message:",
-      form.message,
-    ]
-      .filter((line) => line !== undefined)
-      .join("\n");
- await mg.messages.create(
-      "sandbox23830b4d03b649ed986301bdcd048394.mailgun.org",
-        {
-          from: "Mailgun Sandbox <postmaster@sandbox23830b4d03b649ed986301bdcd048394.mailgun.org>",
-          to: ["<hr@skyveon.ai>"],
-        subject: subject,
-        text: body,
-      },
-    );
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
-    // console.log(data);
-setStatus("success")
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      setStatus("success");
+    } catch (error) {
+      console.error("Contact Form Error:", error);
+      setStatus("error"); // Optional: Handle error UI
+      alert("Failed to send message. Please try again.");
+    }
   };
 
   const scrollToForm = () => {

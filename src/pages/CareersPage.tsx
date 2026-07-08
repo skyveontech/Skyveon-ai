@@ -501,56 +501,38 @@ function ApplicationModal({
     };
   }, [isOpen]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     setIsSubmitting(true);
-    const mailgun = new Mailgun(FormData);
-    const mg = mailgun.client({
-      username: "api",
-      key: apiKey || "",
-    });
+
     try {
+      // 1. Grab the form data from the event target
       const formData = new window.FormData(e.currentTarget);
-      // console.log("Form Data:", Object.fromEntries(formData.entries()));
+      
+      // 2. Append the job title since it's passed as a prop, not in the form
+      formData.append("jobTitle", jobTitle);
 
-      const firstName = formData.get("firstName");
-      const lastName = formData.get("lastName");
-      const email = formData.get("email");
-      const phone = formData.get("phone");
-      const linkedin = formData.get("linkedin");
-      const resume = formData.get("resume") as File;
+      // 3. Send the data to your new Vercel Serverless Function
+      const response = await fetch("/api/apply", {
+        method: "POST",
+        // Note: Do NOT set Content-Type manually when sending FormData. 
+        // The browser will automatically set it to multipart/form-data with the correct boundary.
+        body: formData, 
+      });
 
-      // console.log({ firstName, lastName, email, phone, linkedin, jobTitle });
+      if (!response.ok) {
+        throw new Error(`Server returned ${response.status}`);
+      }
 
-await mg.messages.create(
-        "sandbox23830b4d03b649ed986301bdcd048394.mailgun.org",
-        {
-          from: "Mailgun Sandbox <postmaster@sandbox23830b4d03b649ed986301bdcd048394.mailgun.org>",
-          to: ["<hr@skyveon.ai>"],
-          subject: `New Application - ${jobTitle} (${firstName} ${lastName})`,
-          text: `
-        Position: ${jobTitle}
-        First Name: ${firstName}
-        Last Name: ${lastName}
-        Email: ${email}
-        Phone: ${phone}
-        LinkedIn: ${linkedin}
-      `,
-      attachment: resume,
-        },
-      );
-
-      // console.log(data);
+      // const data = await response.json();
       setIsSuccess(true);
     } catch (error) {
-      console.error("Mailgun Error:", error);
-      alert("Failed to send application.");
+      console.error("Application Error:", error);
+      alert("Failed to send application. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
   };
-
   if (!isOpen) return null;
 
   return (
